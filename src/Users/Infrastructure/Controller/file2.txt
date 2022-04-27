@@ -1,0 +1,2 @@
+Same text in file.txt 
+Some added text for file /file2.txt
