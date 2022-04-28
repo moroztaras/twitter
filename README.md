@@ -1,5 +1,30 @@
-# Symfony
+# Install project Symfony6 PHP8 & Docker
 
+## Things you need
+* composer
+* npm
+* docker
+
+## Clone repository to your local machine
+```bash
+git clone https://github.com/moroztaras/symfony6-php8-docker-2022
+```
+
+##Create project config
+```bash
+cd symfony6-php8-docker-2022
+cp .env .env.local
+cp ./docker/.env.dist ./docker/.env
+```
+
+##Build a project in the docker
+```bash
+make dc_build
+```
+##Run a project with the docker
+```bash
+make dc_up
+```
 ### Dockerise Symfony Application
 
 - [X] [Install Docker](https://docs.docker.com/engine/install/)

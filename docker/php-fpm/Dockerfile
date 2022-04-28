@@ -1,3 +1,4 @@
+# Install PHP
 FROM php:8.1.0-fpm-alpine
 
 # Install packages
