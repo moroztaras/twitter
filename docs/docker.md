@@ -36,5 +36,5 @@ make dc_stop dc_build dc_up
 ```
 ##Go to the link at
 ```bash
-http://127.0.0.1:8000
+http://127.0.0.1:888
 ```
