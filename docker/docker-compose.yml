@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+# PHP service
   php-fpm:
     container_name: php-fpm
     build:
@@ -16,6 +17,7 @@ services:
       - /var/www/vendor/
       - ./../:/var/www/
 
+# Nginx service
   nginx:
     container_name: nginx
     build:
@@ -27,6 +29,7 @@ services:
     depends_on:
       - php-fpm
 
+# Postgres service
   postgres:
     container_name: postgres
     build:
