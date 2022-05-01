@@ -4,7 +4,7 @@ FROM php:8.1.0-fpm-alpine
 # Install packages
 RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash
 
-# Xdebug
+# Install Xdebug
 ARG INSTALL_XDEBUG=false
 RUN if [ ${INSTALL_XDEBUG} = true ]; \
     then \
