@@ -16,6 +16,10 @@ services:
     App\:
         resource: '../src/'
 
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: [ 'controller.service_arguments' ]
+
     _instanceof:
         App\Shared\Application\Command\CommandHandlerInterface:
             tags:

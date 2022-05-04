@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Users\Infrastructure\Controller;
+namespace App\Controller;
 
 class Point
 {
