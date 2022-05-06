@@ -30,7 +30,7 @@ class UserRepositoryTest extends WebTestCase
     }
 
     /**
-     * Пользователь успешно доабвлен.
+     * Користувач успішно доданий.
      */
     public function test_user_added_successfully(): void
     {

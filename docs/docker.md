@@ -34,7 +34,16 @@ make dc_stop
 ```bash
 make dc_stop dc_build dc_up
 ```
+
 ##Go to the link at
 ```bash
 http://127.0.0.1:888
+```
+
+##Run tests from docker container
+```bash
+make app_bash
+```
+```bash
+bash-5.1$ ./vendor/bin/phpunit
 ```
