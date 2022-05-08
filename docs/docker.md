@@ -44,6 +44,11 @@ http://127.0.0.1:888
 ```bash
 make app_bash
 ```
+###Load data fixtures
 ```bash
-bash-5.1$ ./vendor/bin/phpunit
+$ php bin/console doctrine:fixtures:load --env=test
+```
+
+```bash
+$ ./vendor/bin/phpunit
 ```
