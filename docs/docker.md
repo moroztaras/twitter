@@ -34,6 +34,10 @@ make dc_stop
 ```bash
 make dc_stop dc_build dc_up
 ```
+or
+```bash
+make dc_restart
+```
 
 ##Go to the link at
 ```bash
