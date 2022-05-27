@@ -32,7 +32,7 @@ make dc_stop
 
 ##Rerun a container with project in the docker
 ```bash
-make dc_stop dc_build dc_up
+make dc_restart
 ```
 or
 ```bash
