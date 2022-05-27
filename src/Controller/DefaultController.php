@@ -1020,7 +1020,24 @@ class DefaultController extends AbstractController
 
         echo 'Sum number 1..9 = '.self::sumNumbers(1, 2, 3, 4, 5, 6, 7, 8, 9, 0).'<br>';
 
-// lesson 42
+        echo '<br><br><b>Working with strings</b>-------------------------------------------<br>';
+        // Робота з рядками
+        $str1 = 'Hello Symfony 6 & PHP 8 & Docker';
+        // Вивести нульовий елемент цього рядку
+        echo $str1[0].'<br>'; // H
+        // "\u{код символу}" - отримати символ по коду символу із кодіровки UTF-8
+        echo "\u{0410}<br>"; // A
+
+        // mb_strlen() - підраховує кількість символів у рядку
+        $str2 = 'Привіт Сімфоні 6 ПНП 8 і Докер';
+        echo mb_strlen($str2).'<br>'; // 30 символів у цьому рядку (1 байт - англ і 2 байта українські символи)
+        for ($i = 0; $i < mb_strlen($str1); ++$i) {
+            echo $str1[$i].'<br>';
+        }
+        echo chr(36).'<br>'; // $ - по коду вертається символ
+        echo ord('$').'<br>'; // 36 - по символу вертається його код
+
+        // lesson 43
 //        return $this->render('default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
