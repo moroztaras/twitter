@@ -1037,8 +1037,37 @@ class DefaultController extends AbstractController
         echo chr(36).'<br>'; // $ - по коду вертається символ
         echo ord('$').'<br>'; // 36 - по символу вертається його код
 
-        // lesson 43
-//        return $this->render('default/index.html.twig', [
+        echo '<br><br><b>Working with substrings</b>-------------------------------------------<br>';
+        // Робота з підрядками
+        // substr() - ф-ія яка повертає частину рядку, 1 - з якого рядку, 2 - кількість символів
+        $date = '2022-05-28';
+        echo 'Year: '.substr($date, 0, 4).'<br>';
+        echo 'Month: '.substr($date, 5, 2).'<br>';
+        echo 'Day: '.substr($date, 8, 2).'<br>';
+
+        // strpos() - повертає номер індексу входу шукаємого символа або підрядкую в рядку.
+        $str = 'Hello Symfony 6 & PHP 8 & Docker';
+        echo strpos($str, 'PHP').'<br>';
+
+        echo substr($str, strpos($str, 'Symfony')).'<br>'; // Symfony 6 & PHP 8 & Docker
+
+        // str_replace() - заміна в тексті
+        $str = 'Hello [b]Symfony 6[/b] & [b]PHP 8[/b] & [b]Docker[/b]';
+        echo $str.'<br>';
+//        $str = str_replace('[b]', '<b>', $str);
+//        $str = str_replace('[/b]', '</b>', $str);
+        $str = str_replace(['[b]', '[/b]'], ['<b>', '</b>'], $str, $number);
+        echo $str.'<br>';
+        echo 'Кількість зроблених замін '.$number.'<br>';
+
+        // trim() - видалення пробілів із початку і кінця рядку
+        $str = ' Symfony 6 ';
+        echo strlen($str).'<br>';# 11
+        echo strlen(trim($str)).'<br>';# 9
+        echo trim($str, ' S'); # ymfony 6
+
+// lesson 44
+//        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
 //        ]);
