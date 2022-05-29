@@ -1062,9 +1062,9 @@ class DefaultController extends AbstractController
 
         // trim() - видалення пробілів із початку і кінця рядку
         $str = ' Symfony 6 ';
-        echo strlen($str).'<br>';# 11
-        echo strlen(trim($str)).'<br>';# 9
-        echo trim($str, ' S'); # ymfony 6
+        echo strlen($str).'<br>'; // 11
+        echo strlen(trim($str)).'<br>'; // 9
+        echo trim($str, ' S'); // ymfony 6
 
 // lesson 44
 //        return $this->render("default/index.html.twig', [
