@@ -1066,7 +1066,27 @@ class DefaultController extends AbstractController
         echo strlen(trim($str)).'<br>'; // 9
         echo trim($str, ' S'); // ymfony 6
 
-// lesson 44
+        echo '<br><br><b>Functions for working with html</b>-------------------------------------------<br>';
+        // ф-ії для роботи з HTML
+        $str = "Hello\nSymfony\n6\n&\nPHP\n8\n&\nDocker";
+        echo $str.'<br>';
+        echo nl2br($str).'<br>'; // вірна обробка - \n (починається із нового рядку)
+        // htmlspecialchars - допомагає перетворити HTML код в безпечний вигляд (будь-який код мовою програмування буде показаний, але не буде виконаним)?>
+        <form action="#" method="get">
+            Повідомлення: <br>
+            <textarea name="msg" cols="50" rows="5"></textarea><br>
+            <input type="submit" value="Добавити">
+        </form>
+<?php
+        echo htmlspecialchars($_GET['msg']).'<br>';
+
+        // strip_tags ф-ція яка видаляє всі html теги
+        $str = '<p>Звичайний текст</p><br>
+                <b>Жирний текст</b><br>';
+
+        echo htmlspecialchars(strip_tags($str, '<p>')); // тег <p> лишиться
+
+        // lesson 45
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
