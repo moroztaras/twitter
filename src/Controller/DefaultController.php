@@ -1078,7 +1078,9 @@ class DefaultController extends AbstractController
             <input type="submit" value="Добавити">
         </form>
 <?php
-        echo htmlspecialchars($_GET['msg']).'<br>';
+        if (isset($_GET['msg'])) {
+            echo htmlspecialchars($_GET['msg']).'<br>';
+        }
 
         // strip_tags ф-ція яка видаляє всі html теги
         $str = '<p>Звичайний текст</p><br>
@@ -1086,7 +1088,38 @@ class DefaultController extends AbstractController
 
         echo htmlspecialchars(strip_tags($str, '<p>')); // тег <p> лишиться
 
-        // lesson 45
+        echo '<br><br><b>Format output, functions printf, explode, implode</b>-------------------------------------------<br>';
+        // Форматний вигляд тесту, функції printf, explode, implode
+//        $red = 255;
+//        $green = 255;
+//        $blue = 100;
+//        print_r('#%X%X%X', $green, $green, $blue);
+
+        echo '<pre>';
+        printf('%4d', 45); //  45
+        echo '<br>';
+        printf('%04d', 45); // 0045
+        echo '<br>';
+        printf('%4.2f', 44.12345); // 44.12
+        echo '<br>';
+        printf('%.4f', 45.12345); // 45.1234
+        echo '</pre>';
+
+        // explode() - розділення рядка на декілька підрядків
+        $str = 'FirstName, LastName, Email, PhoneNumber';
+        // ', ' - розділитиль
+        echo '<pre>';
+        print_r(explode(', ', $str, 3)); // [0] => FirstName [1] => LastName [2] => Email [3] => PhoneNumber
+        echo '</pre>';
+
+        // implode() - із елементів масиву перетворюється в рядок
+        $arr = ['FirstName, LastName, Email, PhoneNumber'];
+
+        echo '<pre>';
+        print_r(implode(', ', $arr)); // FirstName, LastName, Email, PhoneNumber
+        echo '</pre>';
+
+// lesson 46
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
