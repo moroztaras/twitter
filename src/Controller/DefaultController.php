@@ -1119,7 +1119,29 @@ class DefaultController extends AbstractController
         print_r(implode(', ', $arr)); // FirstName, LastName, Email, PhoneNumber
         echo '</pre>';
 
-// lesson 46
+        echo '<br><br><b>Working with JSON</b>-------------------------------------------<br>';
+        // Робота із JSON
+        //  serialize (сеалізація) - перетворення масиву у json за допомогою json_encode
+        //  deserialize (десеалізація) - перетворення json в асоціативний  масив за допомогою json_decode
+        $contact = [
+                'name' => 'Taras',
+                'phones' => [
+                        '0981234567',
+                        '0507654321',
+                ],
+        ];
+        $encodeContact = json_encode($contact);
+        // json - обєкт
+        echo $encodeContact.'<br>';
+
+        echo '<pre>';
+        // масив
+        print_r(json_decode($encodeContact, true)); // отримаємо масив
+        // обєкт
+//        print_r(json_decode($encodeContact, false)); // отримаємо об'єкт
+        echo '</pre>';
+
+        // lesson 47
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
