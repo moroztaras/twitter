@@ -1141,7 +1141,44 @@ class DefaultController extends AbstractController
 //        print_r(json_decode($encodeContact, false)); // отримаємо об'єкт
         echo '</pre>';
 
-        // lesson 47
+        echo '<br><br><b>Passing parameters using the GET method</b>-------------------------------------------<br>';
+        // Передача параметрів методом GET
+        // GET - протокол http, параметри якого передаються в адресному рядку запиту
+        // POST - протокол http, параметри якого передаються в тілі самого http документу
+
+        // звичайні параметри
+        // ?firstName=Taras&lastName=Moroz&ago=36
+//        echo $_GET['firstName'].' '.$_GET['lastName'].' '.$_GET['ago'].'<br>'; // Taras Moroz 36
+
+        // передані параметри у вигляді масиву
+        // ?firstName[]=Taras&firstName[]=Katya&lastName[]=Moroz&lastName[]=Moroz&ago[]=36&ago[]=27
+
+        // urlencode()- ф-ія переобразовує переданий параметр в безпечний рядок
+        echo '<a href="?firstName[]='.urlencode('Taras').'&firstName[]='.urlencode('Katya').'&lastName[]='.urlencode('Moroz').'&lastName[]='.urlencode('Moroz').'&ago[]='.urlencode(36).'&ago[]=27">URL<br></a>';
+        if (isset($_GET['firstName'])) {
+            echo '<pre>';
+            print_r($_GET);
+            echo '</pre>';
+        }
+
+        echo "<a href='?message=".urlencode('Hello Symfony 6 PHP 8 and docker')."'>Message<br></a>";
+        if (isset($_GET['message'])) {
+            echo '<pre>';
+            print_r($_GET);
+            echo '</pre>';
+        }
+
+        // parse_url() - ф-ія яка парсить url сторинки в асоціативний масив, розбиває рядок на окремі параметри (масив із ключами)
+        $url = 'https://www.google.com/search?q=symfony+6+php+8+docker&rlz=1C5CHFA_enUA985UA986&oq=symfony+6+php+8+docker&aqs=chrome..69i57j69i64j69i60l3j69i65.22092j0j15&sourceid=chrome&ie=UTF-8';
+        echo '<pre>';
+        print_r(parse_url($url));
+        echo '</pre>';
+
+        echo '<pre>';
+        print_r(parse_url($url, PHP_URL_HOST)); // www.google.com
+        echo '</pre>';
+
+        // lesson 48
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
