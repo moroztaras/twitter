@@ -1178,7 +1178,45 @@ class DefaultController extends AbstractController
         print_r(parse_url($url, PHP_URL_HOST)); // www.google.com
         echo '</pre>';
 
-        // lesson 48
+        echo '<br><br><b>The POST method</b>-------------------------------------------<br>';
+        // GET
+//        echo "
+//            <form method='GET' action='#' name='formGet'>
+//            <input type='text' name='firstName' placeholder='FirstName'><br>
+//            <input type='text' name='lastName' placeholder='LastName'><br>
+//            <input type='submit' value='Submit'>
+//            </form>
+//        ";
+//        // empty($_GET['firstName']) - перевірка чи пустий глобальний масив із таким ключем
+//        if (isset($_GET['firstName']) && isset($_GET['lastName']) && '' != $_GET['firstName'] && '' != $_GET['lastName']) {
+//            echo "FirstName {$_GET['firstName']}, LastName {$_GET['lastName']}";
+//        } else {
+//            exit('Поля не заповнені');
+//        }
+        // POST
+        echo "
+            <form method='POST' action='#' name='formPost'>
+            Name:<br><input type='text' name='name' placeholder='Name'><br>
+            <input type='submit' value='Submit'>
+            </form>
+        ";
+        $errors = [];
+        if (!empty($_POST)) {
+            if (empty($_POST['name'])) {
+                $errors[] = 'Текстове поле не заповнено';
+            }
+            if (empty($errors)) {
+                echo 'Name: '.htmlspecialchars($_POST['name']);
+                exit();
+            }
+            if (!empty($errors)) {
+                foreach ($errors as $err) {
+                    echo "<span style='color: red'>$err</span><br>";
+                }
+            }
+        }
+
+        // lesson 49
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
