@@ -1284,10 +1284,10 @@ class DefaultController extends AbstractController
             </form>
         ";
         if (isset($_FILES['fileName'])) {
-            if ($_FILES['fileName']['size'] > 3 * 1024 * 1024) {
+            if ($_FILES['fileName']['size'] > 7 * 1024 * 1024) {
                 exit('Розмір файлу більший чим 3 Мб');
             }
-            if (move_uploaded_file($_FILES['fileName']['tmp_name'], 'temp/'.$_FILES['fileName']['name'])) {
+            if (move_uploaded_file($_FILES['fileName']['tmp_name'], __DIR__.'\temp\\'.$_FILES['fileName']['name'])) {
                 echo 'Файл успішно завантажений<br>';
                 echo 'Вихідне імя файлу: '.$_FILES['fileName']['name'].'<br>';
                 echo 'Розмір файлу в байтах: '.$_FILES['fileName']['size'].'<br>';
