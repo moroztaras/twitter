@@ -1274,7 +1274,31 @@ class DefaultController extends AbstractController
             print_r($_POST);
             echo '</pre>';
         }
-        // lesson 50
+        echo '<br><br><b>Upload files to the server</b>-------------------------------------------<br>';
+        // Робота із елементами форми - завантаження файлу
+        echo 'Form for upload file';
+        echo "
+            <form method='POST' action='#' name='formUploadFile' enctype='multipart/form-data'>
+                <input type='file' name='fileName'>
+                <input type='submit' value='Submit'>
+            </form>
+        ";
+        if (isset($_FILES['fileName'])) {
+            if ($_FILES['fileName']['size'] > 3 * 1024 * 1024) {
+                exit('Розмір файлу більший чим 3 Мб');
+            }
+            if (move_uploaded_file($_FILES['fileName']['tmp_name'], 'temp/'.$_FILES['fileName']['name'])) {
+                echo 'Файл успішно завантажений<br>';
+                echo 'Вихідне імя файлу: '.$_FILES['fileName']['name'].'<br>';
+                echo 'Розмір файлу в байтах: '.$_FILES['fileName']['size'].'<br>';
+                echo 'MINE тип файлу: '.$_FILES['fileName']['type'].'<br>';
+                echo 'Тимчасовий файл, в якому збережений тимчасовий файл: '.$_FILES['fileName']['tmp_name'].'<br>';
+            } else {
+                echo 'Помилка завантаження файлу';
+            }
+        }
+
+        // lesson 51
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
