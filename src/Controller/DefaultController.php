@@ -1216,7 +1216,65 @@ class DefaultController extends AbstractController
             }
         }
 
-        // lesson 49
+        echo '<br><br><b>Working with form elements (checkbox, radio, select)</b>-------------------------------------------<br>';
+        // Робота із елементами форми
+        echo 'Checkbox - вибір декількох варіантів одразу<br>';
+        echo "
+            <form method='POST' action='#' name='formCheckbox'>
+                Я знайомий із:<br>
+                <input type='checkbox' value='1' name='html'>HTML<br>
+                <input type='checkbox' value='2' name='css'>CSS<br>
+                <input type='checkbox' value='3' name='js'>JS<br>
+                <input type='checkbox' value='4' name='php'>PHP<br>
+                <input type='submit' value='Submit'>
+            </form>
+        ";
+        if (!empty($_POST)) {
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
+        }
+        echo 'Select - вибір одного варіанту із цілого списку<br>';
+        echo "
+        <form method='POST' action='#' name='formSelect'>
+            <select name='fst[]' multiple size='3' form='formSelect'>
+                <option value='1' selected>Перший пункт</option>
+                <option value='2'>Другий пункт</option>
+                <option value='3'>Третій пункт</option>
+            </select>
+            <br>
+            <select name='snd' form='formSelect'>
+                <option value='one' selected>Перший пункт</option>
+                <option value='two'>Другий пункт</option>
+                <option value='three'>Третій пункт</option>
+            </select>
+            <br>
+            <input type='submit' value='Submit'>
+        </form>
+        ";
+        if (!empty($_POST)) {
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
+        }
+        // radio button (радіо кнопка/перемикач)
+        echo 'Radio button - вибір тільки одного варіанту із декількох<br>';
+        echo "
+            <form method='POST' action='#' name='formRadioButton'>
+                Я знайомий із:<br>
+                <input type='radio' name='language' value='html'>HTML<br>
+                <input type='radio' name='language' value='css'>CSS<br>
+                <input type='radio' name='language' value='js'>JS<br>
+                <input type='radio' name='language' value='php' checked>PHP<br>
+                <input type='submit' value='Submit'>
+            </form>
+        ";
+        if (!empty($_POST)) {
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
+        }
+        // lesson 50
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
