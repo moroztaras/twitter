@@ -1287,7 +1287,7 @@ class DefaultController extends AbstractController
             if ($_FILES['fileName']['size'] > 7 * 1024 * 1024) {
                 exit('Розмір файлу більший чим 3 Мб');
             }
-            if (move_uploaded_file($_FILES['fileName']['tmp_name'], __DIR__.'\temp\\'.$_FILES['fileName']['name'])) {
+            if (move_uploaded_file($_FILES['fileName']['tmp_name'], __DIR__.'temp/'.$_FILES['fileName']['name'])) {
                 echo 'Файл успішно завантажений<br>';
                 echo 'Вихідне імя файлу: '.$_FILES['fileName']['name'].'<br>';
                 echo 'Розмір файлу в байтах: '.$_FILES['fileName']['size'].'<br>';
@@ -1298,7 +1298,40 @@ class DefaultController extends AbstractController
             }
         }
 
-        // lesson 51
+        echo '<br><br><b>Form for send mail</b>-------------------------------------------<br>';
+        echo "<div style='box-sizing: border-box; display: block; width: 250px; height: 30px; margin-bottom: 15px;'>
+        <form method='POST' action='#' name='sendMail'>
+            <select name='subject'>
+                <option disabled selected>Тема листа</option>
+                <option value='Питання по уроку'>Питання по уроку</option>
+                <option value='Особисте питання'>Особисте питання</option>
+                <option value='Подяка'>Подяка</option>
+            </select><br>
+            <input type='email' name='email' placeholder='Уведіть свій email' maxlength='50' required><br>   
+            <textarea name='message' placeholder='Уведіть повідомлення' maxlength='150' required style='resize: none; height: 100px'></textarea><br>
+            7 * 8 = <br>
+            <input type='number' name='captcha' placeholder='Уведіть відповідь' maxlength='3' required><br> 
+            <input type='submit' value='Відправити листа'>
+        </form>
+        </div>";
+
+        if (isset($_POST['captcha'])) {
+            if (56 == $_POST['captcha']) {
+                $subject = isset($_POST['subject']) ? $_POST['subject'] : 'Subject';
+                $to = 'taras.moroz@ekreative.com';
+                $from = trim($_POST['email']);
+                $message = htmlspecialchars($_POST['message']);
+                $message = urlencode($message);
+                $message = trim($message);
+                if (mail($to, $subject, $message)) {
+                    echo "<span style='color: green'>Лист успішно відправлений</span><br>";
+                } else {
+                    echo "<span style='color: red'>Лист не відправлений</span><br>";
+                }
+            }
+        }
+
+        // lesson 52
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
