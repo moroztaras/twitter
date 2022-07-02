@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use JetBrains\PhpStorm\Pure;
+
 class Point
 {
     // область видимость - дозволяє звертатися до змінних класту тільки із оприділих місць
@@ -50,5 +52,23 @@ class Point
         $this->y = $y;
 
         return $this;
+    }
+
+    // Method
+    public function printText(): string
+    {
+        return 'Hello Symfony 6 & PHP 8 & docker!<br>';
+    }
+
+    // Static method
+    public static function staticMethodPrintText(): string
+    {
+        return 'Static method<br>';
+    }
+
+    // Distance between two points
+    public function distanse()
+    {
+        return sqrt($this->getX() ** 2 + $this->getY() ** 2);
     }
 }

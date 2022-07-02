@@ -1331,7 +1331,26 @@ class DefaultController extends AbstractController
             }
         }
 
-        // lesson 52
+        echo '<br><br><br><br><br><br><br><br><br><b>Class Methods</b>-------------------------------------------<br>';
+        // Метод - це та сама функція яка о приділена в межі класу, і вони можуть робити дії над змінними класу
+        // Ф-ція об'явлена в середині класу називається методом
+
+        // Об'єкт (екземпляр) класу Point
+        // НЕ можна визвати метод класу, пока не створив екземпляр цього класу
+        $obj = new Point();
+        echo $obj->printText();
+
+        $p1 = new Point();
+        $p1->setX(5);
+        $p1->setY(7);
+        echo 'Distance between two points 5 & 7 = '.$p1->distanse().'<br>';
+
+        // Статичні методи - метод класу який можна викликати без створення об'єкту цього класу
+        echo Point::staticMethodPrintText();
+
+        Page::site();
+
+        // lesson 53
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
