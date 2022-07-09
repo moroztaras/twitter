@@ -1350,7 +1350,24 @@ class DefaultController extends AbstractController
 
         Page::site();
 
-        // lesson 53
+        echo '<br><br><b>Constructor class</b>-------------------------------------------<br>';
+        // Конструктор - спеціальний метод класу який автоматично виконується в момент створення об'єкту клас, до визову усіх остальних не статичних методів класу
+        $userAgent = 'Kidslox/7.6.0 (Phone; Android/12.1.0)';
+        echo 'osVersion: '.$this->parseOsVersionFromUserAgent($userAgent).'<br>';
+
+        $obj = new People();
+        echo '<pre>';
+        print_r($obj);
+        echo '</pre>';
+
+        $point = new Point();
+        echo '<pre>';
+        print_r($point);
+        echo '</pre>';
+
+//        echo "{$obj}";
+
+    //Lesson 54
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
@@ -1459,5 +1476,12 @@ class DefaultController extends AbstractController
         }
 
         return $sum;
+    }
+
+    private function parseOsVersionFromUserAgent(string $userAgent): string|null
+    {
+        $match = preg_match('/^Kidslox\/([\d\.]+) \((Phone|Tablet); ([^)]+)\)$/is', $userAgent, $matches);
+
+        return ($match) ? $matches[3] : null;
     }
 }

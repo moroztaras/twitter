@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use JetBrains\PhpStorm\Pure;
-
 class Point
 {
     // область видимость - дозволяє звертатися до змінних класту тільки із оприділих місць
@@ -20,6 +18,19 @@ class Point
     // статична змінна, до якої можна звертатися як зовні так і внутрі, без створення обєкту цього класа
     public static $d = 120;
 
+    // Constructor class
+    public function __constructor($x=0, $y=0)
+    {
+        $this
+            ->setX($x)
+            ->setY($y)
+        ;
+    }
+
+    public function __toString()
+    {
+        return "({$this->a},{$this->b},{$this->c},{$this->getX()},{$this->getY()})";
+    }
     public function getX(): int
     {
         return $this->x;
