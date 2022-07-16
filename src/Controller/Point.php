@@ -19,7 +19,7 @@ class Point
     public static $d = 120;
 
     // Constructor class
-    public function __constructor($x=0, $y=0)
+    public function __constructor(int $x = 0, int $y = 0)
     {
         $this
             ->setX($x)
@@ -27,10 +27,12 @@ class Point
         ;
     }
 
+    // __toString - інтрополірує об'єкт в рядок
     public function __toString()
     {
         return "({$this->a},{$this->b},{$this->c},{$this->getX()},{$this->getY()})";
     }
+
     public function getX(): int
     {
         return $this->x;

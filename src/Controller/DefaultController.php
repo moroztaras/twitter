@@ -1360,14 +1360,27 @@ class DefaultController extends AbstractController
         print_r($obj);
         echo '</pre>';
 
-        $point = new Point();
+        $point = new Point(10, 20);
         echo '<pre>';
         print_r($point);
         echo '</pre>';
 
-//        echo "{$obj}";
+//        echo "$point";
+        echo '<br><br><b>Inheritance and method overloading</b>-------------------------------------------<br>';
+        // Наслідування - дозволяє один і той самий кусок коду використовувати повторно, для того, щоб не дублювати один і той самий код
+        // Ми можемо змінні і методи батьківського класу використовувати всередині класу-наслідника
+        $dog = new Dog();
+        echo $dog->info().'<br>';
+        echo $dog->voice().'<br>';
 
-    //Lesson 54
+        $cat = new Cat();
+        echo $cat->info().'<br>';
+        echo $cat->voice().'<br>';
+
+        // перезавантаження методу - він полягає в тому що ви можете переопромінити метод батьківського класу у класі нащадку
+        echo $dog->parentInfo().'<br>';
+
+        // Lesson 55
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
 //            'title' => $title
