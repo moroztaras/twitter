@@ -1380,6 +1380,34 @@ class DefaultController extends AbstractController
         // перезавантаження методу - він полягає в тому що ви можете переопромінити метод батьківського класу у класі нащадку
         echo $dog->parentInfo().'<br>';
 
+        $header['X-Device-model'] = 'Xiaomi Mi Mix 2s';
+        echo $header['X-Device-model'].'<br>';
+
+        // --------------------------------
+        $deviceBrand = stristr($header['X-Device-model'], ' ', true);
+        echo $deviceBrand.'<br>';
+
+        $deviceModel = stristr($header['X-Device-model'], ' ');
+        echo $deviceModel.'<br>';
+        // --------------------------------
+        echo '<br><br><b>Abstract and final classes and methods</b>-------------------------------------------<br>';
+        // Перегрузка методу(abstract) - переопромінення методу у класі нащадку
+        // final - заборонить переопридялення методу у класі нащадку
+
+        // Cannot instantiate abstract class App\Controller\Animal
+//        $animal = new Animal(); #не можна зробити екземпляр цього класу томущо він абстрактний
+        $dog = new Dog();
+        $cat = new Cat();
+        // instanceof - перевірка об'єкту на приналежність до якогось класу
+        if ($dog instanceof Animal) {
+            echo 'Dog являє собою екземпляром(обєктом) класу Animal<br>';
+        }
+        if ($dog instanceof Dog) {
+            echo 'Dog являє собою екземпляром(обєктом) класу Dog<br>';
+        }
+        if ($dog instanceof Cat) {
+            echo 'Dog являє собою екземпляром(обєктом) класу Cat<br>';
+        }
         // Lesson 55
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',

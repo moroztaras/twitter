@@ -20,6 +20,11 @@ class Cat extends Animal
         return "I'm {$this->getName()} I have {$this->getLegs()} legs";
     }
 
+    public function color()
+    {
+        return 'Grey';
+    }
+
     public function getName(): string
     {
         return $this->name;
