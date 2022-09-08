@@ -1727,11 +1727,17 @@ class DefaultController extends AbstractController
         print_r(($match) ? $matches[2].'/'.$matches[3] : null); // iOS/14.4.0
         echo '</pre>';
 
-//        $str = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1';
-//        $match = preg_match('/^Mozilla\/([\d\.]+) \(iPhone; CPU (iPhone) OS([^)]+)\) ^/Version/\([\d\.]+)/', $str, $matches);
-//        echo '<pre>';
-//        print_r(($match) ? $matches[2].'/'.trim($matches[3]): null);  // iPhone/15_6 like Mac OS X
-//        echo '</pre>';
+        $str = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1';
+        $match = preg_match('/^Mozilla\/([\d\.]+) \((iPhone);([^)]+)\)([^)]+)\(([^)]+)\)[\s]Version\/([\d\.]+)/', $str, $matches);
+        echo '<pre>';
+        print_r(($match) ? $matches[2].'/'.$matches[6] : null); // iPhone/15.6
+        echo '</pre>';
+
+        $str = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6';
+        $match = preg_match('/^Mozilla\/([\d\.]+) \((iPhone);([^)]+)\)([^)]+)\(([^)]+)\)[\s]Version\/([\d\.]+)/', $str, $matches);
+        echo '<pre>';
+        print_r(($match) ? $matches[2].'/'.$matches[6] : null); // iPhone/15.6
+        echo '</pre>';
 
         // Lesson 55
 //        return $this->render("default/index.html.twig', [
