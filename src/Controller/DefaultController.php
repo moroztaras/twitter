@@ -1410,138 +1410,152 @@ class DefaultController extends AbstractController
         }
 
         echo '<br><br><b>Regular expression</b>-------------------------------------------<br>';
+        // https://www.youtube.com/watch?v=yAGJgPupZO4
+        // https://www.youtube.com/watch?v=5NNZE-HrVUE
+        // https://www.youtube.com/watch?v=YdYUzWxR_Po
+
         // Regular expression php - регулярні вираження - деякий приклад входження умовно підрядка в рядок
         // регулярний вираз (rational expression) — це рядок, що описує або збігається з множиною рядків, відповідно до набору спеціальних синтаксичних правил.
-        $str = 'Masha is,  x -  z 123 _ beautiful';
-        $res = explode(' ', $str);
+        $str = 'Masha is,  x -  z 123 _  x beautiful';
+        $res = explode(' ', $str); // розділяє рядок на масиви
         echo '<pre>';
         print_r($res);
         echo '</pre>';
 
-        // \s+ - розділитиль слів, розбиває рядок на масиви, ігнорує пробіли
+        echo '\s+ - розділитиль слів, розбиває рядок на масиви, ігнорує пробіли<br>';
         echo '<pre>';
-        print_r(preg_split('/\s+/', $str));
+        print_r(preg_split('/\s+/', 'Masha is        very beautiful'));
         echo '</pre>';
 
+        // preg_match - ф-ія для пошуку підрядку в рядку
         // pattern - шаблон регулярних виразів який в мові php указується саме в якості рядка
+        // $str - рядок в якому ми будемо і шукати щось по нашому шаблону
+        // $matches - вертаються всі входження які знайдено
+
+        echo 'Пошук підрядку is в рядку<br>';
         echo '<pre>';
         print_r(preg_match('/is/', $str, $matches));
         echo '</pre>';
-        // перевірка чи є в цьому рядку символ z, або символ x
+        echo 'Перевірка чи є в цьому рядку символ z, або символ x<br>';
         echo '<pre>';
         print_r(preg_match('/[zx]/', $str, $matches));
         echo '</pre>';
-        // перевірка чи є в цьому рядку символ z, або символ x
+
+        // preg_match_all - пошук усіх входжень
+        echo 'Перевірка чи є в цьому рядку символ z, або символ x всі входження<br>';
         echo '<pre>';
         print_r(preg_match_all('/[zx]/', $str, $matches));
         echo '</pre>';
+
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
 
-        // перевірка чи є в цьому рядку від символу a до c
+        echo 'Перевірка чи є в цьому рядку діапазон символів від символу a до c<br>';
         echo '<pre>';
-        print_r(preg_match_all('/[a-c]/', $str, $matches));
-        echo '</pre>';
-        echo '<pre>';
-        print_r($matches);
-        echo '</pre>';
-
-        // перевірка кількість символі із діапазону від a до z
-        echo '<pre>';
-        print_r(preg_match_all('/[a-z]/', $str, $matches)); // 17
+        print_r(preg_match_all('/[a-c]/', $str, $matches)); // 4
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
 
-        // перевірка кількість символі із діапазону від a до z і від символу A до Z
+        echo 'Перевірка кількість символі із діапазону від a до z<br>';
         echo '<pre>';
-        print_r(preg_match_all('/[a-zA-Z]/', $str, $matches)); // 18
-        echo '</pre>';
-        echo '<pre>';
-        print_r($matches);
-        echo '</pre>';
-        // перевірка кількість символі із діапазону від a до z і від символу A до Z і цифру 3
-        echo '<pre>';
-        print_r(preg_match_all('/[a-zA-Z3]/', $str, $matches)); // 18
-        echo '</pre>';
-        echo '<pre>';
-        print_r($matches);
-        echo '</pre>';
-        // перевірка кількість символі із діапазону від a до z і від символу A до Z і цифри 0-9
-        echo '<pre>';
-        print_r(preg_match_all('/[a-zA-Z0-9]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[a-z]/', $str, $matches)); // 18
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
 
-        // спеціальні символи
-        // \w - найти всі входження усіх символів від a до z, A до Z, 0 до 9 і _
+        echo 'Перевірка кількість символі із діапазону від a до z і від символу A до Z<br>';
         echo '<pre>';
-        print_r(preg_match_all('/[\w]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[a-zA-Z]/', $str, $matches)); // 19
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
-        // \W - найти всі входження які не є символами від a до z, A до Z, 0 до 9 і _
+        echo 'еревірка кількість символі із діапазону від a до z і від символу A до Z і цифру 3<br>';
         echo '<pre>';
-        print_r(preg_match_all('/[\W]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[a-zA-Z3]/', $str, $matches)); // 20
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
-        // \d - найти всі входження які є цифрами
+        echo 'Перевірка кількість символі із діапазону від a до z і від символу A до Z і цифри 0-9<br>';
         echo '<pre>';
-        print_r(preg_match_all('/[\d]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[a-zA-Z0-9]/', $str, $matches)); // 22
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
-        // \D - найти всі входження які не є цифрами
+
+        echo 'Спеціальні символи<br>';
+        echo '\w - найти всі входження усіх символів від a до z, A до Z, 0 до 9 і _<br>';
         echo '<pre>';
-        print_r(preg_match_all('/[\D]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[\w]/', $str, $matches)); // 23
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
-        // \n - найти всі входження перенесення рядку
+        echo '\W - найти всі входження які не є символами від a до z, A до Z, 0 до 9 і _<br>';
+        echo '<pre>';
+        print_r(preg_match_all('/[\W]/', $str, $matches)); // 13
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+        echo '\d - найти всі входження які є цифрами<br>';
+        echo '<pre>';
+        print_r(preg_match_all('/[\d]/', $str, $matches)); // 3
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+        echo '\D - найти всі входження які не є цифрами<br>';
+        echo '<pre>';
+        print_r(preg_match_all('/[\D]/', $str, $matches)); // 33
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+        echo '\n - найти всі входження перенесення рядку<br>';
         $str = 'Masha is,  
         x -  z 
         123 _ beautiful';
         echo '<pre>';
-        print_r(preg_match_all('/[\n]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[\n]/', $str, $matches)); // 2
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
-        // \s - найти всі входження пробілів і перенесення рядку
+        echo '\s - найти всі входження пробілів і перенесення рядку<br>';
         $str = "Masha is,  \r\n x -  z 123 _ beautiful";
         echo '<pre>';
-        print_r(preg_match_all('/[\s]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[\s]/', $str, $matches)); // 12
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
 
-        // \s - найти всі входження які не є пробілами і перенесення рядку
+        echo '\S - найти всі входження які не є пробілами і перенесення рядку<br>';
         $str = "Masha is,  \r\n x -  z 123 _ beautiful";
         echo '<pre>';
-        print_r(preg_match_all('/[\S]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[\S]/', $str, $matches)); // 24
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
 
-        // \s - найти всі входження які є табуляцією
-        $str = "\tMasha is, x -  z 123 _ beautiful";
+        echo '\t - найти всі входження які є табуляцією<br>';
+        $str = "Masha\tis, x -  z 123 _ beautiful";
         echo '<pre>';
-        print_r(preg_match_all('/[\t]/', $str, $matches)); // 21
+        print_r(preg_match_all('/[\t]/', $str, $matches)); // 1
         echo '</pre>';
         echo '<pre>';
         print_r($matches);
         echo '</pre>';
+        // part 2
+
         // -----------------------------------------------------------
         $str = 'Kidslox/6.10.2 (Phone; Android/12)';
         $match = preg_match('/^Kidslox\/([\d\.]+) \((Phone|Tablet); ([^)]+)\)$/is', $str, $matches);
@@ -1554,6 +1568,24 @@ class DefaultController extends AbstractController
         echo '<pre>';
         print_r(($match) ? $matches[3] : null); // Android/9
         echo '</pre>';
+
+        $str = 'Kidslox/7.6.0 (com.kidslox.main; build:9.1; iOS 15.6.0) Alamofire/7.6.0';
+        $match = preg_match('/^Kidslox\/([\d\.]+) \(com.kidslox.main; build:[\d\.]+; (iOS)[\s]([^)]+)\)/', $str, $matches);
+        echo '<pre>';
+        print_r(($match) ? $matches[2].'/'.$matches[3] : null); // iOS/15.6.0
+        echo '</pre>';
+
+        $str = 'Kidslox/7.7.0 (com.kidslox.main; build:3; iOS 14.4.0) Alamofire/4.9.1';
+        $match = preg_match('/^Kidslox\/([\d\.]+) \(com.kidslox.main; build:[\d\.]+; (iOS)[\s]([^)]+)\)/', $str, $matches);
+        echo '<pre>';
+        print_r(($match) ? $matches[2].'/'.$matches[3] : null); // iOS/14.4.0
+        echo '</pre>';
+
+//        $str = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1';
+//        $match = preg_match('/^Mozilla\/([\d\.]+) \(iPhone; CPU (iPhone) OS([^)]+)\) ^/Version/\([\d\.]+)/', $str, $matches);
+//        echo '<pre>';
+//        print_r(($match) ? $matches[2].'/'.trim($matches[3]): null);  // iPhone/15_6 like Mac OS X
+//        echo '</pre>';
 
         // Lesson 55
 //        return $this->render("default/index.html.twig', [
