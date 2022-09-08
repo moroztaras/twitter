@@ -1490,6 +1490,7 @@ class DefaultController extends AbstractController
         echo '</pre>';
 
         echo 'Спеціальні символи<br>';
+        echo 'Система повторення<br>';
         echo '\w - найти всі входження усіх символів від a до z, A до Z, 0 до 9 і _<br>';
         echo '<pre>';
         print_r(preg_match_all('/[\w]/', $str, $matches)); // 23
@@ -1555,12 +1556,157 @@ class DefaultController extends AbstractController
         print_r($matches);
         echo '</pre>';
         // part 2
+        echo 'Знайти всі варіанти символів "as" або "a "(a+пробіл)';
+        $str = 'Masha is, x -  z 123 _ beautiful';
+        // (s|\s) - підмаска
+        // | - або
+        echo '<pre>';
+        print_r(preg_match_all('/a(s|\s)/', $str, $matches)); // 2
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+
+        echo 'Знайти всі варіанти коли йде спочатку символ "a" а потім любий другий символ<br>';
+        echo '<pre>';
+        print_r(preg_match_all('/a./', $str, $matches)); // 3
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+
+        echo 'Знайти всі варіанти коли йде два пробіла і якийсь символ <br>';
+        $str = 'Masha is,  123 _ beautiful';
+        echo '<pre>';
+        print_r(preg_match_all('/\s{2,}\w/', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+        echo 'Знайти всі варіанти коли йде від 2 до 4 пробіла і якийсь символ, але перед ним теж стоїть символ<br>';
+        $str = 'Masha is,  123 _  x - z     very beautiful';
+        echo '<pre>';
+        print_r(preg_match_all('/[\S]\s{2,4}\w/', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+
+        echo 'Система заперечення<br>';
+        echo 'Знайти всі варіанти коли йде від 2 до 4 пробіла, перед якими стоять не пробіли і не символ кома <br>';
+        // ^ - ні
+        $str = 'Masha is,  123 _    x - z       very beautiful';
+        echo '<pre>';
+        print_r(preg_match_all('/[^,\s]\s{2,4}\w/', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+
+        echo 'Знайти всі варіанти із початку рядку символів A-Z<br>';
+        // ^ - пошук з самого початку рядка
+        $str = 'Masha is,  123 _    x - z       very beautiful';
+        echo '<pre>';
+        print_r(preg_match_all('/^[A-Z]/', $str, $matches));
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);
+        echo '</pre>';
+
+        echo 'Знайти всі варіанти із кінця рядку символів A-Z<br>';
+        // $ - пошук з самого початку рядка
+        $str = 'Masha is,  123 _    x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/[A-Z]$/', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches); // L
+        echo '</pre>';
+        // + - один і більше разів
+        echo 'Знайти всі варіанти із символів A-Z один і більше разів<br>';
+        // $ - пошук з самого початку рядка
+        $str = 'MaSHa is,  123 _    x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/[A-Z]+/', $str, $matches)); // 3
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches); // [0] => M [1] => SH [2] => L
+        echo '</pre>';
+
+        echo 'Знайти всі варіанти коли йдуть 3 цифри в потім знак підчеплення, а між ними можить бути пробіл а можить і ні <br>';
+        // * - нуль і більше разів
+        $str = 'MaSHa is,  123 _    x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/[\d]{3}\s*_/', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches); // 123 _
+        echo '</pre>';
+
+        echo 'Знайти всі варіанти коли йдуть цифри, потім знак підчеплення, а між ними множить бути пробіл, а може і ні <br>';
+        // * - нуль і більше разів
+        $str = 'MaSHa is,  12345678 _    x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/\d+\s*_/', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches); // 12345678 _
+        echo '</pre>';
+
+        echo 'Жадність квантифікатора. ? - спроба захватити мінімум символів.<br>';
+        echo 'Вивести всі символи до першого пробілу.<br>';
+        $str = 'MaSHa is,  12345678 _    x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match('/.+?\s+/', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+
+        echo 'Вивести всі символи рядку.<br>';
+        $str = 'MaSHa is,  12345678 _    x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/.+?\s+/U', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);//MaSHa is,  12345678 _    x - z       very
+        echo '</pre>';
+
+        // u - мультибайтовий пошук
+        echo 'Вивести всі символи українського алфавіту.<br>';
+        $str = 'MaSHa is,  12345678 _ Маша привет   x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/[а-яА-Я\s]+/u', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);//Маша привет
+        echo '</pre>';
+        // ui - мультибайтовий пошук, пошук букв верхнього і нижнього реєстру
+        echo 'Вивести всі символи українського алфавіту.<br>';
+        $str = 'MaSHa is,  12345678 _ Маша привет   x - z       very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/[а-я\s]+/ui', $str, $matches)); // 1
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);//Маша привет
+        echo '</pre>';
+
+        // m - Прапор багаторядкового пошуку
+        echo 'Вивести багаторядкового пошуку.<br>';
+        $str = 'MaSHa is,  
+        12345678 _ Маша привет   
+        x - z       
+        very beautifuL';
+        echo '<pre>';
+        print_r(preg_match_all('/^.+$/uim', $str, $matches)); // 4
+        echo '</pre>';
+        echo '<pre>';
+        print_r($matches);// [0] => MaSHa is, [1] =>         12345678 _ Маша привет [2] =>         x - z [3] =>         very beautifuL
+        echo '</pre>';
 
         // -----------------------------------------------------------
         $str = 'Kidslox/6.10.2 (Phone; Android/12)';
         $match = preg_match('/^Kidslox\/([\d\.]+) \((Phone|Tablet); ([^)]+)\)$/is', $str, $matches);
         echo '<pre>';
-        print_r(($match) ? $matches[3] : null); // Android/1
+        print_r(($match) ? $matches[3] : null); // Android/12
         echo '</pre>';
 
         $str = 'Kidslox/7.6.2 (Tablet; Android/9)';
