@@ -1667,7 +1667,7 @@ class DefaultController extends AbstractController
         print_r(preg_match_all('/.+?\s+/U', $str, $matches)); // 1
         echo '</pre>';
         echo '<pre>';
-        print_r($matches);//MaSHa is,  12345678 _    x - z       very
+        print_r($matches); // MaSHa is,  12345678 _    x - z       very
         echo '</pre>';
 
         // u - мультибайтовий пошук
@@ -1677,7 +1677,7 @@ class DefaultController extends AbstractController
         print_r(preg_match_all('/[а-яА-Я\s]+/u', $str, $matches)); // 1
         echo '</pre>';
         echo '<pre>';
-        print_r($matches);//Маша привет
+        print_r($matches); // Маша привет
         echo '</pre>';
         // ui - мультибайтовий пошук, пошук букв верхнього і нижнього реєстру
         echo 'Вивести всі символи українського алфавіту.<br>';
@@ -1686,7 +1686,7 @@ class DefaultController extends AbstractController
         print_r(preg_match_all('/[а-я\s]+/ui', $str, $matches)); // 1
         echo '</pre>';
         echo '<pre>';
-        print_r($matches);//Маша привет
+        print_r($matches); // Маша привет
         echo '</pre>';
 
         // m - Прапор багаторядкового пошуку
@@ -1699,10 +1699,11 @@ class DefaultController extends AbstractController
         print_r(preg_match_all('/^.+$/uim', $str, $matches)); // 4
         echo '</pre>';
         echo '<pre>';
-        print_r($matches);// [0] => MaSHa is, [1] =>         12345678 _ Маша привет [2] =>         x - z [3] =>         very beautifuL
+        print_r($matches); // [0] => MaSHa is, [1] =>         12345678 _ Маша привет [2] =>         x - z [3] =>         very beautifuL
         echo '</pre>';
 
-        // -----------------------------------------------------------
+        // ----Special functions for Kidslox-----------------
+        echo "Kidslox parse header - 'UserAgent'<br>";
         $str = 'Kidslox/6.10.2 (Phone; Android/12)';
         $match = preg_match('/^Kidslox\/([\d\.]+) \((Phone|Tablet); ([^)]+)\)$/is', $str, $matches);
         echo '<pre>';
@@ -1739,6 +1740,20 @@ class DefaultController extends AbstractController
         print_r(($match) ? $matches[2].'/'.$matches[6] : null); // iPhone/15.6
         echo '</pre>';
 
+        echo 'Kidslox 2<br>';
+        $str1 = 'Kidslox/6.10.2 (Phone; Android/12)';
+        $str2 = 'Kidslox/7.6.2 (Tablet; Android/9)';
+        $str3 = 'Kidslox/7.6.0 (com.kidslox.main; build:9.1; iOS 15.6.0) Alamofire/7.6.0';
+        $str4 = 'Kidslox/7.7.0 (com.kidslox.main; build:3; iOS 14.4.0) Alamofire/4.9.1';
+        $str5 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1';
+        $str6 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6';
+
+        echo $this->parseOsVersionFromUserAgent($str1).'<br>';
+        echo $this->parseOsVersionFromUserAgent($str2).'<br>';
+        echo $this->parseOsVersionFromUserAgent($str3).'<br>';
+        echo $this->parseOsVersionFromUserAgent($str4).'<br>';
+        echo $this->parseOsVersionFromUserAgent($str5).'<br>';
+        echo $this->parseOsVersionFromUserAgent($str6).'<br>';
         // Lesson 55
 //        return $this->render("default/index.html.twig', [
 //            'controller_name' => 'DefaultController',
@@ -1852,8 +1867,16 @@ class DefaultController extends AbstractController
 
     private function parseOsVersionFromUserAgent(string $userAgent): string|null
     {
-        $match = preg_match('/^Kidslox\/([\d\.]+) \((Phone|Tablet); ([^)]+)\)$/is', $userAgent, $matches);
+        if (preg_match('/^Kidslox\/([\d\.]+) \((Phone|Tablet); ([^)]+)\)$/is', $userAgent, $matches)) {
+            return $matches[3];
+        }
+        if (preg_match('/^Kidslox\/([\d\.]+) \(com.kidslox.main; build:[\d\.]+; (iOS)[\s]([^)]+)\)/', $userAgent, $matches)) {
+            return $matches[2].'/'.$matches[3];
+        }
+        if (preg_match('/^Mozilla\/([\d\.]+) \((iPhone);([^)]+)\)([^)]+)\(([^)]+)\)[\s]Version\/([\d\.]+)/', $userAgent, $matches)) {
+            return $matches[2].'/'.$matches[6];
+        }
 
-        return ($match) ? $matches[3] : null;
+        return null;
     }
 }
