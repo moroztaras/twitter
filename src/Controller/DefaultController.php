@@ -3,15 +3,25 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends AbstractController
 {
     public const NAME = 'TARAS'; // константа в класі
 
-    #[Route('/default', name: 'default')]
+    #[Route('/index')]
     public function index(): Response
+    {
+        $title = 'Default page';
+
+        return $this->render('default/index.html.twig', [
+            'title' => $title,
+        ]);
+    }
+
+    #[Route('/php')]
+    public function php(): Response
     {
         // https://www.youtube.com/playlist?list=PLuY6eeDuleIN_pFzp1vlu0PD3KXUrPTVS
         // PHP - Hypertext Preprocessor
@@ -31,6 +41,7 @@ class DefaultController extends AbstractController
             <div style="color: red">Червоний колір</div>
             <?php
         }
+
         // added tags to php
         echo '<br>1 Hello <b>Symfony 6</b> & <b>PHP 8</b>!'; // added html tags
         echo '<br>2 Hello <b>Symfony 6</b> & <b>PHP 8</b>!'; // added html tags
@@ -42,7 +53,7 @@ class DefaultController extends AbstractController
         echo "<br>6 Hello '<b>Symfony $var1</b> & <b>PHP $var2</b>'!<br>";
         echo "<br>7 Hello \"<b>Symfony $var1</b> & <b>PHP $var2</b>\"!<br>"; // екроновані двійні кавички
         $var = 100;
-        echo "8 Hello world! {$var}9";
+        echo "8 Hello world! {$var}9".'<br>';
 //        echo `dir`; # керування командами із операційної системи
 
         // Comment - не возпринімається копілятором PHP (однорядковий коментарій)
@@ -90,7 +101,7 @@ class DefaultController extends AbstractController
 
         echo '<br><br><b>Boolean & string type data</b>-------------------------------------------<br>';
         $bool = true; // boolean type true or false
-        $str = '<br>Hello <b>Symfony 6</b> & <b>PHP 8</b>';
+        $str = '<br>Hello <b>Symfony 6</b> & <b>PHP 8</b><br>';
         echo $str.' a:'.$a.' b:'.$b.'<br>'; // Hello Symfony 6 & PHP 8 a:1234 b:-12
         $e = 0.5;
         $f = '0.5';
@@ -1077,7 +1088,7 @@ class DefaultController extends AbstractController
             <textarea name="msg" cols="50" rows="5"></textarea><br>
             <input type="submit" value="Добавити">
         </form>
-<?php
+        <?php
         if (isset($_GET['msg'])) {
             echo htmlspecialchars($_GET['msg']).'<br>';
         }
@@ -1124,11 +1135,11 @@ class DefaultController extends AbstractController
         //  serialize (сеалізація) - перетворення масиву у json за допомогою json_encode
         //  deserialize (десеалізація) - перетворення json в асоціативний  масив за допомогою json_decode
         $contact = [
-                'name' => 'Taras',
-                'phones' => [
-                        '0981234567',
-                        '0507654321',
-                ],
+            'name' => 'Taras',
+            'phones' => [
+                '0981234567',
+                '0507654321',
+            ],
         ];
         $encodeContact = json_encode($contact);
         // json - обєкт
@@ -1754,13 +1765,13 @@ class DefaultController extends AbstractController
         echo $this->parseOsVersionFromUserAgent($str4).'<br>';
         echo $this->parseOsVersionFromUserAgent($str5).'<br>';
         echo $this->parseOsVersionFromUserAgent($str6).'<br>';
-        // Lesson 55
-//        return $this->render("default/index.html.twig', [
-//            'controller_name' => 'DefaultController',
-//            'title' => $title
-//        ]);
-        return new Response();
+
+        return $this->render('default/php.html.twig', [
+            'title' => $title,
+            'year' => date('Y'),
+        ]);
     }
+
     /*
         private function myFirstFunction(тип_переданого_параметру передані_параметри): тип_повернутого_результату
         {
