@@ -7,12 +7,12 @@
 
 ## Clone repository to your local machine
 ```bash
-git clone https://github.com/moroztaras/symfony6-php8-docker-2022
+git clone git@github.com:moroztaras/symfony6-php8-docker-2023.git
 ```
 
 ##Create project config
 ```bash
-cd symfony6-php8-docker-2022
+cd symfony6-php8-docker-2023
 cp .env .env.local
 cp ./docker/.env.dist ./docker/.env
 ```
