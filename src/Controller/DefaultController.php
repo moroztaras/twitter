@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
@@ -365,7 +365,7 @@ class DefaultController extends AbstractController
         $p2->setY(10);
 
         // обрахунок відстані між двома точками.
-        $distance = sqrt((pow(($p2->getX() - $p1->getX()), 2) + pow(($p2->getY() - $p1->getY()), 2)));
+        $distance = sqrt(pow($p2->getX() - $p1->getX(), 2) + pow($p2->getY() - $p1->getY(), 2));
         echo 'distance x & y : '.$distance.'<br>'; // 25
 
         echo '<br><br><b>String operations</b>-------------------------------------------<br>';
@@ -373,7 +373,7 @@ class DefaultController extends AbstractController
         echo $str.' Symfony6 <br>';
         echo "$str Symfony6 <br>"; // в двойних кавичках можна виводити значення перемінної
         echo '$str Symfony6 <br>'; // - буде виводитися як обчний текст
-        echo "$str Symfony6".'!'.'<br>'; // - обєднання із одинарними і двойними кавичками
+        echo "$str Symfony6".'!<br>'; // - об'єднання з одинарними і двойними кавичками.
         echo '<input type="text"> <br>';
         // вбудовані функції по роботі із рядками
         $str = 'Hello Symfony 6 !';
@@ -1218,7 +1218,7 @@ class DefaultController extends AbstractController
             }
             if (empty($errors)) {
                 echo 'Name: '.htmlspecialchars($_POST['name']);
-                exit();
+                exit;
             }
             if (!empty($errors)) {
                 foreach ($errors as $err) {
@@ -1862,7 +1862,7 @@ class DefaultController extends AbstractController
 
     private function odd(int $number): bool
     {
-        return !((0 == $number % 2));
+        return !(0 == $number % 2);
     }
 
     // повертає суму усіх переданих елементів

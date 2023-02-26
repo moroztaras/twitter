@@ -4,6 +4,7 @@
 * composer
 * npm
 * docker
+* php-cs-fixer (brew install php-cs-fixer)
 
 ## Clone repository to your local machine
 ```bash
@@ -59,5 +60,5 @@ $ ./vendor/bin/phpunit
 
 ###Run PHP CS Fixer
 ```bash
-% ./vendor/bin/php-cs-fixer fix src
+% php-cs-fixer fix src
 ```
