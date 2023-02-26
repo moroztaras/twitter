@@ -4,8 +4,6 @@ namespace App\Controller;
 
 // Батьківський клас.
 
-use Doctrine\ORM\Mapping as ORM;
-
 // final class - це клас який не може мати нащадків
 // final class className ()
 // {
