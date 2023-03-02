@@ -1806,6 +1806,24 @@ class DefaultController extends AbstractController
             <li>__clone() - </li>
         </ul>';
 
+        echo '<br><br><b>OOP - Interface</b>-------------------------------------------<br>';
+        // один клас наслідує багато класів - php відмовився від такої реалізації і компенсував це інтерфейсами
+        // Інтерфейс - по факту це просто шаблони, це структури які описують то які константи, а також методи повинен містити клас який буде реалізовувати інтерфейс.
+        // Інтерфейс не повинен містити реалізацію вказаних методів.
+        // В інтерфейсі можуть знаходитися тільки об'явлення методів, але не тіло самих ціх методів.
+        $user = new User();
+        $user->getFirstName();
+        $user->getLastName();
+        $user->getRole();
+
+        // Інтерфейсі підтримують наслідування
+        // для інтерфейсів так як і для абстрактних класів е можна створити екземпляр(об'єкт) класу.
+        // Відмінність абстрактного класу від інтерфейсу полягає в тому що в інтерфейсі необхідно тіло усіх методів лишати пустим.
+
+        // Абстрактний метод може містити реалізацію окремих методів.
+        // Для класів не можливо багато наслідувань.
+        // Для інтерійсів можливо багато наслідувань.
+
         return $this->render('default/php.html.twig', [
             'title' => $title,
             'year' => date('Y'),
@@ -1929,5 +1947,56 @@ class DefaultController extends AbstractController
         }
 
         return null;
+    }
+}
+
+// just interface
+interface FirstInteface
+{
+    // Реалізація цього методу повинна бути в класі який реалізовує цей інтерфейс
+    // Інтерфейс(і абстракний клас) не дозволяє створювати екземпляри(об'єкти) цього класу.
+    // У кожному класі який буде підтримувати цей інтерфейс, повинні бути реалізовані всі методи які використовуються у даному інтерфейсі - це обов'язковоо.
+    public function getFirstName(); // метод без його тіла.
+}
+
+interface SecondInterface
+{
+    public function getLastName(); // метод без його тіла.
+
+    public function getRole(); // метод без його тіла.
+}
+
+// цей інтерфейс - ThirdInterface підтримує наслідування двох інтерфейсів FirstInteface і SecondInterface
+interface ThirdInterface extends FirstInteface, SecondInterface
+{
+}
+
+// Реалізація інтерфейсу у класі TestInteface.
+// Один клас може реалізовувати декілька інтерфейсів
+
+// class User implements FirstInteface, SecondInterface
+class User implements ThirdInterface
+{
+    // цей клас(User) обов'язково повинен реалізувати усі методи описані у інтерфейсі
+    private string $firstName = 'Taras';
+    private string $lastName = 'Moroz';
+    private string $role = 'ROLE_ADMIN';
+
+    // Реалізація обов'язкового методу із інтерфейсу FirstInteface.
+    public function getFirstName()
+    {
+        echo $this->firstName;
+    }
+
+    // Реалізація обов'язкового методу із інтерфейсу SecondInterface.
+    public function getLastName()
+    {
+        echo $this->lastName;
+    }
+
+    // Реалізація обов'язкового методу із інтерфейсу SecondInterface.
+    public function getRole()
+    {
+        echo $this->role;
     }
 }
