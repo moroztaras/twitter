@@ -1824,6 +1824,16 @@ class DefaultController extends AbstractController
         // Для класів не можливо багато наслідувань.
         // Для інтерійсів можливо багато наслідувань.
 
+        echo '<br><br><b>OOP - Trait</b>-------------------------------------------<br>';
+        // Trait(примісь) - для повторного використання у класах. Механізм забезпечення повторного використання нашого коду.
+        // PHP- не підтримується багатонаслідування
+        // Trait схожий на клас і придназначений групуванню функціоналу, хорошо структурованим і послідуваним чином
+        // Trait - схожий на інтерфейс, але із реалізацію методів.
+
+        $obj = new myHelloSymfony();
+        $obj->sayHello();
+        $obj->saySymfony();
+
         return $this->render('default/php.html.twig', [
             'title' => $title,
             'year' => date('Y'),
@@ -1999,4 +2009,27 @@ class User implements ThirdInterface
     {
         echo $this->role;
     }
+}
+trait Hello
+{
+    public function sayHello()
+    {
+        echo 'Hello ';
+    }
+}
+
+// Створення трейту
+trait Symfony
+{
+    public function saySymfony()
+    {
+        echo 'Symfony!';
+    }
+}
+
+class myHelloSymfony
+{
+    // використання трейтів
+    use Hello;
+    use Symfony;
 }
