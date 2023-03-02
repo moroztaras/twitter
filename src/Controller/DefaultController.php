@@ -74,13 +74,15 @@ class DefaultController extends AbstractController
         echo 'Головний скрипт<br>';
 
         echo '<br><br><b>Variables</b>-------------------------------------------<br>';
+        // PHP supports eight simple data types (variables)
         // $a змінна це ячейка памяті на PHP
         // слабо типізована мова
         // integer - 5
         // float - 5.15
-        // boolean - true / false
-        // sting - 'string'
+        // boolean - true / false (двійковий тип даних)
+        // sting - 'string' рядковий тип даних
         // array - [1,2,3] - масив значень
+        // NULL - "пустий" тип даних
 
         $var1 = $var2 = $var3 = 3; // int
         echo 'var1 = '.$var1.'<br>'; // 3
@@ -100,7 +102,31 @@ class DefaultController extends AbstractController
         echo '1.2345*10^3   = '.$d.'<br>';
 
         echo '<br><br><b>Boolean & string type data</b>-------------------------------------------<br>';
-        $bool = true; // boolean type true or false
+        // == - оператор, який перевіряє еквівалентність і повертає бульова значення
+        echo 'Boolean type (true or false)<br>';
+        $bool = true;  // присвоєння булевій змінні значення - true
+
+        if (true == $bool) {
+            echo '$bool == true';
+        } else {
+            echo '$bool == false';
+        }
+        echo '<br>';
+        if ($bool) {
+            echo '$bool == true';
+        } else {
+            echo '$bool == false';
+        }
+        echo '<br>';
+
+        echo '<br><br><b>Null - type data</b>-------------------------------------------<br>';
+        $var = null; // їй присвоєно константа NULL
+        echo (is_null($var)) ? '$var = NULL' : '$var != NULL';
+        echo '<br>';
+        $var = 1; // їй присвоєно значення - 1
+        echo (is_null($var)) ? '$var = NULL' : '$var != NULL';
+        echo '<br>';
+
         $str = '<br>Hello <b>Symfony 6</b> & <b>PHP 8</b><br>';
         echo $str.' a:'.$a.' b:'.$b.'<br>'; // Hello Symfony 6 & PHP 8 a:1234 b:-12
         $e = 0.5;
