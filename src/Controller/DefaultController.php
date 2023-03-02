@@ -1792,6 +1792,20 @@ class DefaultController extends AbstractController
         echo $this->parseOsVersionFromUserAgent($str5).'<br>';
         echo $this->parseOsVersionFromUserAgent($str6).'<br>';
 
+        echo '<br><br><b>Magic methods</b>-------------------------------------------<br>';
+        echo '<ul>
+            <li>__construct() - </li>
+            <li>__destruct() - </li>
+            <li>__get() - </li>
+            <li>__set() - </li>
+            <li>__isset() - </li>
+            <li>__unset() - </li>
+            <li>__serialize() - </li>
+            <li>__unserialize() - </li>
+            <li>__toString() - </li>
+            <li>__clone() - </li>
+        </ul>';
+
         return $this->render('default/php.html.twig', [
             'title' => $title,
             'year' => date('Y'),
