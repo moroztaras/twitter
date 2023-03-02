@@ -1387,6 +1387,15 @@ class DefaultController extends AbstractController
 
         Page::site();
 
+        // Статестичні свойства класу - це свойства до яких можна звернутися без створення об'єкту цього класу
+        Person::$name = 'Taras'; // ініціалізація статичного методу
+        echo Person::$name.'<br>'; // вивод статичної зімнної
+        echo Person::getName().'<br>'; // вивод статичного методу
+
+        // Статичний метод - це метод який можна визвати не створюючи екземпляр класу
+        // Статичний метод не містять змінну this
+        // Статичний метод може використовувати константи класу
+
         echo '<br><br><b>Constructor class</b>-------------------------------------------<br>';
         // Конструктор - спеціальний метод класу який автоматично виконується в момент створення об'єкту клас, до визову усіх остальних не статичних методів класу
         $userAgent = 'Kidslox/7.6.0 (Phone; Android/12.1.0)';
@@ -1428,7 +1437,7 @@ class DefaultController extends AbstractController
         echo $deviceModel.'<br>';
         // --------------------------------
         echo '<br><br><b>Abstract and final classes and methods</b>-------------------------------------------<br>';
-        // Перегрузка методу(abstract) - переопромінення методу у класі нащадку
+        // Перегрузка методу(abstract) - переопромінення метофду у класі нащадку
         // final - заборонить переопридялення методу у класі нащадку
 
         // Cannot instantiate abstract class App\Controller\Animal
@@ -2032,4 +2041,15 @@ class myHelloSymfony
     // використання трейтів
     use Hello;
     use Symfony;
+}
+
+class Person
+{
+    // Доступ до цієї змінної здійснюється через клас н-д Person::$name
+    public static $name;
+
+    public static function getName()
+    {
+        return 'Hello '.self::$name; // не можна юзать $this->name;
+    }
 }
