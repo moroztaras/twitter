@@ -6,16 +6,16 @@ class Point
 {
     // область видимость - дозволяє звертатися до змінних класту тільки із оприділих місць
     // Спеціфікатори доступа
-    // public - доступ до змінної як внутрі класу, так і на зовні
+    // public - доступ до змінної як всередині класу, так і на зовні
     public $a;
     public $b;
-    // private - доступ до змінної тільки внутрі самого класу
+    // private - доступ до змінної тільки в середині самого класу
     public $x;
     public $y;
     // protected - доступ до цієї змінної матимуть тільки нащадки(дочірні класи) цього класу
     protected $c = 10;
 
-    // статична змінна, до якої можна звертатися як зовні так і внутрі, без створення обєкту цього класа
+    // статична змінна, до якої можна звертатися як зовні, так і в середині, без створення об'єкту цього класу
     public static $d = 120;
 
     // Constructor class
@@ -27,7 +27,7 @@ class Point
         ;
     }
 
-    // __toString - інтрополірує об'єкт в рядок
+    // __toString - інтерполює об'єкт в рядок
     public function __toString()
     {
         return "({$this->a},{$this->b},{$this->c},{$this->getX()},{$this->getY()})";
@@ -38,12 +38,7 @@ class Point
         return $this->x;
     }
 
-    /**
-     * @param int $x
-     *
-     * @return Point
-     */
-    public function setX($x)
+    public function setX(int $x): Point
     {
         $this->x = $x;
 
@@ -55,12 +50,7 @@ class Point
         return $this->y;
     }
 
-    /**
-     * @param int $y
-     *
-     * @return Point
-     */
-    public function setY($y)
+    public function setY(int $y): Point
     {
         $this->y = $y;
 
