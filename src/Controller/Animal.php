@@ -15,9 +15,6 @@ namespace App\Controller;
 
 abstract class Animal
 {
-    /**
-     * @ORM\Column(type="integer")
-     */
     private int $legs = 4;
 
     // доступ до цього методу мають нащадки цього класу

@@ -1395,6 +1395,7 @@ class DefaultController extends AbstractController
         // Статичний метод не містять змінну this
         // Статичний метод може використовувати константи класу
         echo Person::getName().'<br>'; // вивод статичного методу
+        echo Person::COUNTRY.'<br>'; // вивод константи
 
         echo '<br><br><b>Constructor class</b>-------------------------------------------<br>';
         // Конструктор - спеціальний метод класу який автоматично виконується в момент створення об'єкту клас, до визову усіх остальних не статичних методів класу
@@ -1812,15 +1813,22 @@ class DefaultController extends AbstractController
             <li>__serialize() - </li>
             <li>__unserialize() - </li>
             <li>__toString() - </li>
-            <li>__clone() - </li>
+            <li>__clone() - відповідальний за клонування об\'єктів у PHP. Метод __clone() буде автоматично визивтися при клонуванні об\'єкту.</li>
         </ul>';
+        $user1 = new User('Taras', 'Moroz', 'Cherkasy');
+        $user1->setId(1410);
+        $user2 = clone $user1; // клонування обєкту $user1
+        echo '<pre>';
+        print_r($user1);
+        print_r($user2);
+        echo '</pre>';
 
         echo '<br><br><b>OOP - Interface</b>-------------------------------------------<br>';
         // один клас наслідує багато класів - php відмовився від такої реалізації і компенсував це інтерфейсами
         // Інтерфейс - по факту це просто шаблони, це структури які описують то які константи, а також методи повинен містити клас який буде реалізовувати інтерфейс.
         // Інтерфейс не повинен містити реалізацію вказаних методів.
         // В інтерфейсі можуть знаходитися тільки об'явлення методів, але не тіло самих ціх методів.
-        $user = new User();
+        $user = new User('Taras', 'Moroz', 'Cherkasy');
         $user->getFirstName();
         $user->getLastName();
         $user->getRole();
@@ -1997,9 +2005,26 @@ interface ThirdInterface extends FirstInteface, SecondInterface
 class User implements ThirdInterface
 {
     // цей клас(User) обов'язково повинен реалізувати усі методи описані у інтерфейсі
+    private int $id;
     private string $firstName = 'Taras';
     private string $lastName = 'Moroz';
     private string $role = 'ROLE_ADMIN';
+    private string $city;
+
+    public function __construct($firstName, $lastName, $city)
+    {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->role = 'ROLE_USER';
+        $this->city = $city;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     // Реалізація обов'язкового методу із інтерфейсу FirstInteface.
     public function getFirstName()
@@ -2017,6 +2042,13 @@ class User implements ThirdInterface
     public function getRole()
     {
         echo $this->role;
+    }
+
+    // Метод працює з скопійованим об'єктом, а не з вихідним
+    public function __clone()
+    {
+        $this->setId(0);
+//        echo 'Cloned';
     }
 }
 trait Hello
@@ -2045,9 +2077,13 @@ class myHelloSymfony
 
 class Person
 {
+    // Доступ до цієї константи здійснюється через клас н-д Person::COUNTRY
+    public const COUNTRY = 'Ukraine';
+
     // Доступ до цієї змінної здійснюється через клас н-д Person::$name
     public static $name;
 
+    // Доступ до цього методу здійснюється через клас н-д Person::getName()
     public static function getName()
     {
         return 'Hello '.self::$name; // не можна юзать $this->name;
