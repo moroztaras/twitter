@@ -1855,6 +1855,18 @@ class DefaultController extends AbstractController
         $obj->sayHello();
         $obj->saySymfony();
 
+        echo '<br><br><b>OOP - Polymorphism</b>-------------------------------------------<br>';
+        // Поліморфізм - слідство наслідування, це свойство наслідуючих класів мати одинакові методи які будуть працювати по різному в контексті об'єкту.
+        // Різна поведінка одного і того самого методу у різних класах.
+        // Поліморфізм використовується для створення модульних структур додатку і спрощення процедури розширення функціоналу.
+        // Замість того щоб влаштовувати мішанину умовних виразів описуючі разні варіанти дій.
+        // Можна створити взаємозамінні обєкти які будуть вибиратися в залежності від умов використання.
+        $a = new A();
+        $b = new B();
+        $a->Call(); // виведення "Test from A"
+        $b->Test(); // виведення "Test from B"
+        $b->Call(); // Увага! Виведення "Test from B"!
+
         return $this->render('default/php.html.twig', [
             'title' => $title,
             'year' => date('Y'),
@@ -2103,5 +2115,29 @@ class Person
     public static function getName()
     {
         return 'Hello '.self::$name; // не можна юзать $this->name;
+    }
+}
+
+// Поліморфізм
+class A
+{
+    // Виводить, функція якого класу була викликана
+    public function Test()
+    {
+        echo "Test from A\n";
+    }
+
+    // Тестова функція — просто переадресовується на Test()
+    public function Call()
+    {
+        $this->Test();
+    }
+}
+class B extends A
+{
+    // Функція Test() для класу B
+    public function Test()
+    {
+        echo "Test from B\n";
     }
 }
