@@ -1823,6 +1823,10 @@ class DefaultController extends AbstractController
         print_r($user2);
         echo '</pre>';
 
+        $user3 = new User('Taras', 'Moroz', 'Cherkasy');
+        $user3->phone; // спроба звенркутися до закритої змінної класу, але перехвачується методом __get()
+        $user3->phone = '+380981234567'; // спроба засетити дані до закритої змінної класу, але перехвачується методом __set()
+
         echo '<br><br><b>OOP - Interface</b>-------------------------------------------<br>';
         // один клас наслідує багато класів - php відмовився від такої реалізації і компенсував це інтерфейсами
         // Інтерфейс - по факту це просто шаблони, це структури які описують то які константи, а також методи повинен містити клас який буде реалізовувати інтерфейс.
@@ -2010,6 +2014,7 @@ class User implements ThirdInterface
     private string $lastName = 'Moroz';
     private string $role = 'ROLE_ADMIN';
     private string $city;
+    private string $phone;
 
     public function __construct($firstName, $lastName, $city)
     {
@@ -2017,6 +2022,17 @@ class User implements ThirdInterface
         $this->lastName = $lastName;
         $this->role = 'ROLE_USER';
         $this->city = $city;
+    }
+
+    // Магічні методи __get() і __set() призначені для доступу до закритих змінних класу. Вони перехвачують звернення до змінної.
+    public function __get($name)
+    {
+        echo "You get {$name}<br>";
+    }
+
+    public function __set($name, $value)
+    {
+        echo "You set {$name} to {$value}<br>";
     }
 
     public function setId($id)
