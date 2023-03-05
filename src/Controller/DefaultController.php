@@ -74,13 +74,15 @@ class DefaultController extends AbstractController
         echo 'Головний скрипт<br>';
 
         echo '<br><br><b>Variables</b>-------------------------------------------<br>';
+        // PHP supports eight simple data types (variables)
         // $a змінна це ячейка памяті на PHP
         // слабо типізована мова
         // integer - 5
         // float - 5.15
-        // boolean - true / false
-        // sting - 'string'
+        // boolean - true / false (двійковий тип даних)
+        // sting - 'string' рядковий тип даних
         // array - [1,2,3] - масив значень
+        // NULL - "пустий" тип даних
 
         $var1 = $var2 = $var3 = 3; // int
         echo 'var1 = '.$var1.'<br>'; // 3
@@ -100,7 +102,31 @@ class DefaultController extends AbstractController
         echo '1.2345*10^3   = '.$d.'<br>';
 
         echo '<br><br><b>Boolean & string type data</b>-------------------------------------------<br>';
-        $bool = true; // boolean type true or false
+        // == - оператор, який перевіряє еквівалентність і повертає бульова значення
+        echo 'Boolean type (true or false)<br>';
+        $bool = true;  // присвоєння булевій змінні значення - true
+
+        if (true == $bool) {
+            echo '$bool == true';
+        } else {
+            echo '$bool == false';
+        }
+        echo '<br>';
+        if ($bool) {
+            echo '$bool == true';
+        } else {
+            echo '$bool == false';
+        }
+        echo '<br>';
+
+        echo '<br><br><b>Null - type data</b>-------------------------------------------<br>';
+        $var = null; // їй присвоєно константа NULL
+        echo (is_null($var)) ? '$var = NULL' : '$var != NULL';
+        echo '<br>';
+        $var = 1; // їй присвоєно значення - 1
+        echo (is_null($var)) ? '$var = NULL' : '$var != NULL';
+        echo '<br>';
+
         $str = '<br>Hello <b>Symfony 6</b> & <b>PHP 8</b><br>';
         echo $str.' a:'.$a.' b:'.$b.'<br>'; // Hello Symfony 6 & PHP 8 a:1234 b:-12
         $e = 0.5;
@@ -1361,6 +1387,16 @@ class DefaultController extends AbstractController
 
         Page::site();
 
+        // Статестичні свойства класу - це свойства до яких можна звернутися без створення об'єкту цього класу
+        Person::$name = 'Taras'; // ініціалізація статичного методу
+        echo Person::$name.'<br>'; // вивод статичної зімнної
+
+        // Статичний метод - це метод який можна викликати не створюючи екземпляр класу
+        // Статичний метод не містять змінну this
+        // Статичний метод може використовувати константи класу
+        echo Person::getName().'<br>'; // вивод статичного методу
+        echo Person::COUNTRY.'<br>'; // вивод константи
+
         echo '<br><br><b>Constructor class</b>-------------------------------------------<br>';
         // Конструктор - спеціальний метод класу який автоматично виконується в момент створення об'єкту клас, до визову усіх остальних не статичних методів класу
         $userAgent = 'Kidslox/7.6.0 (Phone; Android/12.1.0)';
@@ -1402,7 +1438,7 @@ class DefaultController extends AbstractController
         echo $deviceModel.'<br>';
         // --------------------------------
         echo '<br><br><b>Abstract and final classes and methods</b>-------------------------------------------<br>';
-        // Перегрузка методу(abstract) - переопромінення методу у класі нащадку
+        // Перегрузка методу(abstract) - переопромінення метофду у класі нащадку
         // final - заборонить переопридялення методу у класі нащадку
 
         // Cannot instantiate abstract class App\Controller\Animal
@@ -1766,6 +1802,71 @@ class DefaultController extends AbstractController
         echo $this->parseOsVersionFromUserAgent($str5).'<br>';
         echo $this->parseOsVersionFromUserAgent($str6).'<br>';
 
+        echo '<br><br><b>Magic methods</b>-------------------------------------------<br>';
+        echo '<ul>
+            <li>__construct() - </li>
+            <li>__destruct() - </li>
+            <li>__get() - </li>
+            <li>__set() - </li>
+            <li>__isset() - </li>
+            <li>__unset() - </li>
+            <li>__serialize() - </li>
+            <li>__unserialize() - </li>
+            <li>__toString() - </li>
+            <li>__clone() - відповідальний за клонування об\'єктів у PHP. Метод __clone() буде автоматично визивтися при клонуванні об\'єкту.</li>
+        </ul>';
+        $user1 = new User('Taras', 'Moroz', 'Cherkasy');
+        $user1->setId(1410);
+        $user2 = clone $user1; // клонування обєкту $user1
+        echo '<pre>';
+        print_r($user1);
+        print_r($user2);
+        echo '</pre>';
+
+        $user3 = new User('Taras', 'Moroz', 'Cherkasy');
+        $user3->phone; // спроба звенркутися до закритої змінної класу, але перехвачується методом __get()
+        $user3->phone = '+380981234567'; // спроба засетити дані до закритої змінної класу, але перехвачується методом __set()
+
+        echo '<br><br><b>OOP - Interface</b>-------------------------------------------<br>';
+        // один клас наслідує багато класів - php відмовився від такої реалізації і компенсував це інтерфейсами
+        // Інтерфейс - по факту це просто шаблони, це структури які описують то які константи, а також методи повинен містити клас який буде реалізовувати інтерфейс.
+        // Інтерфейс не повинен містити реалізацію вказаних методів.
+        // В інтерфейсі можуть знаходитися тільки об'явлення методів, але не тіло самих ціх методів.
+        $user = new User('Taras', 'Moroz', 'Cherkasy');
+        $user->getFirstName();
+        $user->getLastName();
+        $user->getRole();
+
+        // Інтерфейсі підтримують наслідування
+        // для інтерфейсів так як і для абстрактних класів не можна створити екземпляр(об'єкт) класу.
+        // Відмінність абстрактного класу від інтерфейсу полягає в тому що в інтерфейсі необхідно тіло усіх методів лишати пустим.
+
+        // Абстрактний метод може містити реалізацію окремих методів.
+        // Для класів не можливо багато наслідувань.
+        // Для інтерійсів можливо багато наслідувань.
+
+        echo '<br><br><b>OOP - Trait</b>-------------------------------------------<br>';
+        // Trait(примісь) - для повторного використання у класах. Механізм забезпечення повторного використання нашого коду.
+        // PHP- не підтримується багато наслідування
+        // Trait схожий на клас і придназначений групуванню функціоналу, хорошо структурованим і послідуваним чином
+        // Trait - схожий на інтерфейс, але із реалізацію методів.
+
+        $obj = new myHelloSymfony();
+        $obj->sayHello();
+        $obj->saySymfony();
+
+        echo '<br><br><b>OOP - Polymorphism</b>-------------------------------------------<br>';
+        // Поліморфізм - слідство наслідування, це свойство наслідуючих класів мати одинакові методи які будуть працювати по різному в контексті об'єкту.
+        // Різна поведінка одного і того самого методу у різних класах.
+        // Поліморфізм використовується для створення модульних структур додатку і спрощення процедури розширення функціоналу.
+        // Замість того щоб влаштовувати мішанину умовних виразів описуючі разні варіанти дій.
+        // Можна створити взаємозамінні обєкти які будуть вибиратися в залежності від умов використання.
+        $a = new A();
+        $b = new B();
+        $a->Call(); // виведення "Test from A"
+        $b->Test(); // виведення "Test from B"
+        $b->Call(); // Увага! Виведення "Test from B"!
+
         return $this->render('default/php.html.twig', [
             'title' => $title,
             'year' => date('Y'),
@@ -1889,5 +1990,154 @@ class DefaultController extends AbstractController
         }
 
         return null;
+    }
+}
+
+// just interface
+interface FirstInteface
+{
+    // Реалізація цього методу повинна бути в класі який реалізовує цей інтерфейс
+    // Інтерфейс(і абстракний клас) не дозволяє створювати екземпляри(об'єкти) цього класу.
+    // У кожному класі який буде підтримувати цей інтерфейс, повинні бути реалізовані всі методи які використовуються у даному інтерфейсі - це обов'язковоо.
+    public function getFirstName(); // метод без його тіла.
+}
+
+interface SecondInterface
+{
+    public function getLastName(); // метод без його тіла.
+
+    public function getRole(); // метод без його тіла.
+}
+
+// цей інтерфейс - ThirdInterface підтримує наслідування двох інтерфейсів FirstInteface і SecondInterface
+interface ThirdInterface extends FirstInteface, SecondInterface
+{
+}
+
+// Реалізація інтерфейсу у класі TestInteface.
+// Один клас може реалізовувати декілька інтерфейсів
+
+// class User implements FirstInteface, SecondInterface
+class User implements ThirdInterface
+{
+    // цей клас(User) обов'язково повинен реалізувати усі методи описані у інтерфейсі
+    private int $id;
+    private string $firstName = 'Taras';
+    private string $lastName = 'Moroz';
+    private string $role = 'ROLE_ADMIN';
+    private string $city;
+    private string $phone;
+
+    public function __construct($firstName, $lastName, $city)
+    {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->role = 'ROLE_USER';
+        $this->city = $city;
+    }
+
+    // Магічні методи __get() і __set() призначені для доступу до закритих змінних класу. Вони перехвачують звернення до змінної.
+    public function __get($name)
+    {
+        echo "You get {$name}<br>";
+    }
+
+    public function __set($name, $value)
+    {
+        echo "You set {$name} to {$value}<br>";
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    // Реалізація обов'язкового методу із інтерфейсу FirstInteface.
+    public function getFirstName()
+    {
+        echo $this->firstName;
+    }
+
+    // Реалізація обов'язкового методу із інтерфейсу SecondInterface.
+    public function getLastName()
+    {
+        echo $this->lastName;
+    }
+
+    // Реалізація обов'язкового методу із інтерфейсу SecondInterface.
+    public function getRole()
+    {
+        echo $this->role;
+    }
+
+    // Метод працює з скопійованим об'єктом, а не з вихідним
+    public function __clone()
+    {
+        $this->setId(0);
+//        echo 'Cloned';
+    }
+}
+trait Hello
+{
+    public function sayHello()
+    {
+        echo 'Hello ';
+    }
+}
+
+// Створення трейту
+trait Symfony
+{
+    public function saySymfony()
+    {
+        echo 'Symfony!';
+    }
+}
+
+class myHelloSymfony
+{
+    // використання трейтів
+    use Hello;
+    use Symfony;
+}
+
+class Person
+{
+    // Доступ до цієї константи здійснюється через клас н-д Person::COUNTRY
+    public const COUNTRY = 'Ukraine';
+
+    // Доступ до цієї змінної здійснюється через клас н-д Person::$name
+    public static $name;
+
+    // Доступ до цього методу здійснюється через клас н-д Person::getName()
+    public static function getName()
+    {
+        return 'Hello '.self::$name; // не можна юзать $this->name;
+    }
+}
+
+// Поліморфізм
+class A
+{
+    // Виводить, функція якого класу була викликана
+    public function Test()
+    {
+        echo "Test from A\n";
+    }
+
+    // Тестова функція — просто переадресовується на Test()
+    public function Call()
+    {
+        $this->Test();
+    }
+}
+class B extends A
+{
+    // Функція Test() для класу B
+    public function Test()
+    {
+        echo "Test from B\n";
     }
 }
