@@ -8,54 +8,59 @@
 
 ## Clone repository to your local machine
 ```bash
-git clone git@github.com:moroztaras/symfony6-php8-docker-2023.git
+% git clone git@github.com:moroztaras/symfony6-php8-docker-2023.git
 ```
 
-##Create project config
+###Create project config
 ```bash
-cd symfony6-php8-docker-2023
-cp .env .env.local
-cp ./docker/.env.dist ./docker/.env
+% cd symfony6-php8-docker-2023
+% cp .env .env.local
+% cp ./docker/.env.dist ./docker/.env
+```
+###Quick start of the project
+
+Adjust .env.local line 9.
+
+It's credentials to database.
+
+###Build a project in the docker
+```bash
+% make dc_build
+```
+###Run a project with the docker
+```bash
+% make dc_up
+```
+###Stop a project with the docker
+```bash
+% make dc_stop
 ```
 
-##Build a project in the docker
+###Rerun a container with project in the docker
 ```bash
-make dc_build
-```
-##Run a project with the docker
-```bash
-make dc_up
-```
-##Stop a project with the docker
-```bash
-make dc_stop
-```
-
-##Rerun a container with project in the docker
-```bash
-make dc_restart
+% make dc_restart
 ```
 or
 ```bash
-make dc_restart
+% make dc_restart
 ```
 
-##Go to the link at
-```bash
+###Go to the link at
+
 http://127.0.0.1:888
-```
 
-##Run tests from docker container
+###Run tests from docker container
 ```bash
-make app_bash
+% make app_bash
 ```
 ###Load data fixtures
 ```bash
-$ php bin/console doctrine:fixtures:load --env=test
+% php bin/console doctrine:fixtures:load --env=test
 ```
 
+###Run tests
 ```bash
-$ ./vendor/bin/phpunit
+% php ./vendor/bin/phpunit
 ```
 
 ###Run PHP CS Fixer

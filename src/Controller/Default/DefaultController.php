@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Default;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class DefaultController.
+ */
+#[Route('/')]
 class DefaultController extends AbstractController
 {
     public const NAME = 'TARAS'; // константа в класі
@@ -1861,8 +1865,8 @@ class DefaultController extends AbstractController
         // Поліморфізм використовується для створення модульних структур додатку і спрощення процедури розширення функціоналу.
         // Замість того щоб влаштовувати мішанину умовних виразів описуючі разні варіанти дій.
         // Можна створити взаємозамінні обєкти які будуть вибиратися в залежності від умов використання.
-        $a = new A();
-        $b = new B();
+        $a = new A(); // Обєкт класу A
+        $b = new B(); // Обєкт класу B
         $a->Call(); // виведення "Test from A"
         $b->Test(); // виведення "Test from B"
         $b->Call(); // Увага! Виведення "Test from B"!
