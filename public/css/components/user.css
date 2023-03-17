@@ -1,0 +1,8 @@
+.us-prof-header { cursor: pointer; }
+.us-prof-header + div a { color: #666; text-decoration: none; }
+
+.user-cover-grid > div:nth-child(2) { text-align: center; }
+.user-cover-grid > div:nth-child(2) img { border: 3px solid white; }
+
+.user-cover-avatar { -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; }
+.user-cover-avatar img { -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; }
