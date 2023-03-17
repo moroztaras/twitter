@@ -1,0 +1,25 @@
+{% extends "Layout/layout-default.html.twig" %}
+
+{% block body_attr %}page-login{% endblock %}
+{% block title %}{{ 'login'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="uk-container uk-container-small">
+        <div class="uk-section uk-padding uk-background-default kuk-shadow">
+            <h2 class="uk-heading-divider">{{ 'login'|trans }}</h2>
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button class="uk-button uk-button-default uk-margin-small-right" type="submit">
+                {{ 'log_in'|trans }}
+            </button>
+{#            <a href="{{ path('recover') }}" class="uk-link uk-text-small">#}
+{#                {{ 'forgot_your_account'|trans }}#}
+{#            </a>#}
+            <hr>
+{#            <p class="uk-text-small">#}
+{#                {{ 'first_time_on_site'|trans }}? <a href="{{ path('app_registration') }}" class="uk-link">{{ 'create_account'|trans }}</a>#}
+{#            </p>#}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
