@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Controller\Default;
+namespace App\Controller\PHP;
 
 use JetBrains\PhpStorm\Pure;
 
-class Cat extends Animal
+class Dog extends Animal
 {
-    private string $name = 'Cat';
+    private string $name = 'Dog';
 
     #[Pure]
     public function voice(): string
     {
-        return "{$this->getName()} makes a meow meow sound";
+        return "{$this->getName()} makes a woof woof sound";
     }
 
     // перезавантажений метод із батьківського класу
@@ -20,9 +20,15 @@ class Cat extends Animal
         return "I'm {$this->getName()} I have {$this->getLegs()} legs";
     }
 
+    public function parentInfo()
+    {
+        // визов батьківського ментоду (не перегруженого)
+        parent::info();
+    }
+
     public function color()
     {
-        return 'Grey';
+        return 'Black';
     }
 
     public function getName(): string
@@ -31,9 +37,9 @@ class Cat extends Animal
     }
 
     /**
-     * @return Cat
+     * @return Dog
      */
-    public function setName(string $name): string
+    public function setName(string $name)
     {
         $this->name = $name;
 

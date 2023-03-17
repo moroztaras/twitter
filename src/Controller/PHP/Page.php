@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Default;
+namespace App\Controller\PHP;
 
 class Page
 {

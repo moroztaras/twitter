@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Controller\Default;
+namespace App\Controller\PHP;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class DefaultController.
+ * Class PHPController.
  */
 #[Route('/')]
-class DefaultController extends AbstractController
+class PHPController extends AbstractController
 {
     public const NAME = 'TARAS'; // константа в класі
 
@@ -308,7 +308,7 @@ class DefaultController extends AbstractController
 //        require_once __DIR__.'/file.php';
         // __DIR__ - абсолютний шлях до папки або файлу
         // ../file.php - відносний шлях
-        echo (DefaultController::NAME) ? 'Змінна NAME ініціалізована<br>' : 'Змінна NAME  не ініціалізована<br>';
+        echo (PHPController::NAME) ? 'Змінна NAME ініціалізована<br>' : 'Змінна NAME  не ініціалізована<br>';
         echo (defined('DefaultController::NAME')) ? 'Константа оприділена<br>' : 'Константа не оприділена<br>';
 
         echo '<br><br><b>Concatenation</b>-------------------------------------------<br>';
@@ -1871,7 +1871,7 @@ class DefaultController extends AbstractController
         $b->Test(); // виведення "Test from B"
         $b->Call(); // Увага! Виведення "Test from B"!
 
-        return $this->render('default/php.html.twig', [
+        return $this->render('php/page.html.twig', [
             'title' => $title,
             'year' => date('Y'),
         ]);
