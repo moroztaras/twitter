@@ -3,7 +3,6 @@
 namespace App\Controller\Web;
 
 use App\Entity\User;
-use App\Form\LoginType;
 use App\Form\RegistrationType;
 use App\Manager\SecurityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 /**
  * Class SecurityController.
  */
-#[Route('', name: 'app_web_security')]
+#[Route('', name: 'app')]
 class SecurityController extends AbstractController
 {
     /**
@@ -24,24 +23,24 @@ class SecurityController extends AbstractController
      */
     public function __construct(
         private SecurityManager $securityManager,
-//        private FlashBagInterface $flashBag,
         private RequestStack $requestStack
     ) {
     }
 
     // User login
-    #[Route('/login', name: '_login', methods: ['GET', 'POST'])]
+    #[Route(path: '/login', name: '_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $user = new User();
-        $user->setEmail($authenticationUtils->getLastUsername());
-        $form = $this->createForm(LoginType::class, $user, [
-//            'action' => $this->generateUrl('login_check'),
-        ]);
+        // if ($this->getUser()) {
+        //     return $this->redirectToRoute('target_path');
+        // }
 
-        return $this->render('web/security/login.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('web/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     // User registration
@@ -56,11 +55,16 @@ class SecurityController extends AbstractController
             $this->securityManager->create($user);
             $this->requestStack->getSession()->getFlashBag()->add('success', 'user_registration_successfully');
 
-            return $this->redirectToRoute('app_web_security_login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('web/security/registration.html.twig', [
             'register_form' => $registrationForm->createView(),
         ]);
+    }
+
+    #[Route(path: '/logout', name: '_logout')]
+    public function logout(): Response
+    {
     }
 }

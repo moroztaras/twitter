@@ -8,7 +8,7 @@
             <h2 class="uk-heading-divider">{{ 'create_account'|trans }}</h2>
             {{ form(register_form) }}
             <hr>
-            <p class="uk-text-small">{{ 'already_member'|trans }} ? <a href="{{ path('app_web_security_login') }}" class="uk-link">{{ 'log_in'|trans }}</a></p>
+            <p class="uk-text-small">{{ 'already_member'|trans }} ? <a href="{{ path('app_login') }}" class="uk-link">{{ 'log_in'|trans }}</a></p>
         </div>
     </div>
 {% endblock %}
