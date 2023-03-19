@@ -4,22 +4,38 @@
 {% block title %}{{ 'login'|trans }}{% endblock %}
 
 {% block main %}
-    <div class="uk-container uk-container-small">
+    <div class="uk  -container uk-container-small">
         <div class="uk-section uk-padding uk-background-default kuk-shadow">
             <h2 class="uk-heading-divider">{{ 'login'|trans }}</h2>
-            {{ form_start(form) }}
-            {{ form_rest(form) }}
-            <button class="uk-button uk-button-default uk-margin-small-right" type="submit">
-                {{ 'log_in'|trans }}
-            </button>
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email"><br>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Password"><br>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+                #}
+
+                <button class="btn btn-lg btn-primary" type="submit">{{ 'sing_in'|trans }}</button>
+            </form>
 {#            <a href="{{ path('recover') }}" class="uk-link uk-text-small">#}
 {#                {{ 'forgot_your_account'|trans }}#}
 {#            </a>#}
             <hr>
             <p class="uk-text-small">
-                {{ 'first_time_on_site'|trans }}? <a href="{{ path('app_web_security_registration') }}" class="uk-link">{{ 'create_account'|trans }}</a>
+                {{ 'first_time_on_site'|trans }}? <a href="{{ path('app_registration') }}" class="uk-link">{{ 'create_account'|trans }}</a>
             </p>
-            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
