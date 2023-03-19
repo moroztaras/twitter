@@ -1,0 +1,14 @@
+{% extends "Layout/layout-default.html.twig" %}
+
+{% block body_attr %}page-register{% endblock %}
+{% block title %}{{ 'create_account'|trans }}{% endblock %}
+{% block main %}
+    <div class="uk-container uk-container-xsmall">
+        <div class="uk-section uk-padding uk-background-default kuk-shadow">
+            <h2 class="uk-heading-divider">{{ 'create_account'|trans }}</h2>
+            {{ form(register_form) }}
+            <hr>
+            <p class="uk-text-small">{{ 'already_member'|trans }} ? <a href="{{ path('app_web_security_login') }}" class="uk-link">{{ 'log_in'|trans }}</a></p>
+        </div>
+    </div>
+{% endblock %}

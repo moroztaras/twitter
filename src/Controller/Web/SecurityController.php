@@ -4,8 +4,11 @@ namespace App\Controller\Web;
 
 use App\Entity\User;
 use App\Form\LoginType;
+use App\Form\RegistrationType;
 use App\Manager\SecurityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -13,7 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 /**
  * Class SecurityController.
  */
-#[Route('/user', name: 'app_web_security_user')]
+#[Route('', name: 'app_web_security')]
 class SecurityController extends AbstractController
 {
     /**
@@ -21,9 +24,12 @@ class SecurityController extends AbstractController
      */
     public function __construct(
         private SecurityManager $securityManager,
+//        private FlashBagInterface $flashBag,
+        private RequestStack $requestStack
     ) {
     }
 
+    // User login
     #[Route('/login', name: '_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -33,8 +39,28 @@ class SecurityController extends AbstractController
 //            'action' => $this->generateUrl('login_check'),
         ]);
 
-        return $this->render('web/user/security/login.html.twig', [
+        return $this->render('web/security/login.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    // User registration
+    #[Route('/registration', name: '_registration', methods: ['GET', 'POST'])]
+    public function registration(Request $request): Response
+    {
+        $user = new User();
+        $registrationForm = $this->createForm(RegistrationType::class, $user);
+        $registrationForm->handleRequest($request);
+
+        if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            $this->securityManager->create($user);
+            $this->requestStack->getSession()->getFlashBag()->add('success', 'user_registration_successfully');
+
+            return $this->redirectToRoute('app_web_security_login');
+        }
+
+        return $this->render('web/security/registration.html.twig', [
+            'register_form' => $registrationForm->createView(),
         ]);
     }
 }
