@@ -18,6 +18,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 #[Route('', name: 'app')]
 class SecurityController extends AbstractController
 {
+    public const REDIRECT_TO_ROUTE = 'app_web_post_list';
+
     /**
      * SecurityController constructor.
      */
@@ -31,9 +33,11 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: '_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            $this->requestStack->getSession()->getFlashBag()->add('warning', 'user_log_in');
+
+            return $this->redirectToRoute(self::REDIRECT_TO_ROUTE);
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -47,6 +51,12 @@ class SecurityController extends AbstractController
     #[Route('/registration', name: '_registration', methods: ['GET', 'POST'])]
     public function registration(Request $request): Response
     {
+        if ($this->getUser()) {
+            $this->requestStack->getSession()->getFlashBag()->add('warning', 'user_log_in');
+
+            return $this->redirectToRoute(self::REDIRECT_TO_ROUTE);
+        }
+
         $user = new User();
         $registrationForm = $this->createForm(RegistrationType::class, $user);
         $registrationForm->handleRequest($request);
@@ -63,6 +73,21 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    // Recover password
+    #[Route('/recover-password', name: '_recover_password', methods: ['GET', 'POST'])]
+    public function recoverPassword(): Response
+    {
+        return new Response();
+    }
+
+    // Recover password by token of user
+    #[Route('/recover/{token}', name: '_recover_token', methods: ['GET', 'POST'])]
+    public function recover(): Response
+    {
+        return new Response();
+    }
+
+    // User logout
     #[Route(path: '/logout', name: '_logout')]
     public function logout(): Response
     {
