@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
+    use UuidEntity;
+
     public const ROLE_ADMIN = 'ROLE_ADMIN';
     public const ROLE_USER = 'ROLE_USER';
 
@@ -19,9 +21,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-//    #[ORM\Column(length: 255, unique: true)]
-//    private Uuid $apiKey;
 
     #[Assert\Email]
     #[ORM\Column(length: 255, unique: true)]
@@ -75,24 +74,13 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
             ->setStatus(true)
+            ->createUuid()
         ;
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
-
-    public function setUuid(string $uuid): User
-    {
-        $this->uuid = $uuid;
-
-        return $this;
     }
 
     public function getEmail(): string
@@ -222,25 +210,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-//    public function getApiKey(): string
-//    {
-//        return $this->apiKey;
-//    }
-//
-//    public function setApiKey($apiKey): self
-//    {
-//        $this->apiKey = $apiKey;
-//
-//        return $this;
-//    }
-//
-//    public function createApiKey(): User
-//    {
-//        $this->apiKey = Uuid::uuid4();
-//
-//        return $this;
-//    }
-
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
@@ -272,6 +241,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->getEmail();
+        return (string) $this->getUuid();
     }
 }

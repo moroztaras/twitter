@@ -21,7 +21,6 @@ class SecurityManager
     public function create(User $user): User
     {
         $user->setPassword($this->passwordEncoder->hashPassword($user, $user->getPlainPassword()));
-//        $user->createApiKey();
         $this->save($user);
 
         return $user;
