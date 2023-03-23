@@ -64,6 +64,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $updatedAt;
 
+    #[ORM\Column(name: 'token_recover', length: 256)]
+    private ?string $tokenRecover = null;
+
     /**
      * User construct.
      */
@@ -73,7 +76,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
             ->setRoles([self::ROLE_USER])
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
-            ->setStatus(true)
             ->createUuid()
         ;
     }
@@ -206,6 +208,18 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getTokenRecover(): ?string
+    {
+        return $this->tokenRecover;
+    }
+
+    public function setTokenRecover(?string $tokenRecover): User
+    {
+        $this->tokenRecover = $tokenRecover;
 
         return $this;
     }

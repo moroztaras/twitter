@@ -29,9 +29,9 @@
 
                 <button class="btn btn-lg btn-primary" type="submit">{{ 'sing_in'|trans }}</button>
             </form>
-{#            <a href="{{ path('recover') }}" class="uk-link uk-text-small">#}
-{#                {{ 'forgot_your_account'|trans }}#}
-{#            </a>#}
+            <a href="{{ path('app_recover_password') }}" class="uk-link uk-text-small">
+                {{ 'forgot_your_account'|trans }}
+            </a>
             <hr>
             <p class="uk-text-small">
                 {{ 'first_time_on_site'|trans }}? <a href="{{ path('app_registration') }}" class="uk-link">{{ 'create_account'|trans }}</a>
