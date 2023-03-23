@@ -1,0 +1,27 @@
+@import "compass";
+.us-prof-header{
+  cursor: pointer;
+  & + div{
+    a{
+      color: #666;
+      text-decoration: none;
+    }
+  }
+}
+.user-cover{
+
+  &-grid{
+    & > div:nth-child(2){
+      text-align: center;
+      img{
+        border: 3px solid white;
+      }
+    }
+  }
+}
+.user-cover-avatar{
+  @include border-radius(50%);
+  img{
+    @include border-radius(50%);
+  }
+}

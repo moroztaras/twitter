@@ -1,0 +1,7 @@
+@mixin dist-last-btn($px)
+{
+  margin-bottom: $px;
+  &:last-child{
+    margin-bottom: 0;
+  }
+}

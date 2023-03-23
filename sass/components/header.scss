@@ -1,0 +1,29 @@
+@import "../default";
+@import "../inc/variable";
+
+//.header{
+//
+//  &-wrap{
+//    @include display-flex;
+//    @include align-items(center);
+//    max-width: 1200px;
+//    margin: 0 auto;
+//  }
+//  .sc{
+//    &-logo{
+//      @include flex(1);
+//      a{
+//        font-size:30px;
+//        font-weight: bold;
+//        font-style: italic;
+//        text-decoration: none;
+//      }
+//    }
+//    &-header-nav{
+//      .nav{
+//        @include display-flex();
+//      }
+//    }
+//  }
+//
+//}
