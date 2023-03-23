@@ -3,7 +3,9 @@
 namespace App\Controller\Web;
 
 use App\Entity\User;
+use App\Form\Security\Models\NewPasswordModel;
 use App\Form\Security\Models\RecoverPasswordModel;
+use App\Form\Security\NewPasswordType;
 use App\Form\Security\RecoverPasswordType;
 use App\Form\Security\RegistrationType;
 use App\Manager\EmailManager;
@@ -68,7 +70,7 @@ class SecurityController extends AbstractController
         $registrationForm->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
-            $this->securityManager->create($user);
+            $this->securityManager->save($user, $user->getPlainPassword());
             $this->requestStack->getSession()->getFlashBag()->add('success', 'user_registration_successfully');
 
             return $this->redirectToRoute('app_login');
@@ -80,7 +82,7 @@ class SecurityController extends AbstractController
     }
 
     // Recover password of user
-    #[Route('/recover-password', name: '_recover_password', methods: ['GET', 'POST'])]
+    #[Route('/recover', name: '_recover_password', methods: ['GET', 'POST'])]
     public function recoverPassword(Request $request): Response
     {
         if ($this->getUser()) {
@@ -109,53 +111,31 @@ class SecurityController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @param $token
-//     * @param Request                       $request
-//     * @param RecoverPassword               $recoverPassword
-//     * @param AuthorizationCheckerInterface $authorizationChecker
-//     *
-//     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-//     * @Route("/recover/{token}", methods={"GET","POST"}, name="recover", defaults={"token": "null"})
-//     */
-//    public function recover($token, Request $request, RecoverPassword $recoverPassword, AuthorizationCheckerInterface $authorizationChecker)
-//    {
-//        if ($authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-//            $this->flashBag->add('warning', 'user_log_in');
-//
-//            return $this->redirectToRoute('user_default');
-//        }
-//        if ($token) {
-//            /** @var User $userRecover */
-//            $userRecover = $this->getDoctrine()->getRepository('App:User')->findOneByTokenRecover($token);
-//
-//            if ($userRecover) {
-//                $userPasswordToken = new UsernamePasswordToken($userRecover, null, 'main', $userRecover->getRoles());
-//                $this->get('security.token_storage')->setToken($userPasswordToken);
-//
-//                return $this->redirectToRoute('user_password_recover');
-//            }
-//        }
-//
-//        $recoverModel = new RecoverUserModel();
-//        $recoverForm = $this->createForm(RecoverUserForm::class, $recoverModel);
-//        $recoverForm->handleRequest($request);
-//        if ($recoverForm->isSubmitted() && $recoverForm->isValid()) {
-//            $email = $recoverModel->getEmail();
-//            $user = $this->getDoctrine()->getRepository('App:User')->findOneByEmail($email);
-//
-//            if ($user) {
-//                $status = $recoverPassword->send($user);
-//                $this->flashBag->add('warning', 'user_recover_password_send_email');
-//            }
-//
-//            return $this->redirectToRoute('app_login');
-//        }
-//
-//        return $this->render('User/Security/recover.html.twig', [
-//            'recover_form' => $recoverForm->createView(),
-//        ]);
-//    }
+    // Set new password of user
+    #[Route('/new-password/{email}/{token}', name: '_new_password', methods: ['GET', 'POST'])]
+    public function newPassword($email, $token, Request $request): Response
+    {
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => $email, 'tokenRecover' => $token]);
+        if (!$user) {
+            $this->requestStack->getSession()->getFlashBag()->add('danger', 'user_not_found');
+
+            return $this->redirectToRoute('app_recover_password');
+        }
+        $newPasswordModel = new NewPasswordModel();
+        $newPasswordForm = $this->createForm(NewPasswordType::class, $newPasswordModel);
+        $newPasswordForm->handleRequest($request);
+        if ($newPasswordForm->isSubmitted() && $newPasswordForm->isValid()) {
+            $this->securityManager->save($user, $newPasswordModel->getPlainPassword());
+            $this->requestStack->getSession()->getFlashBag()->add('success', 'user_new_password_changed_successfully');
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('web/security/new_password.html.twig', [
+            'new_password_form' => $newPasswordForm->createView(),
+        ]);
+    }
+
     // User logout
     #[Route(path: '/logout', name: '_logout')]
     public function logout(): Response

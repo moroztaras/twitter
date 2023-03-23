@@ -17,18 +17,13 @@ class SecurityManager
     ) {
     }
 
-    // Create new user
-    public function create(User $user): User
-    {
-        $user->setPassword($this->passwordEncoder->hashPassword($user, $user->getPlainPassword()));
-        $this->save($user);
-
-        return $user;
-    }
-
     // Save user in DB
-    private function save(User $user): void
+    public function save(User $user, string $password): void
     {
+        $user
+            ->setPassword($this->passwordEncoder->hashPassword($user, $password))
+            ->setTokenRecover(null)
+        ;
         $this->doctrine->getManager()->persist($user);
         $this->doctrine->getManager()->flush();
     }

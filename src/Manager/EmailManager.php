@@ -28,7 +28,7 @@ class EmailManager
     {
         $token = TokenGenerator::generateToken();
 
-        $url = $this->router->generate('app_recover_token', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('app_new_password', ['email' => $user->getEmail(), 'token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
         $fullName = $user->getFirstName().' '.$user->getLastName();
 
         try {

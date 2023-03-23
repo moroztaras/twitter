@@ -64,7 +64,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $updatedAt;
 
-    #[ORM\Column(name: 'token_recover', length: 256)]
+    #[ORM\Column(name: 'token_recover', length: 256, nullable: true)]
     private ?string $tokenRecover = null;
 
     /**
