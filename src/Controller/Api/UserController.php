@@ -9,13 +9,14 @@ use App\Manager\SecurityManager;
 use App\Validator\Helper\ApiObjectValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 
 /**
  * Class UserController.
  */
-#[Route('api', name: 'api')]
+#[Route('api/user', name: 'api_user')]
 class UserController extends ApiController
 {
     public function __construct(
@@ -42,5 +43,11 @@ class UserController extends ApiController
         return $this->json([
             'user' => $user,
         ]);
+    }
+
+    #[Route(path: '/', name: '_profile', methods: 'GET')]
+    public function profile(): JsonResponse
+    {
+        return $this->json(['profile' => $this->getUser()], Response::HTTP_OK);
     }
 }
