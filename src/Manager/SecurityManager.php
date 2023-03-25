@@ -9,7 +9,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class SecurityManager
 {
     /**
-     * SecurityManager constructor.'.
+     * SecurityManager constructor.
      */
     public function __construct(
         private ManagerRegistry $doctrine,
