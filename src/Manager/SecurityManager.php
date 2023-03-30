@@ -19,13 +19,14 @@ class SecurityManager
     }
 
     // Save user in DB
-    public function save(User $user, string $password): void
+    public function save(User $user, string $password = null): void
     {
-        $user
-            ->setPassword($this->passwordEncoder->hashPassword($user, $password))
-            ->setTokenRecover(null)
-            ->setApiKey(Uuid::uuid4()->toString())
-        ;
+        if ($password) {
+            $user
+                ->setPassword($this->passwordEncoder->hashPassword($user, $password))
+                ->setTokenRecover(null)
+                ->setApiKey(Uuid::uuid4()->toString());
+        }
 
         $this->doctrine->getManager()->persist($user);
         $this->doctrine->getManager()->flush();

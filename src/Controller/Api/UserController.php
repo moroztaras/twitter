@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 
 /**
@@ -32,7 +34,7 @@ class UserController extends ApiController
             throw new BadRequestJsonHttpException('Bad Request.');
         }
         /** @var User $user */
-        $user = $this->apiObjectValidator->deserializeAndValidate($content, User::class, [UnwrappingDenormalizer::UNWRAP_PATH => '[user]']);
+        $user = $this->apiObjectValidator->deserializeAndValidate($content, User::class, [UnwrappingDenormalizer::UNWRAP_PATH => '[user]', 'registration' => true]);
 
         if ($this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $user->getEmail()])) {
             throw new ExpectedBadRequestJsonHttpException('User already exists.');
@@ -51,5 +53,26 @@ class UserController extends ApiController
         return $this->json([
             'user' => $this->getCurrentUser($request),
         ], Response::HTTP_OK);
+    }
+
+    #[Route(path: '', name: '_edit', methods: 'PUT')]
+    public function edit(Request $request): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        if (!($content = $request->getContent())) {
+            throw new BadRequestJsonHttpException('Bad Request.');
+        }
+        $validationGroups = ['edit'];
+        $this->apiObjectValidator->deserializeAndValidate($content, User::class, [
+            AbstractNormalizer::OBJECT_TO_POPULATE => $user,
+            AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE => true,
+            UnwrappingDenormalizer::UNWRAP_PATH => '[user]',
+        ], $validationGroups);
+
+        $this->securityManager->save($user, $user->getPlainPassword());
+
+        return $this->json(['user' => $user], Response::HTTP_OK);
     }
 }
