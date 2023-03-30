@@ -45,9 +45,11 @@ class UserController extends ApiController
         ]);
     }
 
-    #[Route(path: '/', name: '_profile', methods: 'GET')]
-    public function profile(): JsonResponse
+    #[Route(path: '', name: '_profile', methods: 'GET')]
+    public function profile(Request $request): JsonResponse
     {
-        return $this->json(['profile' => $this->getUser()], Response::HTTP_OK);
+        return $this->json([
+            'user' => $this->getCurrentUser($request),
+        ], Response::HTTP_OK);
     }
 }
