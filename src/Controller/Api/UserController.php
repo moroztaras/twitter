@@ -21,6 +21,7 @@ class UserController extends ApiController
     ) {
     }
 
+    // User registration
     #[Route(path: '/register', name: '_register', methods: 'POST')]
     public function register(Request $request): JsonResponse
     {
@@ -31,12 +32,14 @@ class UserController extends ApiController
         return $this->json(['user' => $this->securityManager->create($content)], Response::HTTP_OK);
     }
 
+    // Profile user
     #[Route(path: '', name: '_profile', methods: 'GET')]
     public function profile(Request $request): JsonResponse
     {
         return $this->json(['user' => $this->getCurrentUser($request)], Response::HTTP_OK);
     }
 
+    // Edit user
     #[Route(path: '', name: '_edit', methods: 'PUT')]
     public function edit(Request $request): JsonResponse
     {
@@ -50,6 +53,7 @@ class UserController extends ApiController
         return $this->json(['user' => $this->securityManager->edit($content, $user)], Response::HTTP_OK);
     }
 
+    // Forgot password of user
     #[Route(path: '/forgot', name: '_forgot_password', methods: 'POST')]
     public function recover(Request $request): JsonResponse
     {
