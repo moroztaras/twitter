@@ -8,68 +8,69 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class UserNormalizer implements NormalizerInterface
 {
     /**
-     * @param User  $user
-     * @param null  $format
-     * @param array $context
+     * @@param User $object object to normalize
+     * @param null $format
      *
      * @return array|bool|float|int|string
      */
-    public function normalize($user, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         if (isset($context['registration']) || isset($context['login'])) {
             return [
-                'apiKey' => $user->getApiKey(),
+                'apiKey' => $object->getApiKey(),
             ];
         }
 
         if (isset($context['profile'])) {
             return [
-                'id' => $user->getId(),
-                'firstName' => $user->getFirstName(),
-                'lastName' => $user->getLastName(),
-                'email' => $user->getEmail(),
-                'gender' => $user->getGender(),
-                'birthday' => $user->getBirthday()->format('d-m-Y'),
+                'firstName' => $object->getFirstName(),
+                'lastName' => $object->getLastName(),
+                'email' => $object->getEmail(),
+                'gender' => $object->getGender(),
+                'birthday' => $object->getBirthday()->format('d-m-Y'),
+                'country' => $object->getCountry(),
+                'status' => $object->isStatus(),
             ];
         }
+
         return [
-            'uuid' => $user->getUuid(),
-            'firstName' => $user->getFirstName(),
-            'lastName' => $user->getLastName(),
-            'email' => $user->getEmail(),
-            'gender' => $user->getGender(),
-            'birthday' => $user->getBirthday()->format('d-m-Y'),
-            'country' => $user->getCountry(),
-            'status' => $user->isStatus(),
+            'uuid' => $object->getUuid(),
+            'firstName' => $object->getFirstName(),
+            'lastName' => $object->getLastName(),
+            'email' => $object->getEmail(),
+            'gender' => $object->getGender(),
+            'birthday' => $object->getBirthday()->format('d-m-Y'),
+            'country' => $object->getCountry(),
+            'status' => $object->isStatus(),
         ];
     }
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($context['edit']) && isset($context['object_to_populate'])) {
-            $user = $context['object_to_populate'];
+            $object = $context['object_to_populate'];
 
             if (isset($data['firstName'])) {
-                $user->setFullName($data['firstName']);
+                $object->setFullName($data['firstName']);
             }
 
             if (isset($data['email'])) {
-                $user->setEmail($data['email']);
+                $object->setEmail($data['email']);
             }
 
             if (isset($data['gender'])) {
-                $user->setGender($data['gender']);
+                $object->setGender($data['gender']);
             }
 
             if (isset($data['region'])) {
-                $user->setRegion($data['region']);
+                $object->setRegion($data['region']);
             }
 
             if (isset($data['birthday'])) {
-                $user->setBirtDay($data['birthday']);
+                $object->setBirtDay($data['birthday']);
             }
 
-            return $user;
+            return $object;
         }
     }
 

@@ -3,8 +3,8 @@
 namespace App\Controller\Web;
 
 use App\Entity\User;
-use App\Form\Security\Models\NewPasswordModel;
-use App\Form\Security\Models\RecoverPasswordModel;
+use App\Form\Security\Model\NewPasswordModel;
+use App\Form\Security\Model\RecoverPasswordModel;
 use App\Form\Security\NewPasswordType;
 use App\Form\Security\RecoverPasswordType;
 use App\Form\Security\RegistrationType;
