@@ -4,6 +4,9 @@ namespace App\Manager;
 
 use App\Entity\User;
 use App\Exception\Expected\ExpectedBadRequestJsonHttpException;
+use App\Exception\Expected\UserNotFoundException;
+use App\Form\Security\Model\Forgot;
+use App\Response\SuccessResponse;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\Nonstandard\Uuid;
@@ -21,6 +24,7 @@ class SecurityManager
         private ManagerRegistry $doctrine,
         private UserPasswordHasherInterface $passwordEncoder,
         private ApiObjectValidator $apiObjectValidator,
+        private EmailManager $emailManager,
     ) {
     }
 
@@ -34,7 +38,10 @@ class SecurityManager
     public function create($content): User
     {
         /** @var User $user */
-        $user = $this->apiObjectValidator->deserializeAndValidate($content, User::class, [UnwrappingDenormalizer::UNWRAP_PATH => '[user]', 'registration' => true]);
+        $user = $this->apiObjectValidator->deserializeAndValidate($content, User::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[user]',
+            'registration' => true,
+        ]);
 
         if ($this->doctrine->getRepository(User::class)->findOneBy(['email' => $user->getEmail()])) {
             throw new ExpectedBadRequestJsonHttpException('User already exists.');
@@ -58,6 +65,24 @@ class SecurityManager
         $this->saveUser($user, $user->getPlainPassword());
 
         return $user;
+    }
+
+    // Forgot Api password of user
+    public function forgotPassword($content): SuccessResponse
+    {
+        $forgot = $this->apiObjectValidator->deserializeAndValidate($content, Forgot::class, [
+            AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE => true,
+            UnwrappingDenormalizer::UNWRAP_PATH => '[forgot]',
+        ]);
+        /** @var User $user */
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => $forgot->getEmail()]);
+
+        if (!$user) {
+            throw new UserNotFoundException('No user found with this email address '.$forgot->getEmail());
+        }
+        $this->emailManager->sendEmailRecoverPassword($user);
+
+        return new SuccessResponse('An email has been sent with a link to reset your password');
     }
 
     // Save user in DB

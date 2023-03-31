@@ -49,4 +49,14 @@ class UserController extends ApiController
 
         return $this->json(['user' => $this->securityManager->edit($content, $user)], Response::HTTP_OK);
     }
+
+    #[Route(path: '/forgot', name: '_forgot_password', methods: 'POST')]
+    public function recover(Request $request): JsonResponse
+    {
+        if (!($content = $request->getContent())) {
+            throw new BadRequestJsonHttpException('Bad Request.');
+        }
+
+        return $this->json(['message' => $this->securityManager->forgotPassword($content)], Response::HTTP_OK);
+    }
 }
