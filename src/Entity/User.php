@@ -35,7 +35,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(name: 'password')]
     private string $password;
 
-    private string $plainPassword;
+    private ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
@@ -66,6 +66,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
     #[ORM\Column(name: 'token_recover', length: 256, nullable: true)]
     private ?string $tokenRecover = null;
+
+    #[ORM\Column(name: 'api_key', unique: true)]
+    private string $apiKey;
 
     /**
      * User construct.
@@ -109,12 +112,12 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $plainPassword): User
+    public function setPlainPassword(?string $plainPassword): User
     {
         $this->plainPassword = $plainPassword;
 
@@ -220,6 +223,18 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function setTokenRecover(?string $tokenRecover): User
     {
         $this->tokenRecover = $tokenRecover;
+
+        return $this;
+    }
+
+    public function getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(string $apiKey): self
+    {
+        $this->apiKey = $apiKey;
 
         return $this;
     }

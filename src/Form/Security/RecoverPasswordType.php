@@ -2,7 +2,7 @@
 
 namespace App\Form\Security;
 
-use App\Form\Security\Models\RecoverPasswordModel;
+use App\Form\Security\Model\RecoverPasswordModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
