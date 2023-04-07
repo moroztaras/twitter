@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -63,6 +64,10 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $updatedAt;
+
+    // Posts of user
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Twitter::class, cascade: ['persist'])]
+    private Collection $twitters;
 
     #[ORM\Column(name: 'token_recover', length: 256, nullable: true)]
     private ?string $tokenRecover = null;
@@ -220,7 +225,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this->tokenRecover;
     }
 
-    public function setTokenRecover(?string $tokenRecover): User
+    public function setTokenRecover(?string $tokenRecover): self
     {
         $this->tokenRecover = $tokenRecover;
 
@@ -239,12 +244,35 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
+    public function addTwitter(Twitter $twitter): self
+    {
+        if (!$this->twitters->contains($twitter)) {
+            $this->stwitters[] = $twitter;
+            $twitter->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTwitter(Twitter $twitter): self
+    {
+        if ($this->twitters->contains($twitter)) {
+            $this->twitters->removeElement($twitter);
+            // set the owning side to null (unless already changed)
+            if ($twitter->getUser() === $this) {
+                $twitter->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): User
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -256,7 +284,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt): User
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
