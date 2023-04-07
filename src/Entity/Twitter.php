@@ -42,7 +42,7 @@ class Twitter
     private \DateTime $updatedAt;
 
     /**
-     * Svistyn construct.
+     * Twitter construct.
      */
     public function __construct()
     {
@@ -62,7 +62,7 @@ class Twitter
         return $this->text;
     }
 
-    public function setEmail(string $text): self
+    public function setText(string $text): self
     {
         $this->text = $text;
 
