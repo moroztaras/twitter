@@ -6,6 +6,8 @@ use App\Entity\Twitter;
 use App\Entity\User;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 
 /**
@@ -31,6 +33,19 @@ class TwitterManager
            'new' => true,
         ]);
         $twitter->setUser($user);
+
+        return $this->save($twitter);
+    }
+
+    // Edit twitter
+    public function edit(string $content, Twitter $twitter): Twitter
+    {
+        $validationGroups = ['edit'];
+        $this->apiObjectValidator->deserializeAndValidate($content, Twitter::class, [
+            AbstractNormalizer::OBJECT_TO_POPULATE => $twitter,
+            AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE => true,
+            UnwrappingDenormalizer::UNWRAP_PATH => '[twitter]',
+        ], $validationGroups);
 
         return $this->save($twitter);
     }

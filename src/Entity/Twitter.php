@@ -5,11 +5,14 @@ namespace App\Entity;
 use App\Repository\TwitterRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TwitterRepository::class)]
 class Twitter
 {
+    use UuidEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -44,8 +47,14 @@ class Twitter
     /**
      * Twitter construct.
      */
-    public function __construct()
+    public function __construct(UuidInterface $uuid = null)
     {
+        if (!$uuid) {
+            $this->createUuid();
+        } else {
+            $this->uuid = $uuid;
+        }
+
         $this
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
