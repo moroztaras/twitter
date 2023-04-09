@@ -23,6 +23,12 @@ class TwitterController extends ApiController
     ) {
     }
 
+    #[Route('', name: 'api_twitter_list', methods: 'GET')]
+    public function list(Request $request): JsonResponse
+    {
+        return $this->json(['twitters' => $this->getCurrentUser($request)->getTwitters()], Response::HTTP_OK);
+    }
+
     #[Route('', name: 'api_twitter_create', methods: 'POST')]
     public function create(Request $request): JsonResponse
     {
