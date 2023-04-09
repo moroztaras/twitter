@@ -7,7 +7,6 @@ use App\Exception\Api\BadRequestJsonHttpException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ApiController.
@@ -43,7 +42,7 @@ abstract class ApiController extends AbstractController
         ]);
 
         if (!$user) {
-            throw new BadRequestJsonHttpException(Response::HTTP_UNAUTHORIZED, 'User Not Unauthorized');
+            throw new BadRequestJsonHttpException('User Not Unauthorized');
         }
 
         return $user instanceof User ? $user : null;
