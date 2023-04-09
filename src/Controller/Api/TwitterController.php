@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\Twitter;
 use App\Exception\Api\BadRequestJsonHttpException;
 use App\Manager\TwitterManager;
+use App\Response\SuccessResponse;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,5 +48,13 @@ class TwitterController extends ApiController
             'twitter' => $this->twitterManager->edit($content, $twitter)],
             Response::HTTP_OK
         );
+    }
+
+    #[Route('/{uuid}', name: 'api_twitter_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'DELETE')]
+    public function delete(Twitter $twitter): SuccessResponse
+    {
+        $this->twitterManager->remove($twitter);
+
+        return new SuccessResponse();
     }
 }

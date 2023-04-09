@@ -50,6 +50,13 @@ class TwitterManager
         return $this->save($twitter);
     }
 
+    // Remove twitter from DB
+    public function remove(Twitter $twitter): void
+    {
+        $this->doctrine->getManager()->remove($twitter);
+        $this->doctrine->getManager()->flush();
+    }
+
     // Save twitter in DB
     private function save(Twitter $twitter): Twitter
     {
