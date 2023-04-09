@@ -243,6 +243,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
+
     public function getTwitters(): Collection
     {
         return $this->twitters;

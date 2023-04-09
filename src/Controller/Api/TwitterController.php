@@ -23,12 +23,14 @@ class TwitterController extends ApiController
     ) {
     }
 
+    // List twitters of user
     #[Route('', name: 'api_twitter_list', methods: 'GET')]
     public function list(Request $request): JsonResponse
     {
         return $this->json(['twitters' => $this->getCurrentUser($request)->getTwitters()], Response::HTTP_OK);
     }
 
+    // Create new twitter
     #[Route('', name: 'api_twitter_create', methods: 'POST')]
     public function create(Request $request): JsonResponse
     {
@@ -41,6 +43,7 @@ class TwitterController extends ApiController
         return $this->json(['twitter' => $this->twitterManager->new($content, $user)], Response::HTTP_OK);
     }
 
+    // Edit twitter
    #[Route('/{uuid}', name: 'api_twitter_update', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'PUT')]
     public function update(Request $request, Twitter $twitter): JsonResponse
     {
@@ -56,6 +59,7 @@ class TwitterController extends ApiController
         );
     }
 
+    // Delete twitter
     #[Route('/{uuid}', name: 'api_twitter_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'DELETE')]
     public function delete(Twitter $twitter): SuccessResponse
     {
