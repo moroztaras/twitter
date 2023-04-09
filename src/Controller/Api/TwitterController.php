@@ -43,6 +43,15 @@ class TwitterController extends ApiController
         return $this->json(['twitter' => $this->twitterManager->new($content, $user)], Response::HTTP_OK);
     }
 
+    // Show twitter
+    #[Route('/{uuid}', name: 'api_twitter_show', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'GET')]
+    public function show(Request $request, Twitter $twitter): JsonResponse
+    {
+        $this->getCurrentUser($request);
+
+        return $this->json(['twitter' => $this->twitterManager->show($twitter)], Response::HTTP_OK);
+    }
+
     // Edit twitter
    #[Route('/{uuid}', name: 'api_twitter_update', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'PUT')]
     public function update(Request $request, Twitter $twitter): JsonResponse

@@ -24,6 +24,15 @@ class TwitterManager
     ) {
     }
 
+    // Show twitter
+    public function show(Twitter $twitter): Twitter
+    {
+        $twitter->setViews($twitter->getViews() + 1);
+        $this->save($twitter);
+
+        return $twitter;
+    }
+
     // Create new twitter
     public function new(string $content, User $user): Twitter
     {
