@@ -58,7 +58,7 @@ class PHPController extends AbstractController
         echo "<br>7 Hello \"<b>Symfony $var1</b> & <b>PHP $var2</b>\"!<br>"; // екроновані двійні кавички
         $var = 100;
         echo "8 Hello world! {$var}9".'<br>';
-//        echo `dir`; # керування командами із операційної системи
+        //        echo `dir`; # керування командами із операційної системи
 
         // Comment - не возпринімається копілятором PHP (однорядковий коментарій)
         // Comment (однорядковий коментарій)
@@ -72,9 +72,9 @@ class PHPController extends AbstractController
         // Include another file php
         echo '<br><br><b>Include another file php</b>-------------------------------------------<br>';
         echo 'Головний скрипт<br>';
-//        include 'file.php';
+        //        include 'file.php';
         // or
-//        require 'file.php';
+        //        require 'file.php';
         echo 'Головний скрипт<br>';
 
         echo '<br><br><b>Variables</b>-------------------------------------------<br>';
@@ -165,9 +165,9 @@ class PHPController extends AbstractController
         echo '<br><br><b>Explicit and implicit type casting</b>-------------------------------------------<br>';
         $str = '42.3';
         echo $number = $str - 20.3.'<br>'; // 22
-//        $a = 0.0; #false
-//        $a = 0; #false
-//        $a = ''; #false
+        //        $a = 0.0; #false
+        //        $a = 0; #false
+        //        $a = ''; #false
         $a = 'str'; // true
         echo ($a) ? "Змінна {$a} розглядається як true <br>" : "Змінна {$a} розглядається як false<br>";
 
@@ -205,7 +205,7 @@ class PHPController extends AbstractController
         echo max(100, 1, 23, 3, 17, 45, 30).'<br>'; // 100 - максимальне число із даних чисел
 
         echo '<br><br><b>PHP OOP</b>-------------------------------------------<br>';
-//        require 'Point.php';
+        //        require 'Point.php';
         $point1 = new Point(); // в змінну $point1 ми поміщаємо обєкт класу Point
         $point1->setX(13);
         $point1->setY(2);
@@ -284,9 +284,9 @@ class PHPController extends AbstractController
 
         echo (define('NAME', 'Taras')) ? 'Константа NAME створена і має значення Taras<br>' : 'Не можливо створити константу NAME із значенням Taras<br>';
         // error -  повторне створення константи не можливо
-//        echo (define('NAME','Taras M'))? 'Константа NAME створена і має значення Taras M<br>':'Не можливо створити константу NAME із значенням Taras M<br>';
+        //        echo (define('NAME','Taras M'))? 'Константа NAME створена і має значення Taras M<br>':'Не можливо створити константу NAME із значенням Taras M<br>';
         // пепевірка на існування константи
-//        echo (!define('NAME','Taras'))? 'Константа NAME уже створено<br>':'Константа NAME ще не створено<br>';
+        //        echo (!define('NAME','Taras'))? 'Константа NAME уже створено<br>':'Константа NAME ще не створено<br>';
         // defined - пепевірка на існування константи з вказаним імям
         echo (defined('NAME')) ? 'Константа NAME уже створено<br>' : 'Константа NAME ще не створено<br>';
 
@@ -305,7 +305,7 @@ class PHPController extends AbstractController
         echo 'Шлях до файлу: '.__DIR__.'<br>';
         // require_once - дозволяє(перевіряє) тільки раз підключити вказаний файл/скрипт
         // require - дозволяє підключити вказаний файл скільки завгодно раз
-//        require_once __DIR__.'/file.php';
+        //        require_once __DIR__.'/file.php';
         // __DIR__ - абсолютний шлях до папки або файлу
         // ../file.php - відносний шлях
         echo (PHPController::NAME) ? 'Змінна NAME ініціалізована<br>' : 'Змінна NAME  не ініціалізована<br>';
@@ -412,7 +412,7 @@ class PHPController extends AbstractController
         echo trim('  some   ').'<br>'; // - видаляє всі пробіли по бокам рядку
         echo mb_strtolower('Hello Symfony 6 !').'<br>'; // - приводить текст у нижній ригістр
         echo mb_strtoupper('Hello Symfony 6 !').'<br>'; // - приводить текст у ВЕРХНІЙ РИГІСТР
-//        echo mb5($str);// - закешувати вказаний рядок
+        //        echo mb5($str);// - закешувати вказаний рядок
 
         echo '<br><br><b>Bitwise Operators</b>-------------------------------------------<br>';
         // https://disk.yandex.ru/i/0KRspl_jyC3P4A
@@ -511,7 +511,7 @@ class PHPController extends AbstractController
                    код;
                 }
         */
-//        (умова)?код:код;
+        //        (умова)?код:код;
         if (true) {
             echo 'Правда<br>';
         } else {
@@ -635,7 +635,7 @@ class PHPController extends AbstractController
         echo $content = file_get_contents(__DIR__.'/file2.txt');
         $fileName = __DIR__.'/'.date('Y-m-d-H-i-s').'.txt';
         // TODO need uncomment for record data in file
-//        file_put_contents($fileName, $content);
+        //        file_put_contents($fileName, $content);
 
         echo '<br><br><b>Cycle While</b>-------------------------------------------<br>';
         // While - префіксна умова
@@ -645,10 +645,10 @@ class PHPController extends AbstractController
 
         $i = 0;
         while ($i <= 10) {
-//            if ($i <= 4) {;
-//                $i++;
-//                continue; # вихід із поточної ітерації циклу, але не вихід із циклу
-//            }
+            //            if ($i <= 4) {;
+            //                $i++;
+            //                continue; # вихід із поточної ітерації циклу, але не вихід із циклу
+            //            }
             if (5 == $i) {
                 echo "i = $i break<br>";
                 break; // вихід із свого циклу в цілому
@@ -886,10 +886,10 @@ class PHPController extends AbstractController
         // при однакових індексах записується елемент який був першим із цим індексом
         $first = [1 => 'Red', 2 => 'Blue', 3 => 'Black'];
         $second = [4 => 'Brown', 5 => 'Green'];
-//        $con = array_merge($first,$second);# злиття двох масивів в один;
-//        echo ('<pre>');
-//        print_r ($con);
-//        echo ('</pre>');
+        //        $con = array_merge($first,$second);# злиття двох масивів в один;
+        //        echo ('<pre>');
+        //        print_r ($con);
+        //        echo ('</pre>');
 
         // порівняння масивів на рівність
         echo ($first == $second) ? 'Масиви рівні<br>' : 'Масиви не рівні<br>';
@@ -1012,7 +1012,7 @@ class PHPController extends AbstractController
         // динамічне імя функції
         $nameFunction = rand(1, 0) ? 'first' : 'second';
 
-//        echo $this->nameFunction();
+        //        echo $this->nameFunction();
         // анонімна функція - це ф-ія яка не має свого особистого імені
         $arr = ['PHP', 'HTML', 'CSS', 'JS', 'MySQL', 'Ruby'];
         sort($arr);
@@ -1054,7 +1054,7 @@ class PHPController extends AbstractController
             return $message;
         };
 
-//        echo $mFu.'<br>'; # New text message
+        //        echo $mFu.'<br>'; # New text message
         echo $message.'<br>'; // My text message
 
         echo (self::odd(6)) ? 'Число не парне<br>' : 'Число парне <br>'; // 1
@@ -1095,8 +1095,8 @@ class PHPController extends AbstractController
         // str_replace() - заміна в тексті
         $str = 'Hello [b]Symfony 6[/b] & [b]PHP 8[/b] & [b]Docker[/b]';
         echo $str.'<br>';
-//        $str = str_replace('[b]', '<b>', $str);
-//        $str = str_replace('[/b]', '</b>', $str);
+        //        $str = str_replace('[b]', '<b>', $str);
+        //        $str = str_replace('[/b]', '</b>', $str);
         $str = str_replace(['[b]', '[/b]'], ['<b>', '</b>'], $str, $number);
         echo $str.'<br>';
         echo 'Кількість зроблених замін '.$number.'<br>';
@@ -1131,10 +1131,10 @@ class PHPController extends AbstractController
 
         echo '<br><br><b>Format output, functions printf, explode, implode</b>-------------------------------------------<br>';
         // Форматний вигляд тесту, функції printf, explode, implode
-//        $red = 255;
-//        $green = 255;
-//        $blue = 100;
-//        print_r('#%X%X%X', $green, $green, $blue);
+        //        $red = 255;
+        //        $green = 255;
+        //        $blue = 100;
+        //        print_r('#%X%X%X', $green, $green, $blue);
 
         echo '<pre>';
         printf('%4d', 45); //  45
@@ -1179,7 +1179,7 @@ class PHPController extends AbstractController
         // масив
         print_r(json_decode($encodeContact, true)); // отримаємо масив
         // обєкт
-//        print_r(json_decode($encodeContact, false)); // отримаємо об'єкт
+        //        print_r(json_decode($encodeContact, false)); // отримаємо об'єкт
         echo '</pre>';
 
         echo '<br><br><b>Passing parameters using the GET method</b>-------------------------------------------<br>';
@@ -1189,7 +1189,7 @@ class PHPController extends AbstractController
 
         // звичайні параметри
         // ?firstName=Taras&lastName=Moroz&ago=36
-//        echo $_GET['firstName'].' '.$_GET['lastName'].' '.$_GET['ago'].'<br>'; // Taras Moroz 36
+        //        echo $_GET['firstName'].' '.$_GET['lastName'].' '.$_GET['ago'].'<br>'; // Taras Moroz 36
 
         // передані параметри у вигляді масиву
         // ?firstName[]=Taras&firstName[]=Katya&lastName[]=Moroz&lastName[]=Moroz&ago[]=36&ago[]=27
@@ -1221,19 +1221,19 @@ class PHPController extends AbstractController
 
         echo '<br><br><b>The POST method</b>-------------------------------------------<br>';
         // GET
-//        echo "
-//            <form method='GET' action='#' name='formGet'>
-//            <input type='text' name='firstName' placeholder='FirstName'><br>
-//            <input type='text' name='lastName' placeholder='LastName'><br>
-//            <input type='submit' value='Submit'>
-//            </form>
-//        ";
-//        // empty($_GET['firstName']) - перевірка чи пустий глобальний масив із таким ключем
-//        if (isset($_GET['firstName']) && isset($_GET['lastName']) && '' != $_GET['firstName'] && '' != $_GET['lastName']) {
-//            echo "FirstName {$_GET['firstName']}, LastName {$_GET['lastName']}";
-//        } else {
-//            exit('Поля не заповнені');
-//        }
+        //        echo "
+        //            <form method='GET' action='#' name='formGet'>
+        //            <input type='text' name='firstName' placeholder='FirstName'><br>
+        //            <input type='text' name='lastName' placeholder='LastName'><br>
+        //            <input type='submit' value='Submit'>
+        //            </form>
+        //        ";
+        //        // empty($_GET['firstName']) - перевірка чи пустий глобальний масив із таким ключем
+        //        if (isset($_GET['firstName']) && isset($_GET['lastName']) && '' != $_GET['firstName'] && '' != $_GET['lastName']) {
+        //            echo "FirstName {$_GET['firstName']}, LastName {$_GET['lastName']}";
+        //        } else {
+        //            exit('Поля не заповнені');
+        //        }
         // POST
         echo "
             <form method='POST' action='#' name='formPost'>
@@ -1416,7 +1416,7 @@ class PHPController extends AbstractController
         print_r($point);
         echo '</pre>';
 
-//        echo "$point";
+        //        echo "$point";
         echo '<br><br><b>Inheritance and method overloading</b>-------------------------------------------<br>';
         // Наслідування - дозволяє один і той самий кусок коду використовувати повторно, для того, щоб не дублювати один і той самий код
         // Ми можемо змінні і методи батьківського класу використовувати всередині класу-наслідника
@@ -1446,7 +1446,7 @@ class PHPController extends AbstractController
         // final - заборонить переопридялення методу у класі нащадку
 
         // Cannot instantiate abstract class App\Controller\Animal
-//        $animal = new Animal(); #не можна зробити екземпляр цього класу томущо він абстрактний
+        //        $animal = new Animal(); #не можна зробити екземпляр цього класу томущо він абстрактний
         $dog = new Dog();
         $cat = new Cat();
         // instanceof - перевірка об'єкту на приналежність до якогось класу
@@ -2080,7 +2080,7 @@ class User implements ThirdInterface
     public function __clone()
     {
         $this->setId(0);
-//        echo 'Cloned';
+        //        echo 'Cloned';
     }
 }
 trait Hello

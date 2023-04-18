@@ -27,9 +27,9 @@ abstract class Animal
     abstract public function color();
 
     // final - метод який не може бути перевантажений/переоридільонний у класах його нащадків
-//    final public function nameMethod() {
-//
-//    }
+    //    final public function nameMethod() {
+    //
+    //    }
 
     public function getLegs(): int
     {
