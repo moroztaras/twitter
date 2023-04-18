@@ -18,8 +18,8 @@ class EmailManager
      */
     public function __construct(
         private ManagerRegistry $doctrine,
-//        private \Swift_Mailer $mailer,
-//        private  \Twig_Environment $twig,
+        //        private \Swift_Mailer $mailer,
+        //        private  \Twig_Environment $twig,
         private RouterInterface $router
     ) {
     }
@@ -32,10 +32,10 @@ class EmailManager
         $fullName = $user->getFirstName().' '.$user->getLastName();
 
         try {
-//            $template = $this->twig->render('User/MailTemplate/recover.html.twig', [
-//                'url' => $url,
-//                'fullName' => $fullName,
-//            ]);
+            //            $template = $this->twig->render('User/MailTemplate/recover.html.twig', [
+            //                'url' => $url,
+            //                'fullName' => $fullName,
+            //            ]);
         } catch (\Exception $e) {
             return false;
         }
@@ -50,7 +50,7 @@ class EmailManager
         $this->doctrine->getManager()->persist($user);
         $this->doctrine->getManager()->flush();
 
-//        return (bool) $this->mailer->send($mail);
+        //        return (bool) $this->mailer->send($mail);
         return true;
     }
 }
