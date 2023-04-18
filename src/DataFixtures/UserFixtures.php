@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Ramsey\Uuid\Nonstandard\Uuid;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -20,17 +21,20 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // Use faker
+        $faker = Factory::create('EN_en');
+
         $users = [
             self::USER_ADMIN => ($admin = new User())
-                ->setEmail('email@social.network.loc')
-                ->setFirstName('firstName')
-                ->setLastName('lastName')
+                ->setEmail($faker->email)
+                ->setFirstName($faker->firstName)
+                ->setLastName($faker->lastName)
                 ->setRoles([User::ROLE_ADMIN])
                 ->setPlainPassword('qwerty')
                 ->setPassword($this->passwordEncoder->hashPassword($admin, 'qwerty'))
-                ->setBirthday(new \DateTimeImmutable('1990-01-01'))
+                ->setBirthday($faker->dateTime)
                 ->setGender('male')
-                ->setCountry('Ukraine')
+                ->setCountry($faker->country)
                 ->setApiKey(Uuid::uuid4()->toString())
                 ->setUuid(Uuid::uuid4()),
         ];

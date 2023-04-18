@@ -7,17 +7,21 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
-class TwitterFixtures extends Fixture  implements DependentFixtureInterface
+class TwitterFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        // Use faker
+        $faker = Factory::create('EN_en');
+
         // Get references from categorises
         /** @var User $admin */
         $admin = $this->getReference(UserFixtures::USER_ADMIN);
 
         $twitter = (new Twitter())
-            ->setText('Text')
+            ->setText($faker->text)
             ->setUser($admin)
         ;
 
