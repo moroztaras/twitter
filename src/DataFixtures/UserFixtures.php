@@ -11,9 +11,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    final public const USER_ADMIN = 'admin';
-    final public const USER = 'user';
-
     public function __construct(
         private UserPasswordHasherInterface $passwordEncoder
     ) {
@@ -24,29 +21,22 @@ class UserFixtures extends Fixture
         // Use faker
         $faker = Factory::create('EN_en');
 
-        $users = [
-            self::USER_ADMIN => ($admin = new User())
-                ->setEmail($faker->email)
-                ->setFirstName($faker->firstName)
-                ->setLastName($faker->lastName)
-                ->setRoles([User::ROLE_ADMIN])
-                ->setPlainPassword('qwerty')
-                ->setPassword($this->passwordEncoder->hashPassword($admin, 'qwerty'))
-                ->setBirthday($faker->dateTime)
-                ->setGender('male')
-                ->setCountry($faker->country)
-                ->setApiKey(Uuid::uuid4()->toString())
-                ->setUuid(Uuid::uuid4()),
-        ];
+        $admin = new User();
+        $admin->setEmail($faker->email)
+            ->setFirstName($faker->firstName)
+            ->setLastName($faker->lastName)
+            ->setRoles([User::ROLE_ADMIN])
+            ->setPlainPassword('qwerty')
+            ->setPassword($this->passwordEncoder->hashPassword($admin, 'qwerty'))
+            ->setBirthday($faker->dateTime)
+            ->setGender('male')
+            ->setCountry($faker->country)
+            ->setApiKey(Uuid::uuid4()->toString())
+            ->setUuid(Uuid::uuid4())
+        ;
 
-        foreach ($users as $user) {
-            $manager->persist($user);
-        }
+        $manager->persist($admin);
 
         $manager->flush();
-
-        foreach ($users as $code => $user) {
-            $this->addReference($code, $user);
-        }
     }
 }
