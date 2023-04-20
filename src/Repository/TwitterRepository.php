@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Twitter;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,21 +22,4 @@ class TwitterRepository extends ServiceEntityRepository
         parent::__construct($registry, Twitter::class);
     }
 
-    public function save(Twitter $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Twitter $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
 }

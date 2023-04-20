@@ -4,6 +4,7 @@ namespace App\Manager;
 
 use App\Entity\Twitter;
 use App\Entity\User;
+use App\Repository\TwitterRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -21,7 +22,14 @@ class TwitterManager
     public function __construct(
         private ManagerRegistry $doctrine,
         private ApiObjectValidator $apiObjectValidator,
+        private TwitterRepository $twitterRepository
     ) {
+    }
+
+    // All published twitters of user
+    public function list(User $user): array
+    {
+        return $this->twitterRepository->findBy(['user' => $user]);
     }
 
     // Show twitter
