@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
         $faker = Factory::create('EN_en');
 
         $admin = new User();
-        $admin->setEmail($faker->email)
+        $admin->setEmail('moroztaras@i.ua')
             ->setFirstName($faker->firstName)
             ->setLastName($faker->lastName)
             ->setRoles([User::ROLE_ADMIN])
