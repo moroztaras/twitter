@@ -2,6 +2,7 @@
 
 namespace App\Controller\Web;
 
+use App\Entity\Twitter;
 use App\Entity\User;
 use App\Form\Twitter\Model\TwitterModel;
 use App\Form\Twitter\TwitterType;
@@ -52,6 +53,15 @@ class TwitterController extends AbstractWebController
 
         return $this->render(view: 'web/twitter/new.html.twig', parameters: [
             'form' => $twitterForm->createView(),
+        ]);
+    }
+
+    // View twitter
+    #[Route('/{id}', name: 'web_twitter_view')]
+    public function view(Twitter $twitter): Response
+    {
+        return $this->render(view: 'web/twitter/view.html.twig', parameters: [
+            'twitter' => $this->twitterManager->show($twitter),
         ]);
     }
 }

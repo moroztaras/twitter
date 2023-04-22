@@ -1,0 +1,56 @@
+{% extends "Layout/layout-default.html.twig" %}
+{% block main %}
+    <div class="uk-section uk-section-xsmall">
+        <div class="uk-container uk-container-xsmall">
+            <div class="uk-card uk-card-default uk-card-small uk-margin-small">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+{#                            <img data-src="{{ svistyn.user.avatar|avatarStyleDefault }}" width="40" height="40" alt uk-img>#}
+                        </div>
+                        <div class="uk-width-expand">
+                            <div>
+{#                                <a class="uk-text-small uk-text-muted" href="{{ path('user_canonical', { 'id' : svistyn.user.id }) }}">#}
+{#                                    {{ svistyn.user.fullname }}#}
+{#                                </a>#}
+                            </div>
+                            <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.createdAt|date('M d, Y') }}</time></p>
+                        </div>
+{#                        {% if app.user %}#}
+{#                            {{ include('Svistyn/menu.html.twig', { 'svistyn' : svistyn }) }}#}
+{#                        {% endif %}#}
+                    </div>
+                </div>
+                <div class="uk-card uk-card-body">
+                    {% if twitter.text is not null %}
+                        <div class="st-post-fd st-post-fd--text"><p>{{ twitter.text|nl2br  }}</p></div>
+                    {% endif %}
+{#                    {% if svistyn.photo is not null %}#}
+{#                        <div class="st-post-fd st-post-fd--photo uk-text-center"><img data-src="{{ svistyn.photo|style_image('550w') }}" alt uk-img></div>#}
+{#                    {% endif %}#}
+                    {% if twitter.video is not null %}
+                        <div class="st-post-fd st-post-fd--embed">
+{#                            {{ twitter.embedVideo|video_embed_iframe }}#}
+                            {{ twitter.video }}
+                        </div>
+                    {% endif %}
+{#                    {% if svistyn.parent is not null %}#}
+{#                        {{ include('Svistyn/ModeView/share.html.twig', {'svistyn.parent': svistyn.parent } ) }}#}
+{#                    {% endif %}#}
+                </div>
+                <div class="uk-card-footer">
+{#                    {% if svistyn.parent is null and app.user and app.user.id != svistyn.user.id %}#}
+{#                        {{ include('Svistyn/inc/svistyn-post-action-link.html.twig', { 'svistyn' : svistyn, 'comments': comments }) }}#}
+{#                    {% elseif svistyn.parent is null or svistyn.isParent %}#}
+{#                        {{ include('Svistyn/inc/svistyn-post-action.html.twig', { 'svistyn' : svistyn, 'comments': comments }) }}#}
+{#                    {% endif %}#}
+                </div>
+            </div>
+{#            {% if app.user %}#}
+{#                {{ render(controller('App\\Controller\\CommentController::new', {'id':svistyn.id})) }}#}
+{#            {% endif %}#}
+{#            {{ include('Comment/list.html.twig', {'comments' : comments}) }}#}
+{#            {{ include('Pagination/kpn_pagination.html.twig', {'field' : comments}) }}#}
+        </div>
+    </div>
+{% endblock %}
