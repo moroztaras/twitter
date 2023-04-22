@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Twitter;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,5 +20,4 @@ class TwitterRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Twitter::class);
     }
-
 }

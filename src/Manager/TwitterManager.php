@@ -4,6 +4,7 @@ namespace App\Manager;
 
 use App\Entity\Twitter;
 use App\Entity\User;
+use App\Form\Twitter\Model\TwitterModel;
 use App\Repository\TwitterRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,10 +27,24 @@ class TwitterManager
     ) {
     }
 
-    // All published twitters of user
+    // Web all published twitters of user
     public function list(User $user): array
     {
         return $this->twitterRepository->findBy(['user' => $user]);
+    }
+
+    // Web create new twitter
+    public function create(User $user, TwitterModel $twitterModel): Twitter
+    {
+        $twitter = (new Twitter())
+            ->setText($twitterModel->getText())
+            ->setVideo($twitterModel->getVideo())
+            ->setUser($user)
+        ;
+
+        $this->save($twitter);
+
+        return $twitter;
     }
 
     // Show twitter
@@ -41,7 +56,7 @@ class TwitterManager
         return $twitter;
     }
 
-    // Create new twitter
+    // Api create new twitter
     public function new(string $content, User $user): Twitter
     {
         /** @var Twitter $twitter */

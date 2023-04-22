@@ -26,9 +26,9 @@ class Twitter
     )]
     #[ORM\Column(name: 'text')]
     private string $text;
-    
+
     #[ORM\Column(name: 'video', nullable: true)]
-    private $video;
+    private string $video;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'twitters')]
     private ?User $user;
@@ -116,12 +116,13 @@ class Twitter
 
         return $this;
     }
+
     public function getVideo(): string
     {
         return $this->video;
     }
 
-    public function sevideo(string $video): self
+    public function setVideo(string $video): self
     {
         $this->video = $video;
 
