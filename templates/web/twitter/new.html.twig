@@ -1,9 +1,16 @@
 {% extends "Layout/layout-default.html.twig" %}
+{% block title %}{{ 'crete_twitter'|trans }}{% endblock %}
 
 {% block main %}
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
-            {{ form(form) }}
+            {{ form_start(form) }}
+                {{ form_row(form.text) }}
+                {{ form_row(form.video) }}
+                <span class="input-group-prepend">
+                    <button class="btn btn-secondary" type="submit">{{ 'create'|trans }}</button>
+                </span>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
