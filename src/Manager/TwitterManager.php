@@ -30,7 +30,7 @@ class TwitterManager
     // Web all published twitters of user
     public function list(User $user): array
     {
-        return $this->twitterRepository->findBy(['user' => $user]);
+        return $this->twitterRepository->findBy(['user' => $user], ['createdAt' => 'DESC']);
     }
 
     // Web create new twitter
@@ -45,6 +45,16 @@ class TwitterManager
         $this->save($twitter);
 
         return $twitter;
+    }
+
+    // Edit twitter from form
+    public function editTwitter(Twitter $twitter, TwitterModel $twitterModel): Twitter
+    {
+        return $this->save(
+            $twitter
+                ->setText($twitterModel->getText())
+                ->setVideo($twitterModel->getVideo())
+        );
     }
 
     // Show twitter

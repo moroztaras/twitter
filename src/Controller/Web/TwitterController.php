@@ -22,7 +22,7 @@ class TwitterController extends AbstractWebController
     }
 
     // List all twitter of user
-    #[Route('/list', name: 'web_twitter_list')]
+    #[Route('/list', name: 'web_twitter_list', methods: 'GET')]
     public function list(): Response
     {
         $user = $this->getUser();
@@ -34,7 +34,7 @@ class TwitterController extends AbstractWebController
     }
 
     // Create new twitter
-    #[Route('/new', name: 'web_twitter_new')]
+    #[Route('/new', name: 'web_twitter_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         /** @var User $user */
@@ -57,11 +57,35 @@ class TwitterController extends AbstractWebController
     }
 
     // View twitter
-    #[Route('/{id}', name: 'web_twitter_view')]
+    #[Route('/{id}', name: 'web_twitter_view', methods: 'GET')]
     public function view(Twitter $twitter): Response
     {
         return $this->render(view: 'web/twitter/view.html.twig', parameters: [
             'twitter' => $this->twitterManager->show($twitter),
+        ]);
+    }
+
+    // Edit twitter
+    #[Route('/{id}/edit', name: 'web_twitter_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Twitter $twitter): Response
+    {
+        $twitterModel = new TwitterModel();
+        $twitterModel->setEntityTwitter($twitter);
+        $twitterForm = $this->createForm(TwitterType::class, $twitterModel);
+        $twitterForm->handleRequest($request);
+
+        if ($twitterForm->isSubmitted() && $twitterForm->isValid()) {
+            $this->twitterManager->editTwitter($twitter, $twitterModel);
+            $this->requestStack->getSession()->getFlashBag()->add('success', 'twitter_edited_successfully');
+
+            return $this->redirectToRoute('web_twitter_view', [
+                'id' => $twitter->getId(),
+            ]);
+        }
+
+        return $this->render(view: 'web/twitter/edit.html.twig', parameters: [
+            'form' => $twitterForm->createView(),
+            'twitter' => $twitter,
         ]);
     }
 }

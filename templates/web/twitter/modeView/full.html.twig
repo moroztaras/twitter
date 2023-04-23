@@ -9,9 +9,9 @@
 {#                    <a class="uk-text-small uk-text-muted" href="{{ path('user_canonical', { 'id' : svistyn.user.id }) }}">{{ svistyn.user.fullname }}</a></div>#}
 {#                <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ svistyn.created|date('Y-m-d H:i:s') }}">{{ svistyn.created|date('M d, Y') }}</time></p>#}
             </div>
-{#            {% if app.user %}#}
-{#                {{ include('Svistyn/menu.html.twig', { 'svistyn' : svistyn }) }}#}
-{#            {% endif %}#}
+            {% if app.user %}
+                {{ include('web/twitter/menu.html.twig', { 'twitter' : twitter }) }}
+            {% endif %}
         </div>
     </div>
     <div class="uk-card uk-card-body">

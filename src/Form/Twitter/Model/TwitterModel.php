@@ -2,6 +2,7 @@
 
 namespace App\Form\Twitter\Model;
 
+use App\Entity\Twitter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TwitterModel
@@ -33,5 +34,13 @@ class TwitterModel
         $this->video = $video;
 
         return $this;
+    }
+
+    public function setEntityTwitter(Twitter $twitter): void
+    {
+        $this
+            ->setText($twitter->getText())
+            ->setVideo($twitter->getVideo())
+        ;
     }
 }
