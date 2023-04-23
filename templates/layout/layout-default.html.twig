@@ -9,7 +9,7 @@
                 </div>
                 <nav>
                     <ul class="uk-nav uk-text-small" uk-grid>
-{#                        {% if app.user %}#}
+                        {% if app.user %}
 {#                            <a href="{{ path('user_list_applications') }}" style="text-decoration: none; color: #777777;">#}
 {#                                <span uk-icon="icon: bell"></span>#}
 {#                                {{ render(controller('App\\Controller\\FriendsController::applicationsInFriend')) }}#}
@@ -58,10 +58,10 @@
 {#                                    </nav>#}
 {#                                </div>#}
 {#                            </li>#}
-{#                        {% else %}#}
+                        {% else %}
                             <li><a href="{{ path('app_login') }}">{{ 'log_in'|trans }}</a></li>
                             <li><a href="{{ path('app_registration') }}">{{ 'sign_up'|trans }}</a></li>
-{#                        {% endif %}#}
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
