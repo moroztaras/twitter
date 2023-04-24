@@ -2,6 +2,7 @@
 
 namespace App\Controller\Web;
 
+use App\Components\Form\EntityDeleteForm;
 use App\Entity\Twitter;
 use App\Entity\User;
 use App\Form\Twitter\Model\TwitterModel;
@@ -86,6 +87,32 @@ class TwitterController extends AbstractWebController
         return $this->render(view: 'web/twitter/edit.html.twig', parameters: [
             'form' => $twitterForm->createView(),
             'twitter' => $twitter,
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'web_twitter_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Twitter $twitter): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$twitter || !$twitter->getUser() || $twitter->getUser()->getId() != $user->getId()) {
+            $this->requestStack->getSession()->getFlashBag()->add('danger', 'delete_twitter_is_forbidden');
+
+            return $this->redirectToRoute('web_twitter_list');
+        }
+
+        $form = $this->createForm(EntityDeleteForm::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->twitterManager->remove($twitter);
+            $this->requestStack->getSession()->getFlashBag()->add('danger', 'twitter_was_deleted_successfully');
+
+            return $this->redirectToRoute('web_twitter_list');
+        }
+
+        return $this->render('web/twitter/delete.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
