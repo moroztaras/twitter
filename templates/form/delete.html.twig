@@ -1,0 +1,12 @@
+<div class="form-entity-delete">
+    <div class="lt lt-f-entity-delete d-flex d-flex-align-center">
+        <div class="lt-r lt-r--form form-clear">
+            {{ form(form) }}
+        </div>
+        {% if cancel_url %}
+            <div class="lt-r lt-r--cancel">
+                <a href="{{ cancel_url }}">{{ 'cancel'|trans }}</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
