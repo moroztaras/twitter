@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route('/user/profile')]
 class UserProfileController extends AbstractWebController
 {

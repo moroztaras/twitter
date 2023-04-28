@@ -1,0 +1,59 @@
+{% set cover = '/images/user-default-bg.jpg' %}
+{% if user.cover is not null %}
+{#    {% set cover = user.cover|style_image('1280_300_crop') %}#}
+    {% set cover = user.cover %}
+{% endif %}
+<div class="uk-container user-cover uk-background-cover" data-src="{{ cover }}" uk-img>
+    <div class="uk-section uk-section-xsmall">
+        <div uk-grid class="uk-flex-center user-cover-grid">
+            <div class="uk-width-medium ">
+                <ul class="uk-list uk-list-striped uk-background-default uk-text-center">
+                    <li>{{ 'FOLLOW'|trans }}<br>
+                        <span class="uk-text-large">
+{#              {{ render(controller('App\\Controller\\BlockController::following',{ 'id': user.id })) }}#}
+            </span>
+                    </li>
+                    {% if (user != app.user)  %}
+                        <li>
+              <span class="uk-text-large">
+{#                <a href="{{ path('user_message', { 'id': user.id }) }}">#}
+                    <img src="{{ asset('images/message_icon.jpg') }}" width="80px" class="uk-margin-small-right">
+{#                </a>#}
+              </span>
+                        </li>
+                    {% else %}
+                        <li>
+              <span class="uk-text-large">
+{#                <a href="{{ path('user_messages_list') }}" style="text-decoration: none">#}
+                    <img src="{{ asset('images/message_icon.jpg') }}" width="80px" class="uk-margin-small-right">
+{#                    {{ render(controller('App\\Controller\\MessageController::getCountAllNotReadMessages')) }}#}
+{#                </a>#}
+              </span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="uk-width-medium">
+                <div class="user-cover-avatar">
+                    <img src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="200px" class="uk-background uk-background-default">
+                </div>
+                <div class="uk-background-muted uk-margin-small-top uk-padding-small">
+                    <h4 class="uk-margin-remove-bottom">{{ user.firstName }}{{ user.LastName }}</h4>
+                </div>
+            </div>
+            <div class="uk-width-medium">
+                <ul class="uk-list uk-list-striped uk-background-default uk-text-center">
+                    <li>{{ 'FOLLOWERS'|trans }}<br>
+                        <span class="uk-text-large">
+{#                            {{ render(controller('App\\Controller\\BlockController::followers',{ 'id': user.id })) }}#}
+                        </span>
+                    </li>
+                    <li>{{ 'POSTS'|trans }}<br>
+                        <span class="uk-text-large">
+{#                            {{ count_svistyns | length }}#}
+                        </span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
