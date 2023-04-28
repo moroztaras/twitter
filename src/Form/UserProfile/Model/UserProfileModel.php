@@ -3,7 +3,9 @@
 namespace App\Form\UserProfile\Model;
 
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\File;
 
 class UserProfileModel
 {
@@ -24,6 +26,8 @@ class UserProfileModel
 
     #[Assert\Country()]
     private string $country;
+
+    private UploadedFile $avatar;
 
     public function getFirstName(): string
     {
@@ -93,6 +97,17 @@ class UserProfileModel
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getAvatar(): UploadedFile
+    {
+        return $this->avatar;
+    }
+    public function setAvatar(?UploadedFile $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

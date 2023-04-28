@@ -5,6 +5,8 @@ namespace App\Manager;
 use App\Entity\User;
 use App\Form\UserProfile\Model\UserProfileModel;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * UserProfileManager class.
@@ -16,11 +18,15 @@ class UserProfileManager
      */
     public function __construct(
         private ManagerRegistry $doctrine,
+        private FileManager $fileManager,
     ) {
     }
 
-    public function edit(UserProfileModel $userProfileModel, User $user): void
+    public function edit(UserProfileModel $userProfileModel, User $user, UploadedFile $file = null, $pathToDirectory): void
     {
+        if ($file) {
+            $user->setAvatar($this->fileManager->upload($file, $pathToDirectory));
+        }
         $user
             ->setFirstName($userProfileModel->getFirstName())
             ->setLastName($userProfileModel->getLastName())

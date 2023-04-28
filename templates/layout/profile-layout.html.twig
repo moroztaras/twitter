@@ -7,7 +7,7 @@
       <div class="uk-section uk-section-xsmall uk-background uk-background-default">
         <h3 class="uk-heading-bullet">{{ user.firstName }} {{ user.lastName }}</h3>
         <div class="user-avatar uk-text-center uk-margin-small-bottom">
-{#          <img src="{{ user.avatar|avatarStyleDefault }}" width="100px" class="uk-background uk-background-default">#}
+          <img src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="100px" class="uk-background uk-background-default">
         </div>
         <hr>
         <ul class="uk-list uk-padding uk-padding-small">

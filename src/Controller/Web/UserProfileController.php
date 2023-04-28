@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/user/profile')]
 class UserProfileController extends AbstractWebController
 {
@@ -61,7 +62,12 @@ class UserProfileController extends AbstractWebController
         $form = $this->createForm(UserProfileType::class, $userProfileModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->profileManager->edit($userProfileModel, $user);
+            $this->profileManager->edit(
+                $userProfileModel,
+                $user,
+                $form->get('avatar')->getData(),
+                $this->getParameter('avatar_directory')
+            );
             $this->requestStack->getSession()->getFlashBag()->add('success', 'user_profile_edited_successfully');
 
             return $this->redirectToRoute('web_user_profile_default');

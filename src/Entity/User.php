@@ -56,6 +56,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(name: 'country', length: 256)]
     private string $country;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $avatar;
+
     #[ORM\Column(name: 'roles', type: Types::JSON)]
     private array $roles;
 
@@ -268,6 +271,18 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
                 $twitter->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
