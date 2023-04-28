@@ -14,6 +14,10 @@ class DefaultController extends AbstractController
     #[Route('/', name: 'app_default')]
     public function index(): Response
     {
-        return $this->redirectToRoute('web_twitter_list');
+        if ($this->getUser()) {
+            return $this->redirectToRoute('web_twitter_list');
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 }
