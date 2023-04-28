@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\UserProfile\Model\UserProfileModel;
 use App\Form\UserProfile\UserProfileType;
 use App\Manager\UserProfileManager;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +19,36 @@ class UserProfileController extends AbstractWebController
     public function __construct(
         private UserProfileManager $profileManager,
         private RequestStack $requestStack,
+        private UserRepository $userRepository
     ) {
+    }
+
+    // User profile view (default)
+    #[Route('/', name: 'web_user_profile_default', methods: 'GET')]
+    public function default(): RedirectResponse|Response
+    {
+        $user = $this->getUser();
+
+        return $this->profile($user->getId());
+    }
+
+    /**
+     * @Route("/{id}", methods={"GET"}, name="user_canonical", requirements={"id"="\d+"}, defaults={"id" = null})
+     */
+    // User profile
+    public function profile(int $id)
+    {
+        $user = $this->userRepository->find($id);
+
+        if (!$user) {
+            $this->requestStack->getSession()->getFlashBag()->add('danger', 'user_not_found');
+
+            return $this->redirectToRoute('web_user_profile_default');
+        }
+
+        return $this->render('web/userProfile/profile.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     // User profile edit
@@ -33,7 +64,7 @@ class UserProfileController extends AbstractWebController
             $this->profileManager->edit($userProfileModel, $user);
             $this->requestStack->getSession()->getFlashBag()->add('success', 'user_profile_edited_successfully');
 
-            return $this->redirectToRoute('web_twitter_list');
+            return $this->redirectToRoute('web_user_profile_default');
         }
 
         return $this->render(view: 'web/userProfile/edit.html.twig', parameters: [

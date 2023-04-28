@@ -47,8 +47,12 @@
         <h3 class="uk-heading-line uk-margin-small-top"><span>{% block profile_title %}{{ 'information'|trans }}{% endblock %}</span></h3>
         {% block profile_content %}
           <div uk-grid class="uk-grid-small">
-            <div class="uk-text-bold">{{ 'full_name'|trans }}:</div>
-            <div>{{ user.fullname }}</div>
+            <div class="uk-text-bold">{{ 'first_name'|trans }}:</div>
+            <div>{{ user.firstName }}</div>
+          </div>
+          <div uk-grid class="uk-grid-small">
+            <div class="uk-text-bold">{{ 'last_name'|trans }}:</div>
+            <div>{{ user.lastName }}</div>
           </div>
           <div uk-grid class="uk-grid-small">
             <div class="uk-text-bold">{{ 'birthday'|trans }}:</div>
@@ -62,7 +66,7 @@
             <div class="uk-text-bold">{{ 'status'|trans }}:</div>
             <div>
               {% if user.status == 1 %}
-                <span style="color: #66ff33">{{ 'active'|trans }}</span>
+                <span style="color: #4B9E5E">{{ 'active'|trans }}</span>
               {% else %}
                 <span style="color: #ff0000">{{ 'blocked'|trans }}</span>
               {% endif %}
@@ -70,7 +74,7 @@
           </div>
           <div uk-grid class="uk-grid-small">
             <div class="uk-text-bold">{{ 'registration'|trans }}:</div>
-            <div>{{ user.created|date('d-m-Y') }}</div>
+            <div>{{ user.createdAt|date('d-m-Y') }}</div>
           </div>
         {% endblock %}
       </div>
