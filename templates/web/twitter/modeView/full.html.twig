@@ -2,11 +2,14 @@
     <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-auto">
-{#                <img data-src="{{ svistyn.user.avatar|avatarStyleDefault }}" width="40" height="40" alt uk-img>#}
+                <img data-src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img>
             </div>
             <div class="uk-width-expand">
                 <div>
-{#                    <a class="uk-text-small uk-text-muted" href="{{ path('user_canonical', { 'id' : svistyn.user.id }) }}">{{ svistyn.user.fullname }}</a></div>#}
+                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', { 'id' : twitter.user.id }) }}">
+                        {{ twitter.user.firstName }} {{ twitter.user.lastName }}
+                    </a>
+                </div>
                 <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.createdAt|date('Y-m-d H:i') }}</time></p>
             </div>
             {% if app.user %}

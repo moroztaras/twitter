@@ -34,7 +34,7 @@ class UserProfileController extends AbstractWebController
     }
 
     /**
-     * @Route("/{id}", methods={"GET"}, name="user_canonical", requirements={"id"="\d+"}, defaults={"id" = null})
+     * @Route("/{id}", methods={"GET"}, name="web_user_profile", requirements={"id"="\d+"}, defaults={"id" = null})
      */
     // User profile
     public function profile(int $id)
