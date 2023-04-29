@@ -16,6 +16,8 @@ class UserProfileManager
      * UserProfileManager constructor.
      */
     public function __construct(
+        private string $avatarDir,
+        private string $coverDir,
         private ManagerRegistry $doctrine,
         private FileManager $fileManager,
     ) {
@@ -25,17 +27,14 @@ class UserProfileManager
         UserProfileModel $userProfileModel,
         User $user,
         UploadedFile $avatar = null,
-        $pathToAvatarDirectory,
         UploadedFile $cover = null,
-        $pathToCoverDirectory,
     ): void {
         if ($avatar) {
-            $user->setAvatar($this->fileManager->upload($avatar, $pathToAvatarDirectory));
+            $user->setAvatar($this->fileManager->upload($avatar, $this->avatarDir));
         }
         if ($cover) {
-            $user->setCover($this->fileManager->upload($cover, $pathToCoverDirectory));
+            $user->setCover($this->fileManager->upload($cover, $this->coverDir));
         }
-
         $user
             ->setFirstName($userProfileModel->getFirstName())
             ->setLastName($userProfileModel->getLastName())

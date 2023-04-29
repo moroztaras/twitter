@@ -61,14 +61,7 @@ class UserProfileController extends AbstractWebController
         $form = $this->createForm(UserProfileType::class, $userProfileModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->profileManager->edit(
-                $userProfileModel,
-                $user,
-                $form->get('avatar')->getData(),
-                $this->getParameter('avatar_directory'),
-                $form->get('cover')->getData(),
-                $this->getParameter('cover_directory'),
-            );
+            $this->profileManager->edit($userProfileModel, $user, $form->get('avatar')->getData(), $form->get('cover')->getData());
             $this->requestStack->getSession()->getFlashBag()->add('success', 'user_profile_edited_successfully');
 
             return $this->redirectToRoute('web_user_profile_default');
