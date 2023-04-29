@@ -29,6 +29,8 @@ class UserProfileModel
 
     private UploadedFile $avatar;
 
+    private UploadedFile $cover;
+
     public function getFirstName(): string
     {
         return $this->firstName;
@@ -105,9 +107,22 @@ class UserProfileModel
     {
         return $this->avatar;
     }
+
     public function setAvatar(?UploadedFile $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getCover(): UploadedFile
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?UploadedFile $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }

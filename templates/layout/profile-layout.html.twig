@@ -73,6 +73,10 @@
             </div>
           </div>
           <div uk-grid class="uk-grid-small">
+            <div class="uk-text-bold">{{ 'country'|trans }}:</div>
+            <div>{{ user.country }}</div>
+          </div>
+          <div uk-grid class="uk-grid-small">
             <div class="uk-text-bold">{{ 'registration'|trans }}:</div>
             <div>{{ user.createdAt|date('d-m-Y') }}</div>
           </div>

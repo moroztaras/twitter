@@ -60,6 +60,20 @@ class UserProfileType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('cover', FileType::class, [
+                'label' => 'cover',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10M',
+                        'mimeTypes' => [
+                            'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file.',
+                    ]),
+                ],
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'save',
             ])

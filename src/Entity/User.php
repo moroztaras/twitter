@@ -56,8 +56,11 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(name: 'country', length: 256)]
     private string $country;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(name: 'avatar', type: 'string', nullable: true)]
     private ?string $avatar;
+
+    #[ORM\Column(name: 'cover', type: 'string', nullable: true)]
+    private ?string $cover;
 
     #[ORM\Column(name: 'roles', type: Types::JSON)]
     private array $roles;
@@ -283,6 +286,18 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?string $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }

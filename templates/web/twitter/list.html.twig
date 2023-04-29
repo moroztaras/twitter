@@ -3,9 +3,9 @@
 {#{% block title %}{% if user is not null %}{{ user.fullname }}{% endif %}{% endblock %}#}
 
 {% block main %}
-{#    {% if user is not null %}#}
-{#        {{ render(controller('App\\Controller\\BlockController::userCover',{ 'id': user.id })) }}#}
-{#    {% endif %}#}
+    {% if user is not null %}
+        {{ render(controller('App\\Controller\\Web\\BlockController::userCover',{ 'id': user.id })) }}
+    {% endif %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {% if app.user == user  %}
             <div class="uk-text-center uk-margin">

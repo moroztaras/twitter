@@ -18,46 +18,47 @@
 {#                                <span uk-icon="icon: mail"></span>#}
 {#                                {{ render(controller('App\\Controller\\MessageController::getCountAllNotReadMessages')) }}#}
 {#                            </a>#}
-{#                            <li>#}
-{#                                <a href="{{ path('user_canonical', { 'id' : app.user.id }) }}" class="user-profile dropdown-toggle">#}
-{#                                <div class="us-prof-header">#}
-{#                                    <img src="{{ app.user.avatar|avatarStyleDefault }}" width="30px" class="uk-margin-small-right">#}
-{#                                    {{ app.user.fullname }}<span uk-icon="icon: triangle-down"></span>#}
-{#                                </div>#}
-{#                                </a>#}
-{#                                <div uk-drop="mode: click; offset: 20; pos: bottom-right" class="uk-card uk-card-default kuk-width-small">#}
-{#                                    <nav class="uk-padding-small">#}
-{#                                        <ul class="uk-nav uk-list-divider uk-text-small">#}
-{#                                            <li>#}
-{#                                                <a href="{{ path('svistyn_post') }}"><span uk-icon="home" class="uk-margin-small-right"></span> {{ 'home_page'|trans }}</a>#}
-{#                                            </li>#}
-{#                                            <li>#}
-{#                                                <a href="{{ path('user_canonical') }}"><span uk-icon="user" class="uk-margin-small-right"></span> {{ 'profile'|trans }}</a>#}
-{#                                            </li>#}
-{#                                            <li>#}
+                            <li>
+                                <a href="{{ path('web_user_profile_default', { 'id' : app.user.id }) }}" class="user-profile dropdown-toggle">
+                                    <div class="us-prof-header">
+                                        <img src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="30px" class="uk-margin-small-right">
+                                        {{ app.user.firstName }} {{ app.user.lastName }}
+                                        <span uk-icon="icon: triangle-down"></span>
+                                    </div>
+                                </a>
+                                <div uk-drop="mode: click; offset: 20; pos: bottom-right" class="uk-card uk-card-default kuk-width-small">
+                                    <nav class="uk-padding-small">
+                                        <ul class="uk-nav uk-list-divider uk-text-small">
+                                            <li>
+                                                <a href="{{ path('web_twitter_list') }}"><span uk-icon="home" class="uk-margin-small-right"></span> {{ 'home_page'|trans }}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('web_user_profile_default') }}"><span uk-icon="user" class="uk-margin-small-right"></span> {{ 'profile'|trans }}</a>
+                                            </li>
+                                            <li>
 {#                                                <a href="{{ path('user_messages_list') }}"><span uk-icon="mail" class="uk-margin-small-right"></span> {{ 'messages'|trans }}</a>#}
-{#                                            </li>#}
-{#                                            {% if is_granted("ROLE_SUPER_ADMIN") %}#}
-{#                                                <li>#}
+                                            </li>
+                                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                                <li>
 {#                                                    <a href="{{ path('admin_dashboard') }}"><span uk-icon="settings" class="uk-margin-small-right"></span> {{ 'admin_panel'|trans }}</a>#}
-{#                                                </li>#}
-{#                                            {% endif %}#}
-{#                                            <li>#}
+                                                </li>
+                                            {% endif %}
+                                            <li>
 {#                                                <a href="{{ path('svistyn_feed_following') }}"><span uk-icon="twitter" class="uk-margin-small-right"></span> {{ 'feed'|trans }}</a>#}
-{#                                            </li>#}
-{#                                            <li>#}
+                                            </li>
+                                            <li>
 {#                                                <a href="{{ path('user_groups_list') }}"><span uk-icon="users" class="uk-margin-small-right"></span> {{ 'groups'|trans }}</a>#}
-{#                                            </li>#}
-{#                                            <li>#}
+                                            </li>
+                                            <li>
 {#                                                <a href="{{ path('search') }}"><span uk-icon="search" class="uk-margin-small-right"></span> {{ 'search'|trans }}</a>#}
-{#                                            </li>#}
-{#                                            <li>#}
-{#                                                <a href="{{ path('app_logout') }}"><span uk-icon="sign-out" class="uk-margin-small-right"></span> {{ 'log_out'|trans }}</a>#}
-{#                                            </li>#}
-{#                                        </ul>#}
-{#                                    </nav>#}
-{#                                </div>#}
-{#                            </li>#}
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('app_logout') }}"><span uk-icon="sign-out" class="uk-margin-small-right"></span> {{ 'log_out'|trans }}</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </li>
                         {% else %}
                             <li><a href="{{ path('app_login') }}">{{ 'log_in'|trans }}</a></li>
                             <li><a href="{{ path('app_registration') }}">{{ 'sign_up'|trans }}</a></li>
