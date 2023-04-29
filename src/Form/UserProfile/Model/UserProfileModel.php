@@ -5,7 +5,6 @@ namespace App\Form\UserProfile\Model;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\File;
 
 class UserProfileModel
 {
