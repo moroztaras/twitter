@@ -21,8 +21,8 @@
                             <li>
                                 <a href="{{ path('web_user_profile_default', { 'id' : app.user.id }) }}" class="user-profile dropdown-toggle">
                                     <div class="us-prof-header">
-                                        <img src="{{ app.user.avatar }}" width="30px" class="uk-margin-small-right">
-                                        {{ app.user.firstName }}{{ app.user.lastName }}
+                                        <img src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="30px" class="uk-margin-small-right">
+                                        {{ app.user.firstName }} {{ app.user.lastName }}
                                         <span uk-icon="icon: triangle-down"></span>
                                     </div>
                                 </a>

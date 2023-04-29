@@ -65,7 +65,9 @@ class UserProfileController extends AbstractWebController
                 $userProfileModel,
                 $user,
                 $form->get('avatar')->getData(),
-                $this->getParameter('avatar_directory')
+                $this->getParameter('avatar_directory'),
+                $form->get('cover')->getData(),
+                $this->getParameter('cover_directory'),
             );
             $this->requestStack->getSession()->getFlashBag()->add('success', 'user_profile_edited_successfully');
 

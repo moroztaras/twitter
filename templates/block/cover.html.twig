@@ -1,9 +1,8 @@
-{% set cover = '/images/user-default-bg.jpg' %}
-{% if user.cover is not null %}
+{#{% set cover = '/images/user-default-bg.jpg' %}#}
+{#{% if user.cover is not null %}#}
 {#    {% set cover = user.cover|style_image('1280_300_crop') %}#}
-    {% set cover = user.cover %}
-{% endif %}
-<div class="uk-container user-cover uk-background-cover" data-src="{{ cover }}" uk-img>
+{#{% endif %}#}
+<div class="uk-container user-cover uk-background-cover" data-src="{% if user.cover != null %}/files/user/cover/{{ user.cover }}{% else %}/images/user-default-bg.jpg{% endif %}" uk-img>
     <div class="uk-section uk-section-xsmall">
         <div uk-grid class="uk-flex-center user-cover-grid">
             <div class="uk-width-medium ">
