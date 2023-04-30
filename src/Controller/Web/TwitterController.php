@@ -54,6 +54,7 @@ class TwitterController extends AbstractWebController
 
         return $this->render(view: 'web/twitter/new.html.twig', parameters: [
             'form' => $twitterForm->createView(),
+            'user' => $user,
         ]);
     }
 
@@ -63,6 +64,7 @@ class TwitterController extends AbstractWebController
     {
         return $this->render(view: 'web/twitter/view.html.twig', parameters: [
             'twitter' => $this->twitterManager->show($twitter),
+            'user' => $twitter->getUser(),
         ]);
     }
 
@@ -87,6 +89,7 @@ class TwitterController extends AbstractWebController
         return $this->render(view: 'web/twitter/edit.html.twig', parameters: [
             'form' => $twitterForm->createView(),
             'twitter' => $twitter,
+            'user' => $twitter->getUser(),
         ]);
     }
 

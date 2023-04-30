@@ -43,6 +43,7 @@
 {#                        {{ include('Svistyn/inc/svistyn-post-action-link.html.twig', { 'svistyn' : svistyn, 'comments': comments }) }}#}
 {#                    {% elseif svistyn.parent is null or svistyn.isParent %}#}
 {#                        {{ include('Svistyn/inc/svistyn-post-action.html.twig', { 'svistyn' : svistyn, 'comments': comments }) }}#}
+                        {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter }) }}
 {#                    {% endif %}#}
                 </div>
             </div>

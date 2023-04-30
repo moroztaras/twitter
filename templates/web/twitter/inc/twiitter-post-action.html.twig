@@ -1,0 +1,27 @@
+<div uk-grid class="uk-grid-small uk-text-small">
+    <div class="item">
+        <span uk-icon="icon: forward"></span>
+{#        <i>{{ twitter.countSvists }}</i>#}
+        {{ 'svistnuti'|trans }}
+    </div>
+    <div class="item">
+        <img src="{{ asset('/images/zvizdnyt.png')}}">
+{#        <i>{{ twitter.countZvizds }}</i>#}
+        {{ 'zvizdnuti'|trans }}
+    </div>
+    <div class="item">
+        <span uk-icon="icon: heart"></span>
+{#        <i>{{ twitter.ratingTotal }}</i>#}
+        {{ 'rating_twitter'|trans }}
+    </div>
+    <div class="item">
+        <span uk-icon="icon: comments"></span>
+{#        <i>{{ render(controller('App\\Controller\\CommentController::getCountComments',{ 'id': twitter.id })) }}</i>#}
+        {{ 'comments'|trans }}
+    </div>
+    <div class="item">
+        <img src="{{ asset('/images/view_icon.jpg')}}">
+        <i>{{ twitter.views }}</i>
+        {{ 'views'|trans }}
+    </div>
+</div>
