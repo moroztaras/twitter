@@ -30,7 +30,7 @@ class TwitterManager
     // Web all published twitters of user
     public function list(User $user): array
     {
-        return $this->twitterRepository->findBy(['user' => $user], ['createdAt' => 'DESC']);
+        return $this->twitterRepository->findAllByUser($user);
     }
 
     // Web create new twitter

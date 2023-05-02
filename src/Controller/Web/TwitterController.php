@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\Twitter\Model\TwitterModel;
 use App\Form\Twitter\TwitterType;
 use App\Manager\TwitterManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,19 +19,25 @@ class TwitterController extends AbstractWebController
 {
     public function __construct(
         private TwitterManager $twitterManager,
-        private RequestStack $requestStack
+        private RequestStack $requestStack,
+        private PaginatorInterface $paginator
     ) {
     }
 
     // List all twitter of user
     #[Route('/list', name: 'web_twitter_list', methods: 'GET')]
-    public function list(): Response
+    public function list(Request $request): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         return $this->render(view: 'web/twitter/list.html.twig', parameters: [
             'user' => $user,
-            'twitters' => $this->twitterManager->list($user),
+            'twitters' => $this->paginator->paginate(
+                $this->twitterManager->list($user),
+                $request->query->getInt('page', 1),
+                $this->getParameter('pagination_limit')
+            ),
         ]);
     }
 
