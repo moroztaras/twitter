@@ -11,10 +11,12 @@
                 {% if twitter.video is not null %}
 {#                    <div class="st-post-fd st-post-fd--embed">{{ svistyn.embedVideo|video_embed_iframe }}</div><br>#}
                 {% endif %}
-{#                {{ form_row(form.photo) }}#}
-{#                {% if svistyn.photo is not null %}#}
-{#                    <div class="st-post-fd st-post-fd--photo uk-text-center"><img data-src="{{ svistyn.photo|style_image('550w') }}" alt uk-img></div>#}
-{#                {% endif %}#}
+                {{ form_row(form.photo) }}
+                {% if twitter.photo is not null %}
+                    <div class="st-post-fd st-post-fd--photo uk-text-center">
+                        <img data-src="/files/twitter/photo/{{ twitter.photo }}" alt uk-img style="max-width: 550px">
+                    </div>
+                {% endif %}
 {#            {% else%}#}
 {#                {{ include('Svistyn/ModeView/share.html.twig', {'svistyn.parent': svistyn.parent } ) }}#}
 {#            {% endif %}#}

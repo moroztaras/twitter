@@ -41,6 +41,9 @@ class Twitter
     #[ORM\Column(name: 'status')]
     private bool $status = true;
 
+    #[ORM\Column(name: 'photo', type: 'string', nullable: true)]
+    private ?string $photo;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $createdAt;
 
@@ -125,6 +128,18 @@ class Twitter
     public function setVideo(string $video): self
     {
         $this->video = $video;
+
+        return $this;
+    }
+
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

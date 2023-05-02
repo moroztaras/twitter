@@ -3,6 +3,7 @@
 namespace App\Form\Twitter\Model;
 
 use App\Entity\Twitter;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TwitterModel
@@ -10,11 +11,25 @@ class TwitterModel
     #[Assert\NotBlank]
     private $text = null;
 
-    private string $video;
+    private ?UploadedFile $photo;
+
+    private ?string $video;
 
     public function getText(): ?string
     {
         return $this->text;
+    }
+
+    public function getPhoto(): UploadedFile
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?UploadedFile $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
     }
 
     public function setText($text): self
@@ -24,12 +39,12 @@ class TwitterModel
         return $this;
     }
 
-    public function getVideo(): string
+    public function getVideo(): ?string
     {
         return $this->video;
     }
 
-    public function setVideo($video): self
+    public function setVideo(?string $video): self
     {
         $this->video = $video;
 

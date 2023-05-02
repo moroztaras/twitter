@@ -8,6 +8,7 @@ use App\Form\Twitter\Model\TwitterModel;
 use App\Repository\TwitterRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
@@ -21,9 +22,11 @@ class TwitterManager
      * TwitterManager constructor.
      */
     public function __construct(
+        private string $photoDir,
         private ManagerRegistry $doctrine,
         private ApiObjectValidator $apiObjectValidator,
-        private TwitterRepository $twitterRepository
+        private TwitterRepository $twitterRepository,
+        private FileManager $fileManager,
     ) {
     }
 
@@ -34,7 +37,7 @@ class TwitterManager
     }
 
     // Web create new twitter
-    public function create(User $user, TwitterModel $twitterModel): Twitter
+    public function create(User $user, TwitterModel $twitterModel, UploadedFile $photo = null): Twitter
     {
         $twitter = (new Twitter())
             ->setText($twitterModel->getText())
@@ -42,14 +45,22 @@ class TwitterManager
             ->setUser($user)
         ;
 
+        if ($photo) {
+            $twitter->setPhoto($this->fileManager->upload($photo, $this->photoDir));
+        }
+
         $this->save($twitter);
 
         return $twitter;
     }
 
     // Edit twitter from form
-    public function editTwitter(Twitter $twitter, TwitterModel $twitterModel): Twitter
+    public function editTwitter(Twitter $twitter, TwitterModel $twitterModel, UploadedFile $photo = null ): Twitter
     {
+        if ($photo) {
+            $twitter->setPhoto($this->fileManager->upload($photo, $this->photoDir));
+        }
+
         return $this->save(
             $twitter
                 ->setText($twitterModel->getText())

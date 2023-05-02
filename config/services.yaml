@@ -26,3 +26,6 @@ services:
 
     App\Manager\UserProfileManager:
         arguments: ['%env(AVATAR_DIRECTORY)%','%env(COVER_DIRECTORY)%']
+
+    App\Manager\TwitterManager:
+        arguments: [ '%env(TWITTER_PHOTO_DIRECTORY)%' ]
