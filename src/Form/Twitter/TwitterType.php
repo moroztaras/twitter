@@ -4,9 +4,11 @@ namespace App\Form\Twitter;
 
 use App\Form\Twitter\Model\TwitterModel;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class TwitterType extends AbstractType
 {
@@ -19,6 +21,20 @@ class TwitterType extends AbstractType
                 'attr' => [
                     'maxlength' => 1000,
                     ],
+            ])
+            ->add('photo', FileType::class, [
+                'label' => 'photo',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10M',
+                        'mimeTypes' => [
+                            'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file.',
+                    ]),
+                ],
             ])
             ->add('video', TextareaType::class, [
                 'label' => 'video',

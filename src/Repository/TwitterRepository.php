@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Twitter;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,5 +21,17 @@ class TwitterRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Twitter::class);
+    }
+
+    // All twitters by user
+    public function findAllByUser(User $user): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.user = :user')
+            ->setParameter('user', $user)
+            ->addOrderBy('t.createdAt', Criteria::DESC)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

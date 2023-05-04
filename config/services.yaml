@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    pagination_limit: '%env(PAGINATION_LIMIT)%'
 
 services:
     # default configuration for services in *this* file
@@ -25,3 +26,6 @@ services:
 
     App\Manager\UserProfileManager:
         arguments: ['%env(AVATAR_DIRECTORY)%','%env(COVER_DIRECTORY)%']
+
+    App\Manager\TwitterManager:
+        arguments: [ '%env(TWITTER_PHOTO_DIRECTORY)%' ]

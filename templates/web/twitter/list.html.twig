@@ -27,7 +27,7 @@
             {% for twitter in twitters %}
                 {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter }) }}
             {% endfor %}
-{#            {{ include('Pagination/pagination.html.twig', {'pagination' : pagination}) }}#}
+              {{ include('pagination/knp_pagination.html.twig', {'pagination' : twitters}) }}
         </div>
     </div>
 {% endblock %}

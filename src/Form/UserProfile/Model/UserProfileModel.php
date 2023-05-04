@@ -18,7 +18,7 @@ class UserProfileModel
     private string $email;
 
     #[Assert\NotBlank()]
-    private \DateTimeInterface$birthday;
+    private \DateTimeInterface $birthday;
 
     #[Assert\NotBlank()]
     private string $gender;
