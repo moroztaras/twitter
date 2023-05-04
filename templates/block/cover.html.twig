@@ -37,7 +37,7 @@
                     <img src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="200px" class="uk-background uk-background-default">
                 </div>
                 <div class="uk-background-muted uk-margin-small-top uk-padding-small">
-                    <h4 class="uk-margin-remove-bottom">{{ user.firstName }}{{ user.LastName }}</h4>
+                    <h4 class="uk-margin-remove-bottom">{{ user.firstName }} {{ user.LastName }}</h4>
                 </div>
             </div>
             <div class="uk-width-medium">

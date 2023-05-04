@@ -6,6 +6,7 @@ use App\Entity\Twitter;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -33,5 +34,19 @@ class TwitterRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    // For get page
+    /**
+     * @return \Traversable&\Countable
+     */
+    public function getPageByUserId(int $id, int $offset, int $limit)
+    {
+        $query = $this->_em->createQuery('SELECT t FROM App\Entity\Twitter t WHERE t.user = :id ORDER BY t.createdAt DESC')
+            ->setParameter('id', $id)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+
+        return new Paginator($query, false);
     }
 }

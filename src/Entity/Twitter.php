@@ -28,7 +28,7 @@ class Twitter
     private string $text;
 
     #[ORM\Column(name: 'video', nullable: true)]
-    private string $video;
+    private ?string $video;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'twitters')]
     private ?User $user;
@@ -120,24 +120,24 @@ class Twitter
         return $this;
     }
 
-    public function getVideo(): string
+    public function getVideo(): ?string
     {
         return $this->video;
     }
 
-    public function setVideo(string $video): self
+    public function setVideo(?string $video): self
     {
         $this->video = $video;
 
         return $this;
     }
 
-    public function getPhoto(): string
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
 
@@ -166,5 +166,11 @@ class Twitter
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+    // The date is set before the data will persist to the database.
+    #[ORM\PrePersist]
+    public function setUpdatedValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

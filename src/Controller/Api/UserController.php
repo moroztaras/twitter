@@ -29,14 +29,14 @@ class UserController extends ApiController
             throw new BadRequestJsonHttpException('Bad Request.');
         }
 
-        return $this->json(['user' => $this->securityManager->create($content)], Response::HTTP_OK);
+        return $this->json(['user' => $this->securityManager->create($content)], Response::HTTP_OK, [], ['registration' => true]);
     }
 
     // Profile user
     #[Route(path: '', name: '_profile', methods: 'GET')]
     public function profile(Request $request): JsonResponse
     {
-        return $this->json(['user' => $this->getCurrentUser($request)], Response::HTTP_OK);
+        return $this->json(['user' => $this->getCurrentUser($request)], Response::HTTP_OK, [], ['profile' => true]);
     }
 
     // Edit user
