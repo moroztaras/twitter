@@ -28,7 +28,7 @@ class Twitter
     private string $text;
 
     #[ORM\Column(name: 'video', nullable: true)]
-    private string $video;
+    private ?string $video;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'twitters')]
     private ?User $user;

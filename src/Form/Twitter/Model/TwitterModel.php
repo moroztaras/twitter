@@ -13,7 +13,7 @@ class TwitterModel
 
     private ?UploadedFile $photo;
 
-    private ?string $video;
+    private ?string $video = null;
 
     public function getText(): ?string
     {
