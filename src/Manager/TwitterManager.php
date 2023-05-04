@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\Twitter\Model\TwitterModel;
 use App\Repository\TwitterRepository;
 use App\Validator\Helper\ApiObjectValidator;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -18,6 +19,8 @@ use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
  */
 class TwitterManager
 {
+    private const PAGE_LIMIT = 5;
+
     /**
      * TwitterManager constructor.
      */
@@ -54,7 +57,7 @@ class TwitterManager
         return $twitter;
     }
 
-    // Edit twitter from form
+    // Web edit twitter from form
     public function editTwitter(Twitter $twitter, TwitterModel $twitterModel, UploadedFile $photo = null ): Twitter
     {
         if ($photo) {
@@ -65,16 +68,26 @@ class TwitterManager
             $twitter
                 ->setText($twitterModel->getText())
                 ->setVideo($twitterModel->getVideo())
+                ->setUpdatedAt(new DateTime)
         );
     }
 
-    // Show twitter
+    // Web show twitter
     public function show(Twitter $twitter): Twitter
     {
         $twitter->setViews($twitter->getViews() + 1);
         $this->save($twitter);
 
         return $twitter;
+    }
+
+    // Api list twitters by page
+    public function getTwitterPageByUserId(int $id, int $page)
+    {
+        // Calculate offset
+        $offset = max($page - 1, 0) * self::PAGE_LIMIT;
+
+        return $this->twitterRepository->getPageByUserId($id, $offset, self::PAGE_LIMIT);
     }
 
     // Api create new twitter
@@ -99,6 +112,7 @@ class TwitterManager
             AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE => true,
             UnwrappingDenormalizer::UNWRAP_PATH => '[twitter]',
         ], $validationGroups);
+        $twitter->setUpdatedAt(new DateTime());
 
         return $this->save($twitter);
     }

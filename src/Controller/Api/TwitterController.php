@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Twitter;
+use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
 use App\Manager\TwitterManager;
 use App\Response\SuccessResponse;
@@ -27,7 +28,14 @@ class TwitterController extends ApiController
     #[Route('', name: 'api_twitter_list', methods: 'GET')]
     public function list(Request $request): JsonResponse
     {
-        return $this->json(['twitters' => $this->getCurrentUser($request)->getTwitters()], Response::HTTP_OK);
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+        $page = $request->query->get('page', 1);
+
+        return $this->json([
+            'page' => $page,
+            'twitters' => $this->twitterManager->getTwitterPageByUserId($user->getId(), (int) $page)
+        ], Response::HTTP_OK);
     }
 
     // Create new twitter
