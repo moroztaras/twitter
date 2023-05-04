@@ -123,6 +123,7 @@ class TwitterController extends AbstractWebController
 
         return $this->render('web/twitter/delete.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 }

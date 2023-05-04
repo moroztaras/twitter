@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -87,6 +88,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function __construct()
     {
         $this
+            ->setTwitters(new ArrayCollection())
             ->setRoles([self::ROLE_USER])
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
@@ -250,30 +252,22 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<Twitter>
+     */
     public function getTwitters(): Collection
     {
         return $this->twitters;
     }
 
-    public function addTwitter(Twitter $twitter): self
+    /**
+     * @param Collection<Twitter> $twitters
+     *
+     * @return $this
+     */
+    public function setTwitters(Collection $twitters): self
     {
-        if (!$this->twitters->contains($twitter)) {
-            $this->stwitters[] = $twitter;
-            $twitter->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTwitter(Twitter $twitter): self
-    {
-        if ($this->twitters->contains($twitter)) {
-            $this->twitters->removeElement($twitter);
-            // set the owning side to null (unless already changed)
-            if ($twitter->getUser() === $this) {
-                $twitter->setUser(null);
-            }
-        }
+        $this->twitters = $twitters;
 
         return $this;
     }
