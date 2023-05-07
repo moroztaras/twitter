@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Twitter;
+use App\Entity\TwitterComment;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -45,6 +46,15 @@ class TwitterFixtures extends Fixture implements DependentFixtureInterface
             ;
 
             $manager->persist($twitter);
+
+            for ($j = 1; $j <= 5; ++$j) {
+                $twitterComment = (new TwitterComment())
+                    ->setComment($faker->word)
+                    ->setUser($admin)
+                    ->setTwitter($twitter)
+                ;
+                $manager->persist($twitterComment);
+            }
         }
 
         $manager->flush();
