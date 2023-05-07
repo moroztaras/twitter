@@ -8,29 +8,29 @@ use Doctrine\ORM\Mapping as ORM;
 trait DateTimeEntity
 {
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeImmutable $createdAt;
+    private \DateTime $createdAt;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeImmutable $updatedAt;
+    private \DateTime $updatedAt;
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): \DateTimeImmutable
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -41,6 +41,12 @@ trait DateTimeEntity
     #[ORM\PrePersist]
     public function setUpdatedValue(): void
     {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function setDateTime(): void
+    {
+        $this->updatedAt = new \DateTime();
+        $this->createdAt = new \DateTime();
     }
 }

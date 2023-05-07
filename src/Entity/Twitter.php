@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\TwitterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Twitter
 {
     use UuidEntity;
+    use DateTimeEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -50,12 +50,6 @@ class Twitter
     #[ORM\OrderBy(['id' => 'DESC'])]
     private Collection $comments;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $createdAt;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $updatedAt;
-
     /**
      * Twitter construct.
      */
@@ -67,8 +61,7 @@ class Twitter
             $this->uuid = $uuid;
         }
         $this->comments = new ArrayCollection();
-
-        $this->setCreatedAt(new \DateTime());
+        $this->setDateTime();
     }
 
     public function getId(): ?int
@@ -174,36 +167,5 @@ class Twitter
         }
 
         return $this;
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): \DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    // The date is set before the data will persist to the database.
-    #[ORM\PrePersist]
-    public function setUpdatedValue(): void
-    {
-        $this->updatedAt = new \DateTimeImmutable();
     }
 }

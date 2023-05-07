@@ -34,6 +34,15 @@ class TwitterFixtures extends Fixture implements DependentFixtureInterface
             ;
 
             $manager->persist($twitter);
+
+            for ($j = 1; $j <= 5; ++$j) {
+                $twitterComment = (new TwitterComment())
+                    ->setComment($faker->word)
+                    ->setUser($admin)
+                    ->setTwitter($twitter)
+                ;
+                $manager->persist($twitterComment);
+            }
         }
 
         for ($i = 1; $i <= 5; ++$i) {
@@ -46,15 +55,6 @@ class TwitterFixtures extends Fixture implements DependentFixtureInterface
             ;
 
             $manager->persist($twitter);
-
-            for ($j = 1; $j <= 5; ++$j) {
-                $twitterComment = (new TwitterComment())
-                    ->setComment($faker->word)
-                    ->setUser($admin)
-                    ->setTwitter($twitter)
-                ;
-                $manager->persist($twitterComment);
-            }
         }
 
         $manager->flush();

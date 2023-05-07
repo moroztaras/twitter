@@ -37,11 +37,9 @@ class TwitterComment
      */
     public function __construct()
     {
-        $this
-            ->setApproved(true)
-            ->setCreatedAt(new \DateTimeImmutable())
-            ->createUuid()
-        ;
+        $this->setApproved(true);
+        $this->createUuid();
+        $this->setDateTime();
     }
 
     public function getId(): ?int
