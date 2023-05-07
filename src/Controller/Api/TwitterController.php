@@ -34,7 +34,7 @@ class TwitterController extends ApiController
 
         return $this->json([
             'page' => $page,
-            'twitters' => $this->twitterManager->getTwitterPageByUserId($user->getId(), (int) $page)
+            'twitters' => $this->twitterManager->getTwitterPageByUserId($user->getId(), (int) $page),
         ], Response::HTTP_OK);
     }
 

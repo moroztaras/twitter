@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TwitterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
@@ -44,6 +46,10 @@ class Twitter
     #[ORM\Column(name: 'photo', type: 'string', nullable: true)]
     private ?string $photo;
 
+    #[ORM\OneToMany(mappedBy: 'twitter', targetEntity: TwitterComment::class, cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['id' => 'DESC'])]
+    private Collection $comments;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $createdAt;
 
@@ -60,11 +66,9 @@ class Twitter
         } else {
             $this->uuid = $uuid;
         }
+        $this->comments = new ArrayCollection();
 
-        $this
-            ->setCreatedAt(new \DateTime())
-            ->setUpdatedAt(new \DateTime())
-        ;
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -144,6 +148,34 @@ class Twitter
         return $this;
     }
 
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(TwitterComment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTwitter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(TwitterComment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getTwitter() === $this) {
+                $comment->setTwitter(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
@@ -167,6 +199,7 @@ class Twitter
 
         return $this;
     }
+
     // The date is set before the data will persist to the database.
     #[ORM\PrePersist]
     public function setUpdatedValue(): void

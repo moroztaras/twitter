@@ -18,8 +18,6 @@ class VideoEmbedRenderer
     }
 
     /**
-     * @param $input
-     *
      * @return string
      *
      * @throws \ReflectionException
