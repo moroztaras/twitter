@@ -83,7 +83,7 @@ class TwitterComment
         return $this;
     }
 
-    public function getApproved(): bool
+    public function isApproved(): bool
     {
         return $this->approved;
     }

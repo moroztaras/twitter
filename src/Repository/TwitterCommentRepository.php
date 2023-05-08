@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Twitter;
 use App\Entity\TwitterComment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,5 +21,16 @@ class TwitterCommentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TwitterComment::class);
+    }
+
+    public function getlistCommentsByTwitter(Twitter $twitter): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.twitter = :twitter')
+            ->setParameter('twitter', $twitter)
+            ->addOrderBy('c.updatedAt', Criteria::DESC)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

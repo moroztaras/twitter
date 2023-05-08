@@ -50,7 +50,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private ?\DateTimeInterface $birthday = null;
 
     #[ORM\Column(name: 'status')]
-    private bool $status = true;
+    private bool $status = false;
 
     #[ORM\Column(name: 'gender', length: 10)]
     private string $gender;
