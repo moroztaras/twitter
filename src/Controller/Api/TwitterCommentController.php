@@ -77,4 +77,22 @@ class TwitterCommentController extends ApiController
             'twitter-comment' => $this->twitterCommentManager->new($content, $user, $twitter),
         ], Response::HTTP_OK);
     }
+
+    // Edit comment
+    #[Route('api/twitter/{uuid_twitter}/comment/{uuid_comment}', name: 'api_twitter_comment_show',
+        requirements: ['uuid_twitter' => Uuid::VALID_PATTERN, 'uuid_comment' => Uuid::VALID_PATTERN], methods: 'PUT')]
+    #[ParamConverter('twitter', class: Twitter::class, options: ['mapping' => ['uuid_twitter' => 'uuid']])]
+    #[ParamConverter('comment', class: TwitterComment::class, options: ['mapping' => ['uuid_comment' => 'uuid']])]
+    public function edit(Request $request, Twitter $twitter, TwitterComment $comment): JsonResponse
+    {
+        $user = $this->getCurrentUser($request);
+
+        if (!($content = $request->getContent())) {
+            throw new BadRequestJsonHttpException('Bad Request.');
+        }
+
+        return $this->json([
+            'twitter-comment' => $this->twitterCommentManager->edit($content, $comment),
+        ], Response::HTTP_OK);
+    }
 }

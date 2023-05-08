@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Repository\TwitterCommentRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 
 class TwitterCommentManager
@@ -33,6 +35,20 @@ class TwitterCommentManager
         ]);
 
         $comment->setUser($user)->setTwitter($twitter);
+
+        return $this->save($comment);
+    }
+
+    public function edit($content, TwitterComment $comment): TwitterComment
+    {
+        $validationGroups = ['edit'];
+        $this->apiObjectValidator->deserializeAndValidate($content, TwitterComment::class, [
+            AbstractNormalizer::OBJECT_TO_POPULATE => $comment,
+            AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE => true,
+            UnwrappingDenormalizer::UNWRAP_PATH => '[twitter-comment]',
+        ], $validationGroups);
+
+        $comment->setUpdatedAt(new \DateTime());
 
         return $this->save($comment);
     }

@@ -21,10 +21,11 @@ class TwitterCommentsNormalizer implements NormalizerInterface
             'user' => [
                 'uuid' => $object->getUser()->getUuid(),
                 'firstName' => $object->getUser()->getFirstName(),
-                'lastName' => $object->getUser()->getFirstName(),
+                'lastName' => $object->getUser()->getLastName(),
             ],
             'approved' => $object->isApproved(),
             'createdAt' => $object->getCreatedAt()->format('c'),
+            'updatedAt' => $object->getUpdatedAt()->format('c'),
         ];
     }
 
