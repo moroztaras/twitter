@@ -26,7 +26,7 @@ class TwitterCommentManager
     ) {
     }
 
-    public function new($content, User $user, Twitter $twitter):TwitterComment
+    public function new($content, User $user, Twitter $twitter): TwitterComment
     {
         /** @var TwitterComment $comment */
         $comment = $this->apiObjectValidator->deserializeAndValidate($content, TwitterComment::class, [
@@ -51,6 +51,18 @@ class TwitterCommentManager
         $comment->setUpdatedAt(new \DateTime());
 
         return $this->save($comment);
+    }
+
+    public function removeComment(TwitterComment $comment):void
+    {
+        $this->remove($comment);
+    }
+
+    // Remove comment from DB
+    private function remove(TwitterComment $comment): void
+    {
+        $this->doctrine->getManager()->remove($comment);
+        $this->doctrine->getManager()->flush();
     }
 
     // Save twitter comment in DB

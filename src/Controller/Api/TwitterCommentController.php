@@ -8,6 +8,7 @@ use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Expected\TwitterNotFoundException;
 use App\Manager\TwitterCommentManager;
 use App\Repository\TwitterCommentRepository;
+use App\Response\SuccessResponse;
 use Knp\Component\Pager\PaginatorInterface;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -78,8 +79,8 @@ class TwitterCommentController extends ApiController
         ], Response::HTTP_OK);
     }
 
-    // Edit comment
-    #[Route('api/twitter/{uuid_twitter}/comment/{uuid_comment}', name: 'api_twitter_comment_show',
+    // Edit comment of twitter
+    #[Route('api/twitter/{uuid_twitter}/comment/{uuid_comment}', name: 'api_twitter_comment_edit',
         requirements: ['uuid_twitter' => Uuid::VALID_PATTERN, 'uuid_comment' => Uuid::VALID_PATTERN], methods: 'PUT')]
     #[ParamConverter('twitter', class: Twitter::class, options: ['mapping' => ['uuid_twitter' => 'uuid']])]
     #[ParamConverter('comment', class: TwitterComment::class, options: ['mapping' => ['uuid_comment' => 'uuid']])]
@@ -94,5 +95,19 @@ class TwitterCommentController extends ApiController
         return $this->json([
             'twitter-comment' => $this->twitterCommentManager->edit($content, $comment),
         ], Response::HTTP_OK);
+    }
+
+    // Remove comment of twitter
+    #[Route('api/twitter/{uuid_twitter}/comment/{uuid_comment}', name: 'api_twitter_comment_delete',
+        requirements: ['uuid_twitter' => Uuid::VALID_PATTERN, 'uuid_comment' => Uuid::VALID_PATTERN], methods: 'DELETE')]
+    #[ParamConverter('twitter', class: Twitter::class, options: ['mapping' => ['uuid_twitter' => 'uuid']])]
+    #[ParamConverter('comment', class: TwitterComment::class, options: ['mapping' => ['uuid_comment' => 'uuid']])]
+    public function delete(Request $request, Twitter $twitter, TwitterComment $comment): JsonResponse
+    {
+        $user = $this->getCurrentUser($request);
+
+        $this->twitterCommentManager->removeComment($comment);
+
+        return new SuccessResponse();
     }
 }
