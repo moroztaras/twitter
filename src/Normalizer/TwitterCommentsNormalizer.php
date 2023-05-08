@@ -34,7 +34,6 @@ class TwitterCommentsNormalizer implements NormalizerInterface
         if (isset($context['edit']) && isset($context['object_to_populate'])) {
             $object = $context['object_to_populate'];
 
-
             return $object;
         }
     }

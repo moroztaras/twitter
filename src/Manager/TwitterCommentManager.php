@@ -53,7 +53,7 @@ class TwitterCommentManager
         return $this->save($comment);
     }
 
-    public function removeComment(TwitterComment $comment):void
+    public function removeComment(TwitterComment $comment): void
     {
         $this->remove($comment);
     }

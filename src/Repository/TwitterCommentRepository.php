@@ -31,6 +31,6 @@ class TwitterCommentRepository extends ServiceEntityRepository
             ->addOrderBy('c.updatedAt', Criteria::DESC)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }
