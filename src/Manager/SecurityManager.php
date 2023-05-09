@@ -3,9 +3,12 @@
 namespace App\Manager;
 
 use App\Entity\User;
+use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Expected\ExpectedBadRequestJsonHttpException;
 use App\Exception\Expected\UserNotFoundException;
 use App\Form\Security\Model\Forgot;
+use App\Model\LoginModel;
+use App\Repository\UserRepository;
 use App\Response\SuccessResponse;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,7 +28,29 @@ class SecurityManager
         private UserPasswordHasherInterface $passwordEncoder,
         private ApiObjectValidator $apiObjectValidator,
         private EmailManager $emailManager,
+        private UserRepository $userRepository,
     ) {
+    }
+
+    // Api authentication user
+    public function userAuthentication(string $content): User
+    {
+        /** @var LoginModel $login */
+        $login = $this->apiObjectValidator->deserializeAndValidate($content, LoginModel::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[login]',
+        ]);
+        $user = $this->userRepository->findOneByEmail($login->getEmail());
+
+        if (!$user) {
+            throw new BadRequestJsonHttpException('Authentication error');
+        }
+
+        if ($this->passwordEncoder->isPasswordValid($user, $login->getPlainPassword())) {
+            $user->setApiKey(Uuid::uuid4());
+            $this->save($user, null);
+        }
+
+        return $user;
     }
 
     // Save user

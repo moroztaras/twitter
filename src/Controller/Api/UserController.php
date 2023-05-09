@@ -21,6 +21,17 @@ class UserController extends ApiController
     ) {
     }
 
+    // User login
+    #[Route(path: '/login', name: '_login', methods: 'POST')]
+    public function login(Request $request): JsonResponse
+    {
+        if (!($content = $request->getContent())) {
+            throw new BadRequestJsonHttpException('Bad Request.');
+        }
+
+        return $this->json(['user' => $this->securityManager->userAuthentication($content)], Response::HTTP_OK, [], ['login' => true]);
+    }
+
     // User registration
     #[Route(path: '/register', name: '_register', methods: 'POST')]
     public function register(Request $request): JsonResponse
