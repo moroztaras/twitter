@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TwitterRepository;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Twitter
 {
     use UuidEntity;
+    use DateTimeEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -44,11 +46,9 @@ class Twitter
     #[ORM\Column(name: 'photo', type: 'string', nullable: true)]
     private ?string $photo;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $createdAt;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $updatedAt;
+    #[ORM\OneToMany(mappedBy: 'twitter', targetEntity: TwitterComment::class, cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['id' => 'DESC'])]
+    private Collection $comments;
 
     /**
      * Twitter construct.
@@ -60,11 +60,8 @@ class Twitter
         } else {
             $this->uuid = $uuid;
         }
-
-        $this
-            ->setCreatedAt(new \DateTime())
-            ->setUpdatedAt(new \DateTime())
-        ;
+        $this->comments = new ArrayCollection();
+        $this->setDateTime();
     }
 
     public function getId(): ?int
@@ -144,33 +141,31 @@ class Twitter
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getComments(): Collection
     {
-        return $this->createdAt;
+        return $this->comments;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function addComment(TwitterComment $comment): self
     {
-        $this->createdAt = $createdAt;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTwitter($this);
+        }
 
         return $this;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function removeComment(TwitterComment $comment): self
     {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getTwitter() === $this) {
+                $comment->setTwitter(null);
+            }
+        }
 
         return $this;
-    }
-    // The date is set before the data will persist to the database.
-    #[ORM\PrePersist]
-    public function setUpdatedValue(): void
-    {
-        $this->updatedAt = new \DateTimeImmutable();
     }
 }

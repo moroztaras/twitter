@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
     use UuidEntity;
+    use DateTimeEntity;
 
     public const ROLE_ADMIN = 'ROLE_ADMIN';
     public const ROLE_USER = 'ROLE_USER';
@@ -49,7 +50,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private ?\DateTimeInterface $birthday = null;
 
     #[ORM\Column(name: 'status')]
-    private bool $status = true;
+    private bool $status = false;
 
     #[ORM\Column(name: 'gender', length: 10)]
     private string $gender;
@@ -66,13 +67,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(name: 'roles', type: Types::JSON)]
     private array $roles;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $createdAt;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $updatedAt;
-
-    // Posts of user
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Twitter::class, cascade: ['persist'])]
     private Collection $twitters;
 
@@ -87,13 +81,10 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
      */
     public function __construct()
     {
-        $this
-            ->setTwitters(new ArrayCollection())
-            ->setRoles([self::ROLE_USER])
-            ->setCreatedAt(new \DateTime())
-            ->setUpdatedAt(new \DateTime())
-            ->createUuid()
-        ;
+        $this->twitters = new ArrayCollection();
+        $this->setRoles([self::ROLE_USER]);
+        $this->createUuid();
+        $this->setDateTime();
     }
 
     public function getId(): ?int
@@ -272,6 +263,29 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
+    public function addTwitter(Twitter $twitter): self
+    {
+        if (!$this->twitters->contains($twitter)) {
+            $this->twitters[] = $twitter;
+            $twitter->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTwitter(Twitter $twitter): self
+    {
+        if ($this->twitters->contains($twitter)) {
+            $this->twitters->removeElement($twitter);
+            // set the owning side to null (unless already changed)
+            if ($twitter->getUser() === $this) {
+                $twitter->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getAvatar(): ?string
     {
         return $this->avatar;
@@ -296,29 +310,29 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): \DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
+//    public function getCreatedAt(): \DateTime
+//    {
+//        return $this->createdAt;
+//    }
+//
+//    public function setCreatedAt(\DateTime $createdAt): self
+//    {
+//        $this->createdAt = $createdAt;
+//
+//        return $this;
+//    }
+//
+//    public function getUpdatedAt(): \DateTime
+//    {
+//        return $this->updatedAt;
+//    }
+//
+//    public function setUpdatedAt(\DateTime $updatedAt): self
+//    {
+//        $this->updatedAt = $updatedAt;
+//
+//        return $this;
+//    }
 
     public function eraseCredentials()
     {

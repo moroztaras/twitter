@@ -32,6 +32,7 @@ class UserNormalizer implements NormalizerInterface
                 'status' => $object->isStatus(),
                 'avatar' => $object->getAvatar(),
                 'cover' => $object->getCover(),
+                'blocked' => $object->isStatus(),
             ];
         }
 
@@ -43,7 +44,7 @@ class UserNormalizer implements NormalizerInterface
             'gender' => $object->getGender(),
             'birthday' => $object->getBirthday()->format('d-m-Y'),
             'country' => $object->getCountry(),
-            'status' => $object->isStatus(),
+            'blocked' => $object->isStatus(),
         ];
     }
 
