@@ -12,20 +12,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ApiObjectValidator
 {
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
-
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
-    public function __construct(ValidatorInterface $validator, SerializerInterface $serializer, private LoggerInterface $logger)
-    {
-        $this->validator = $validator;
-        $this->serializer = $serializer;
+    public function __construct(
+        private ValidatorInterface $validator,
+        private SerializerInterface $serializer,
+        //        private LoggerInterface $logger
+    ) {
     }
 
     public function deserializeAndValidate($data, $class, array $context = [], array $groups = []): object
