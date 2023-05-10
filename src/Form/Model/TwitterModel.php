@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Twitter\Model;
+namespace App\Form\Model;
 
 use App\Entity\Twitter;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TwitterModel
 {
     #[Assert\NotBlank]
-    private $text = null;
+    private ?string $text = null;
 
     private ?UploadedFile $photo;
 
@@ -32,7 +32,7 @@ class TwitterModel
         return $this;
     }
 
-    public function setText($text): self
+    public function setText(string $text): self
     {
         $this->text = $text;
 

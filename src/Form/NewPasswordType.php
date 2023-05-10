@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Security;
+namespace App\Form;
 
-use App\Form\Security\Model\NewPasswordModel;
+use App\Form\Model\NewPasswordModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Twitter;
+namespace App\Form;
 
-use App\Form\Twitter\Model\TwitterModel;
+use App\Form\Model\TwitterModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

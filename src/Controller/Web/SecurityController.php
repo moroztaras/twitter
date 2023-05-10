@@ -3,11 +3,11 @@
 namespace App\Controller\Web;
 
 use App\Entity\User;
-use App\Form\Security\Model\NewPasswordModel;
-use App\Form\Security\Model\RecoverPasswordModel;
-use App\Form\Security\NewPasswordType;
-use App\Form\Security\RecoverPasswordType;
-use App\Form\Security\RegistrationType;
+use App\Form\Model\NewPasswordModel;
+use App\Form\Model\RecoverPasswordModel;
+use App\Form\NewPasswordType;
+use App\Form\RecoverPasswordType;
+use App\Form\RegistrationType;
 use App\Manager\EmailManager;
 use App\Manager\SecurityManager;
 use Doctrine\Persistence\ManagerRegistry;
@@ -138,7 +138,7 @@ class SecurityController extends AbstractController
 
     // User logout
     #[Route(path: '/logout', name: '_logout')]
-    public function logout(): Response
+    public function logout()
     {
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Security\Model;
+namespace App\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -14,7 +14,7 @@ class NewPasswordModel
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $plainPassword): NewPasswordModel
+    public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
 
