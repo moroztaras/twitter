@@ -3,8 +3,8 @@
 namespace App\Controller\Web;
 
 use App\Entity\User;
-use App\Form\UserProfile\Model\UserProfileModel;
-use App\Form\UserProfile\UserProfileType;
+use App\Form\Model\UserProfileModel;
+use App\Form\UserProfileType;
 use App\Manager\UserProfileManager;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;

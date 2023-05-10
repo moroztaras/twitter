@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\UserProfile;
+namespace App\Form;
 
-use App\Form\UserProfile\Model\UserProfileModel;
+use App\Form\Model\UserProfileModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Expected\ExpectedBadRequestJsonHttpException;
 use App\Exception\Expected\UserNotFoundException;
-use App\Form\Security\Model\Forgot;
+use App\Form\Model\Forgot;
 use App\Model\LoginModel;
 use App\Repository\UserRepository;
 use App\Response\SuccessResponse;

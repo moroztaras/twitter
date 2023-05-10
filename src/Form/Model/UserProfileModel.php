@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\UserProfile\Model;
+namespace App\Form\Model;
 
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -66,7 +66,7 @@ class UserProfileModel
         return $this;
     }
 
-    public function getBirthday()
+    public function getBirthday(): \DateTimeInterface
     {
         return $this->birthday;
     }

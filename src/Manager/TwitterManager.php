@@ -4,7 +4,7 @@ namespace App\Manager;
 
 use App\Entity\Twitter;
 use App\Entity\User;
-use App\Form\Twitter\Model\TwitterModel;
+use App\Form\Model\TwitterModel;
 use App\Repository\TwitterRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;

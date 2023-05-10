@@ -3,7 +3,7 @@
 namespace App\Manager;
 
 use App\Entity\User;
-use App\Form\UserProfile\Model\UserProfileModel;
+use App\Form\Model\UserProfileModel;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
