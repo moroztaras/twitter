@@ -45,9 +45,13 @@ or
 % make dc_restart
 ```
 
+### Run server
+
+symfony serve:start
+
 ### Go to the link at
 
-http://127.0.0.1:888
+http://127.0.0.1:8000
 
 ### Run tests from docker container
 ```bash

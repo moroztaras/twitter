@@ -1,4 +1,3 @@
-#Symfony 6 PHP8 & Docker
+# Social Network 2023
 
 - [Docker](docs/docker.md)
-- [Useful documentation](docs/usefulDocumentations.md)
