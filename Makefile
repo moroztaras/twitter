@@ -2,7 +2,7 @@
 # Variables
 ##################
 
-DOCKER_COMPOSE = docker-compose -f ./docker/docker-compose.yml
+DOCKER_COMPOSE = docker-compose -f ./docker/docker-compose.yaml
 DOCKER_COMPOSE_PHP_FPM_EXEC = ${DOCKER_COMPOSE} exec -u www-data php-fpm
 
 ##################
@@ -23,11 +23,11 @@ dc_stop:
 
 # Run an app in a docker
 dc_up:
-	${DOCKER_COMPOSE} up -d --remove-orphans
+	${DOCKER_COMPOSE} up -d #--remove-orphans
 
 # Restart an app in a docker
 dc_restart:
-	${DOCKER_COMPOSE} stop && ${DOCKER_COMPOSE} build && ${DOCKER_COMPOSE} up -d --remove-orphans
+	${DOCKER_COMPOSE} stop && ${DOCKER_COMPOSE} build && ${DOCKER_COMPOSE} up -d #--remove-orphans
 
 dc_ps:
 	${DOCKER_COMPOSE} ps
