@@ -1,3 +1,3 @@
 # Social Network 2023
 
-- [Docker](docs/docker.md)
+- [Install](docs/install.md)
