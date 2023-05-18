@@ -1,4 +1,8 @@
-# Install project Symfony6-PHP8-&-Docker in docker
+# Social Network - Twitter
+
+Project on Symfony 6 using docker
+
+## Install project
 
 ### Things you need
 * composer
@@ -51,4 +55,5 @@ http://127.0.0.1:8000
 ### Login as admin
 
 email: admin@social-network.ua
+
 pass: qwerty
