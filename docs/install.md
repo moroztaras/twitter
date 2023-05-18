@@ -28,6 +28,16 @@ It's credentials to database.
 % make dc_up
 ```
 
+### Execute a migration to the latest available version
+```bash
+./bin/console doctrine:migrations:migrate
+```
+
+### Load data fixtures to database
+```bash
+./bin/console doctrine:fixtures:load
+```
+
 ### Run server
 ```bash
 % symfony serve:start
@@ -37,3 +47,8 @@ It's credentials to database.
 ```bash
 http://127.0.0.1:8000
 ```
+
+### Login as admin
+
+email: admin@social-network.ua
+pass: qwerty
