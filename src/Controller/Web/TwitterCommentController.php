@@ -2,6 +2,7 @@
 
 namespace App\Controller\Web;
 
+use App\Components\Form\EntityDeleteForm;
 use App\Entity\Twitter;
 use App\Entity\TwitterComment;
 use App\Entity\User;
@@ -83,6 +84,32 @@ class TwitterCommentController extends AbstractWebController
         return $this->render('web/twitterComment/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/twitter/{id_twitter}/comment/{id_comment}/delete', name: 'web_twitter_comment_delete',
+        requirements: ['id_twitter' => '\d+', 'id_comment' => '\d+'], methods: ['POST', 'GET'])]
+    #[ParamConverter('twitter', class: Twitter::class, options: ['mapping' => ['id_twitter' => 'id']])]
+    #[ParamConverter('comment', class: TwitterComment::class, options: ['mapping' => ['id_comment' => 'id']])]
+    public function delete(Request $request, Twitter $twitter, TwitterComment $comment): Response|RedirectResponse
+    {
+        if ($comment->getUser() !== $this->getUser() || $twitter->getUser() !== $comment->getUser()) {
+            $this->requestStack->getSession()->getFlashBag()->add('danger', 'delete_comment_is_forbidden');
+        }
+
+        $form = $this->createForm(EntityDeleteForm::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->twitterCommentManager->removeComment($comment);
+            $this->requestStack->getSession()->getFlashBag()->add('danger', 'comment_was_deleted');
+
+            return $this->redirect($this->generateUrl('web_twitter_view', ['id' => $twitter->getId()]));
+        }
+
+        return $this->render('web/twitterComment/delete.html.twig', [
+            'form' => $form->createView(),
+            'user' => $this->getUser(),
+            'twitter' => $twitter,
         ]);
     }
 }

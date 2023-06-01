@@ -11,9 +11,9 @@
                     </a>
                 </li>
                 <li>
-{#                    <a href="{{ path('comment_delete', {'id': comment.id}) }}">#}
+                    <a href="{{ path('web_twitter_comment_delete', {'id_twitter' : comment.twitter.id, 'id_comment' : comment.id}) }}">
                         <span uk-icon="icon: trash" class="uk-margin-small-right"></span> {{ 'delete'|trans }}
-{#                    </a>#}
+                    </a>
                 </li>
             </ul>
         </nav>
