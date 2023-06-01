@@ -2,6 +2,7 @@
 
 namespace App\Form\Model;
 
+use App\Entity\TwitterComment;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TwitterCommentModel
@@ -19,5 +20,10 @@ class TwitterCommentModel
         $this->comment = $comment;
 
         return $this;
+    }
+
+    public function setEntityTwitterComment(TwitterComment $comment): void
+    {
+        $this->setComment($comment->getComment());
     }
 }

@@ -6,9 +6,9 @@
         <nav class="uk-padding-small">
             <ul class="uk-nav uk-list-divider uk-text-small">
                 <li>
-{#                    <a href="{{ path('comment_edit', {'id': comment.id}) }}">#}
+                    <a href="{{ path('web_edit_twitter_comment', {'id_twitter' : comment.twitter.id, 'id_comment' : comment.id}) }}">
                         <span uk-icon="icon: pencil" class="uk-margin-small-right"></span> {{ 'edit'|trans }}
-{#                    </a>#}
+                    </a>
                 </li>
                 <li>
 {#                    <a href="{{ path('comment_delete', {'id': comment.id}) }}">#}

@@ -3,6 +3,7 @@
 namespace App\Controller\Web;
 
 use App\Entity\Twitter;
+use App\Entity\TwitterComment;
 use App\Entity\User;
 use App\Form\Model\TwitterCommentModel;
 use App\Form\TwitterCommentType;
@@ -22,7 +23,8 @@ class TwitterCommentController extends AbstractWebController
     {
     }
 
-    #[Route('/twitter/{id_twitter}/comment/create', name: 'create_new_comment', requirements: ['id_twitter' => "\d+"], methods: 'POST')]
+    #[Route('/twitter/{id_twitter}/comment/create', name: 'web_create_new_twitter_comment',
+        requirements: ['id_twitter' => "\d+"], methods: 'POST')]
     #[ParamConverter('twitter', class: Twitter::class, options: ['mapping' => ['id_twitter' => 'id']])]
     public function create(Request $request, Twitter $twitter): Response|RedirectResponse
     {
@@ -43,6 +45,43 @@ class TwitterCommentController extends AbstractWebController
         return $this->render('web/twitterComment/create.html.twig', [
             'user' => $this->getUser(),
             'twitter' => $twitter,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/twitter/{id_twitter}/comment/{id_comment}/edit', name: 'web_edit_twitter_comment',
+        requirements: ['id_twitter' => '\d+', 'id_comment' => '\d+'], methods: ['GET', 'POST'])]
+    #[ParamConverter('twitter', class: Twitter::class, options: ['mapping' => ['id_twitter' => 'id']])]
+    #[ParamConverter('comment', class: TwitterComment::class, options: ['mapping' => ['id_comment' => 'id']])]
+    public function edit(Request $request, Twitter $twitter, TwitterComment $comment): Response|RedirectResponse
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$comment || $comment->getUser() !== $user) {
+            $this->requestStack->getSession()->getFlashBag()->add('danger', 'edit_comment_is_forbidden');
+
+            return $this->redirectToRoute('web_twitter_view', ['id' => $twitter->getId()]);
+        }
+
+        $twitterCommentModel = new TwitterCommentModel();
+        $twitterCommentModel->setEntityTwitterComment($comment);
+        $form = $this->createForm(TwitterCommentType::class, $twitterCommentModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->twitterCommentManager->editComment($comment, $twitterCommentModel);
+
+            $this->requestStack->getSession()->getFlashBag()->add('success', 'comment_edited_successfully');
+
+            return $this->redirect($this->generateUrl('web_twitter_view', [
+                    'id' => $comment->getTwitter()->getId(),
+                    ]).'#comment-'.$comment->getId()
+            );
+        }
+
+        return $this->render('web/twitterComment/edit.html.twig', [
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }

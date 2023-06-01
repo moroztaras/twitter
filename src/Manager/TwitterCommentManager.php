@@ -6,7 +6,6 @@ use App\Entity\Twitter;
 use App\Entity\TwitterComment;
 use App\Entity\User;
 use App\Form\Model\TwitterCommentModel;
-use App\Repository\TwitterCommentRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -23,7 +22,6 @@ class TwitterCommentManager
     public function __construct(
         private ManagerRegistry $doctrine,
         private ApiObjectValidator $apiObjectValidator,
-        private TwitterCommentRepository $twitterCommentRepository,
     ) {
     }
 
@@ -34,6 +32,13 @@ class TwitterCommentManager
             ->setUser($user)
             ->setComment($commentModel->getComment()))
         ;
+    }
+
+    public function editComment(TwitterComment $comment, TwitterCommentModel $twitterCommentModel): TwitterComment
+    {
+        $comment->setComment($twitterCommentModel->getComment());
+
+        return $this->save($comment);
     }
 
     public function new($content, User $user, Twitter $twitter): TwitterComment
