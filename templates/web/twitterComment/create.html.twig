@@ -1,0 +1,20 @@
+<div class="uk-card uk-card-default uk-card-small uk-margin-small">
+    <div class="uk-card-header">
+        <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-auto">
+                <img data-src="{{ user.avatar }}" width="40" height="40" alt uk-img>
+            </div>
+            <div class="uk-width-expand">
+                {{ form_start(form, { 'action': path('web_create_new_twitter_comment' , { 'id_twitter' : twitter.id }), 'method': 'POST' }) }}
+                <div class="uk-margin">
+                    <br>
+                    {{ form_widget(form) }}
+                    <span class="input-group-prepend">
+                        <button class="btn btn-secondary" type="submit">{{ 'add'|trans }}</button>
+                    </span>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>

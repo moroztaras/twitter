@@ -5,7 +5,7 @@ namespace App\Manager;
 use App\Entity\Twitter;
 use App\Entity\TwitterComment;
 use App\Entity\User;
-use App\Repository\TwitterCommentRepository;
+use App\Form\Model\TwitterCommentModel;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -22,8 +22,23 @@ class TwitterCommentManager
     public function __construct(
         private ManagerRegistry $doctrine,
         private ApiObjectValidator $apiObjectValidator,
-        private TwitterCommentRepository $twitterCommentRepository,
     ) {
+    }
+
+    public function createNewComment(Twitter $twitter, User $user, TwitterCommentModel $commentModel): TwitterComment
+    {
+        return $this->save((new TwitterComment())
+            ->setTwitter($twitter)
+            ->setUser($user)
+            ->setComment($commentModel->getComment()))
+        ;
+    }
+
+    public function editComment(TwitterComment $comment, TwitterCommentModel $twitterCommentModel): TwitterComment
+    {
+        $comment->setComment($twitterCommentModel->getComment());
+
+        return $this->save($comment);
     }
 
     public function new($content, User $user, Twitter $twitter): TwitterComment
@@ -65,7 +80,6 @@ class TwitterCommentManager
         $this->doctrine->getManager()->flush();
     }
 
-    // Save twitter comment in DB
     private function save(TwitterComment $comment): TwitterComment
     {
         $this->doctrine->getManager()->persist($comment);

@@ -49,10 +49,10 @@
 {#                    {% endif %}#}
                 </div>
             </div>
-{#            {% if app.user %}#}
-{#                {{ render(controller('App\\Controller\\CommentController::new', {'id':svistyn.id})) }}#}
-{#            {% endif %}#}
-{#            {{ include('Comment/list.html.twig', {'comments' : comments}) }}#}
+            {% if app.user %}
+                {{ render(controller('App\\Controller\\Web\\TwitterCommentController::create', {'id_twitter':twitter.id})) }}
+            {% endif %}
+            {{ include('web/twitterComment/list.html.twig', {'comments' : comments}) }}
 {#            {{ include('Pagination/kpn_pagination.html.twig', {'field' : comments}) }}#}
         </div>
     </div>
