@@ -1,0 +1,13 @@
+{% for comment in comments %}
+    <div class="uk-card uk-card-default uk-card-small uk-margin-small">
+        <div class="uk-card-header">
+            {{ include('web/twitterComment/header.html.twig', { 'comment' : comment }) }}
+        </div>
+        <div class="uk-card uk-card-body">
+            <div class="st-post-fd st-post-fd--text">
+                <p>{{ comment.comment  }}</p>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{{ include('pagination/knp_pagination.html.twig', {'pagination' : comments}) }}

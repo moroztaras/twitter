@@ -1,5 +1,7 @@
+#Install Nginx
 FROM nginx:alpine
 
+# Copy files
 COPY nginx.conf /etc/nginx/
 COPY default.conf /etc/nginx/conf.d/
 

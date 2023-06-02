@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    pagination_limit: '%env(PAGINATION_LIMIT)%'
 
 services:
     # default configuration for services in *this* file
@@ -15,16 +16,16 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
 
-    _instanceof:
-        App\Shared\Application\Command\CommandHandlerInterface:
-            tags:
-                - { name: messenger.message_handler, bus: command.bus }
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
 
-        App\Shared\Application\Query\QueryHandlerInterface:
-            tags:
-                - { name: messenger.message_handler, bus: query.bus }
+    App\Manager\UserProfileManager:
+        arguments: ['%env(AVATAR_DIRECTORY)%','%env(COVER_DIRECTORY)%']
 
-    App\Users\Infrastructure\Controller\:
-        resource: '../src/Users/Infrastructure/Controller/'
-        tags: [ 'controller.service_arguments' ]
+    App\Manager\TwitterManager:
+        arguments: [ '%env(TWITTER_PHOTO_DIRECTORY)%' ]

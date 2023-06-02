@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/css/uikit.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base/elements.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base/typography.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/page.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/twitter.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/user.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
+{% endblock %}
+
+{% block body %}
+    {{ include('system/messages.html.twig', { 'messages': app.flashes(['warning', 'danger', 'primary', 'success'])}) }}
+    <div class="page-wrap uk-height-1-1">
+        <div class="page uk-flex uk-flex-column uk-height-1-1">
+            {% block page %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/js/jquery-ui-core.min.js') }}"></script>
+    <script src="{{ asset('vendor/js/uikit.min.js') }}"></script>
+    <script src="{{ asset('vendor/js/uikit-icons.min.js') }}"></script>
+    {#FILEUPLOAD#}
+    <script src="{{ asset('vendor/js/fileupload/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('vendor/js/fileupload/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('vendor/js/fileupload/jquery.fileupload-process.js') }}"></script>
+    {#END FILEUPLOAD#}
+    <script src="{{ asset('scripts/svistyn_add.js') }}"></script>
+{% endblock %}

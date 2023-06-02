@@ -1,0 +1,13 @@
+{% extends "Layout/layout-default.html.twig" %}
+{% block body_attr %}page-recover{% endblock %}
+{% block title %}{{ 'recover_account'|trans }}{% endblock %}
+{% block main %}
+    <div class="uk-container uk-container-small">
+        <div class="uk-section uk-padding uk-background-default kuk-shadow">
+            <h2 class="uk-heading-divider">{{ 'recover_account'|trans }}</h2>
+            {{ form(recover_form) }}
+            <hr>
+            <p class="uk-text-small">{{ 'first_time_on_site'|trans }}? <a href="{{ path('app_registration') }}" class="uk-link">{{ 'create_account'|trans }}</a></p>
+        </div>
+    </div>
+{% endblock %}

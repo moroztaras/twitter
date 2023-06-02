@@ -1,0 +1,36 @@
+@import "../default";
+@import "../inc/variable";
+
+//
+//.lt--svistyn-full{
+//  .lt-r{
+//    &--header{
+//      .x_title{
+//        @include display-flex();
+//        @include align-items(center);
+//        .svistyn-owner{
+//          @include flex(1);
+//        }
+//        .nav{
+//          & > li{
+//            & > a{
+//              padding: 5px;
+//            }
+//          }
+//        }
+//      }
+//
+//    }
+//  }
+//}
+//#svistyn_add_preview{
+//  margin-top: 10px;
+//}
+//.svistyn{
+//  &-action{
+//    @include display-flex();
+//    & > div{
+//      @include flex(1);
+//    }
+//  }
+//}

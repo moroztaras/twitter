@@ -1,0 +1,16 @@
+<div class="uk-grid-small uk-flex-middle" uk-grid>
+    <div class="uk-width-auto">
+        <img data-src="{% if comment.user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img>
+    </div>
+    <div class="uk-width-expand">
+        <div>
+            <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile_default', { 'id' : comment.user.id }) }}">
+                {{ comment.user.firstName }} {{ comment.user.lastName }}
+            </a>
+        </div>
+        <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ comment.createdAt|date('Y-m-d H:i:s') }}">{{ comment.createdAt|date('M d, Y') }}</time></p>
+    </div>
+    {% if app.user and app.user.uuid == comment.user.uuid %}
+        {{ include('web/twitterComment/menu.html.twig', { 'comment' : comment }) }}
+    {% endif %}
+</div>

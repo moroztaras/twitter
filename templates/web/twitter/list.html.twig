@@ -1,0 +1,33 @@
+{% extends "Layout/layout-default.html.twig" %}
+
+{#{% block title %}{% if user is not null %}{{ user.fullname }}{% endif %}{% endblock %}#}
+
+{% block main %}
+    {% if user is not null %}
+        {{ render(controller('App\\Controller\\Web\\BlockController::userCover',{ 'id': user.id })) }}
+    {% endif %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% if app.user == user  %}
+            <div class="uk-text-center uk-margin">
+                <a href="{{ path('web_twitter_new') }}" class="uk-button uk-button-default" style="margin-right: 5px;">
+                    <i class="fa fa-plus-square-o"></i>{{ 'add_twitter'|trans }}
+                </a>
+            </div>
+        {% else  %}
+            <div class="uk-text-center uk-margin">
+{#                <a href="{{ path('user_friend_add', {'id_friend': user.id, 'status':0 }) }}" class="uk-button uk-button-default" style="margin-right: 5px;">#}
+{#                    <i class="fa fa-plus-square-o"></i>#}
+{#                    {{ render(controller('App\\Controller\\FriendsController::status', {'id_user': this_user.id, 'id_friend': user.id})) }}#}
+{#                </a>#}
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="uk-section uk-section-xsmall">
+        <div class="uk-container uk-container-xsmall">
+            {% for twitter in twitters %}
+                {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter }) }}
+            {% endfor %}
+              {{ include('pagination/knp_pagination.html.twig', {'pagination' : twitters}) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+@import "../default";
+@import "../inc/variable";
+//.page{
+//  max-width: $desktopOnly;
+//  margin: 0 auto;
+//  &-wrap{
+//    padding: 0 10px;
+//
+//  }
+//}
+//
+//.main{
+//  &-wrap{
+//    max-width: 1220px;
+//    padding: 0 10px;
+//    margin: 0 auto;
+//
+//
+//    @include display-flex;
+//    @include flex-flow(row wrap);
+//    .sidebar-left{
+//      @include flex(1 100%);
+//      background-color: red;
+//      height: 300px;
+//      @include order(2);
+//    }
+//    .main{
+//      @include flex(1 100%);
+//      background-color: blue;
+//      height: 300px;
+//    }
+//    @include breakpoint($desktop)
+//    {
+//      .sidebar-left{
+//        @include flex(none);
+//        width: 300px;
+//      }
+//      .main{
+//        @include flex(none);
+//        width: auto;
+//      }
+//    }
+//  }
+//}
+//.lt-security{
+//  @include display-flex();
+//  & > .lt-r{
+//    &--left{
+//      width: 300px;
+//    }
+//    &--right{
+//      @include flex(1);
+//    }
+//  }
+//}
