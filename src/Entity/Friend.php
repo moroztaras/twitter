@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\FriendRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FriendRepository::class)]
@@ -20,8 +21,6 @@ class Friend
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'friend_id', referencedColumnName: 'id')]
     private ?User $friend;
-
-
 
     // Status friendship
     #[ORM\Column(name: 'status')]
