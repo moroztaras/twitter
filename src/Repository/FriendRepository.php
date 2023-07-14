@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Friend;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,5 +20,12 @@ class FriendRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Friend::class);
+    }
+
+    public function findOneByUsers(User $user, User $friend): Friend|null
+    {
+        return $this->findOneBy([
+            'user' => $user->getId(), 'friend' => $friend->getId(),
+        ]);
     }
 }

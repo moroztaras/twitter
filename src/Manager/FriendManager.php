@@ -4,12 +4,14 @@ namespace App\Manager;
 
 use App\Entity\Friend;
 use App\Entity\User;
+use App\Repository\FriendRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class FriendManager
 {
     public function __construct(
         private ManagerRegistry $doctrine,
+        private readonly FriendRepository $friendRepository,
     ) {
     }
 
@@ -17,9 +19,10 @@ class FriendManager
     {
         /** @var Friend $friendShip */
         $friendShip = $this->checkFriendShip($user, $friend);
+
         if (0 == $status) {
             if ($friendShip) {
-                $this->removeFiend($friendShip);
+                $this->removeFriend($friendShip);
 
                 return ['status' => 'danger', 'message' => 'friend_remove'];
             } else {
@@ -42,10 +45,10 @@ class FriendManager
 
     public function checkFriendShip(User $user, User $friend): Friend|null
     {
-        return $this->doctrine->getRepository(Friend::class)->find(30);
+        return $this->friendRepository->findOneByUsers($user, $friend);
     }
 
-    private function removeFiend(Friend $friend): void
+    private function removeFriend(Friend $friend): void
     {
         $this->doctrine->getManager()->remove($friend);
         $this->doctrine->getManager()->flush();
