@@ -1,6 +1,6 @@
 {% extends "Layout/layout-default.html.twig" %}
 
-{#{% block title %}{% if user is not null %}{{ user.fullname }}{% endif %}{% endblock %}#}
+{% block title %}Twitters {% if user is not null %}| {{ user.firstName }} {{ user.lastName }}{% endif %}{% endblock %}
 
 {% block main %}
     {% if user is not null %}

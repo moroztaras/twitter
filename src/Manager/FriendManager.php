@@ -48,6 +48,11 @@ class FriendManager
         return $this->friendRepository->findOneByUsers($user, $friend);
     }
 
+    public function getCountFollowingsOfUser(User $user): int
+    {
+        return $this->friendRepository->countFollowingsOfOneUser($user);
+    }
+
     private function removeFriend(Friend $friend): void
     {
         $this->doctrine->getManager()->remove($friend);

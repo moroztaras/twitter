@@ -28,4 +28,14 @@ class FriendRepository extends ServiceEntityRepository
             'user' => $user->getId(), 'friend' => $friend->getId(),
         ]);
     }
+
+    public function countFollowingsOfOneUser($user): int
+    {
+        return $this->createQueryBuilder('fr')
+            ->select('COUNT(fr.id)')
+            ->where('fr.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

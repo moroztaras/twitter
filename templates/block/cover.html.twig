@@ -9,8 +9,8 @@
                 <ul class="uk-list uk-list-striped uk-background-default uk-text-center">
                     <li>{{ 'FOLLOW'|trans }}<br>
                         <span class="uk-text-large">
-{#              {{ render(controller('App\\Controller\\BlockController::following',{ 'id': user.id })) }}#}
-            </span>
+                          {{ render(controller('App\\Controller\\Web\\BlockController::following',{ 'id': user.id })) }}
+                        </span>
                     </li>
                     {% if (user != app.user)  %}
                         <li>
