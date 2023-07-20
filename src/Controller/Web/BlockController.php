@@ -27,8 +27,8 @@ class BlockController extends AbstractWebController
 
     public function following(User $user): Response
     {
-        return $this->render('web/friend/following.html.twig', [
-            'count_followings' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
+        return $this->render('web/friend/count_followers.html.twig', [
+            'count' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
             'user' => $user,
         ]);
     }

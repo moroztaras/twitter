@@ -15,7 +15,7 @@ class FriendManager
     ) {
     }
 
-    public function changeStatusFriendship(User $user, User $friend, bool $status): array
+    public function handleStatusChangeFriendship(User $user, User $friend, bool $status): array
     {
         /** @var Friend $friendShip */
         $friendShip = $this->checkFriendShip($user, $friend);
@@ -51,6 +51,11 @@ class FriendManager
     public function getCountFollowingsOfUser(User $user): int
     {
         return $this->friendRepository->countFollowingsOfOneUser($user);
+    }
+
+    public function followingOfUser(User $user): array
+    {
+        return $this->friendRepository->allFollowingsOfOneUser($user);
     }
 
     private function removeFriend(Friend $friend): void

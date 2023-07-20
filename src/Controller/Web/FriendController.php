@@ -31,9 +31,18 @@ class FriendController extends AbstractWebController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $message = $this->friendManager->changeStatusFriendship($user, $friend, $status);
+        $message = $this->friendManager->handleStatusChangeFriendship($user, $friend, $status);
         $this->requestStack->getSession()->getFlashBag()->add($message['status'], $message['message']);
 
         return $this->redirectToRoute('user_twitter_list', ['id' => $friend->getId()]);
+    }
+
+    #[Route('/user/{id}/following', name: 'user_list_following', requirements: ['id' => '\d+'], defaults: ['id' => null], methods: 'GET')]
+    public function userListFollowing(User $user): Response
+    {
+        return $this->render('web/friend/following_list.html.twig', [
+            'following' => $this->friendManager->followingOfUser($user),
+            'user' => $user,
+        ]);
     }
 }

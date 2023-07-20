@@ -23,8 +23,9 @@ class Friend
     private ?User $friend;
 
     // Status friendship
+    // 0 - sent
     #[ORM\Column(name: 'status')]
-    private bool $status = false;
+    private int $status = 0;
 
     public function __construct()
     {
@@ -36,12 +37,12 @@ class Friend
         return $this->id;
     }
 
-    public function isStatus(): bool
+    public function getStatus(): int
     {
         return $this->status;
     }
 
-    public function setStatus(bool $status): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 

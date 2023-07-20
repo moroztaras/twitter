@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Friend;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,5 +38,15 @@ class FriendRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function allFollowingsOfOneUser(User $user): array
+    {
+        return $this->createQueryBuilder('fr')
+            ->where('fr.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('fr.createdAt', Criteria::DESC)
+            ->getQuery()
+            ->getResult();
     }
 }

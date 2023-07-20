@@ -14,11 +14,11 @@
                     </li>
                     {% if (user != app.user)  %}
                         <li>
-              <span class="uk-text-large">
-{#                <a href="{{ path('user_message', { 'id': user.id }) }}">#}
-                    <img src="{{ asset('images/message_icon.jpg') }}" width="80px" class="uk-margin-small-right">
-{#                </a>#}
-              </span>
+                            <span class="uk-text-large">
+{#                              <a href="{{ path('user_message', { 'id': user.id }) }}">#}
+                                    <img src="{{ asset('images/message_icon.jpg') }}" width="80px" class="uk-margin-small-right">
+{#                              </a>#}
+                            </span>
                         </li>
                     {% else %}
                         <li>
@@ -47,7 +47,7 @@
 {#                            {{ render(controller('App\\Controller\\BlockController::followers',{ 'id': user.id })) }}#}
                         </span>
                     </li>
-                    <li>{{ 'POSTS'|trans }}<br>
+                    <li>{{ 'TWITTERS'|trans }}<br>
                         <span class="uk-text-large">
 {#                            {{ count_svistyns | length }}#}
                         </span></li>
