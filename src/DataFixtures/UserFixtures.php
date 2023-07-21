@@ -25,7 +25,7 @@ class UserFixtures extends Fixture
         $faker = Factory::create('EN_en');
 
         $admin = new User();
-        $admin->setEmail('admin@social-network.ua')
+        $admin->setEmail('admin@twitter.ua')
             ->setFirstName($faker->firstName)
             ->setLastName($faker->lastName)
             ->setRoles([User::ROLE_ADMIN])

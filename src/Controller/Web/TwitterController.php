@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/twitter')]
 class TwitterController extends AbstractWebController
 {
     public function __construct(
@@ -26,25 +25,22 @@ class TwitterController extends AbstractWebController
     ) {
     }
 
-    // List all twitter of user
-    #[Route('/list', name: 'web_twitter_list', methods: 'GET')]
+    #[Route('/twitter/list', name: 'web_twitter_list', methods: 'GET')]
     public function list(Request $request): Response
     {
         /** @var User $user */
         $user = $this->getUser();
 
-        return $this->render(view: 'web/twitter/list.html.twig', parameters: [
-            'user' => $user,
-            'twitters' => $this->paginator->paginate(
-                $this->twitterManager->list($user),
-                $request->query->getInt('page', 1),
-                $this->getParameter('pagination_limit')
-            ),
-        ]);
+        return $this->renderTwittersList($request, $user);
     }
 
-    // Create new twitter
-    #[Route('/new', name: 'web_twitter_new', methods: ['GET', 'POST'])]
+    #[Route('user/{id}/twitter/list', name: 'user_twitter_list', requirements: ['id' => '\d+'], methods: 'GET')]
+    public function userTwittersList(Request $request, User $user): Response
+    {
+        return $this->renderTwittersList($request, $user);
+    }
+
+    #[Route('/twitter/new', name: 'web_twitter_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         /** @var User $user */
@@ -67,7 +63,7 @@ class TwitterController extends AbstractWebController
         ]);
     }
 
-    #[Route('/{id}', name: 'web_twitter_view', methods: 'GET')]
+    #[Route('/twitter/{id}', name: 'web_twitter_view', methods: 'GET')]
     public function view(Request $request, Twitter $twitter): Response
     {
         return $this->render(view: 'web/twitter/view.html.twig', parameters: [
@@ -81,8 +77,7 @@ class TwitterController extends AbstractWebController
         ]);
     }
 
-    // Edit twitter
-    #[Route('/{id}/edit', name: 'web_twitter_edit', methods: ['GET', 'POST'])]
+    #[Route('/twitter/{id}/edit', name: 'web_twitter_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Twitter $twitter): Response
     {
         $twitterModel = new TwitterModel();
@@ -106,7 +101,7 @@ class TwitterController extends AbstractWebController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'web_twitter_delete', methods: ['GET', 'POST'])]
+    #[Route('/twitter/{id}/delete', name: 'web_twitter_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Twitter $twitter): Response
     {
         /** @var User $user */
@@ -130,6 +125,18 @@ class TwitterController extends AbstractWebController
         return $this->render('web/twitter/delete.html.twig', [
             'form' => $form->createView(),
             'user' => $user,
+        ]);
+    }
+
+    private function renderTwittersList(Request $request, User $user): Response
+    {
+        return $this->render(view: 'web/twitter/list.html.twig', parameters: [
+            'user' => $user,
+            'twitters' => $this->paginator->paginate(
+                $this->twitterManager->list($user),
+                $request->query->getInt('page', 1),
+                $this->getParameter('pagination_limit')
+            ),
         ]);
     }
 }

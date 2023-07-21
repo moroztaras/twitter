@@ -54,6 +54,6 @@ http://127.0.0.1:8000
 
 ### Login as admin
 
-email: admin@social-network.ua
+email: admin@twitterua
 
 pass: qwerty
