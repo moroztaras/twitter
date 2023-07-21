@@ -12,7 +12,7 @@ Project on Symfony 6 using docker
 
 ### Clone repository to your local machine
 ```bash
-% git clone git@github.com:moroztaras/symfony6-php8-docker-2023.git
+% git clone git@github.com:moroztaras/twitter.git
 ```
 
 ### Create project config
@@ -54,6 +54,6 @@ http://127.0.0.1:8000
 
 ### Login as admin
 
-email: admin@twitterua
+email: admin@twitter.ua
 
 pass: qwerty

@@ -1,3 +1,5 @@
-# Social Network 2023
+# Social Network - Twitter
 
 - [Install](docs/install.md)
+
+© 2023

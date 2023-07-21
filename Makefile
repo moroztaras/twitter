@@ -23,11 +23,11 @@ dc_stop:
 
 # Run an app in a docker
 dc_up:
-	${DOCKER_COMPOSE} up -d #--remove-orphans
+	${DOCKER_COMPOSE} up -d
 
 # Restart an app in a docker
 dc_restart:
-	${DOCKER_COMPOSE} stop && ${DOCKER_COMPOSE} build && ${DOCKER_COMPOSE} up -d #--remove-orphans
+	${DOCKER_COMPOSE} stop && ${DOCKER_COMPOSE} build && ${DOCKER_COMPOSE} up -d
 
 dc_ps:
 	${DOCKER_COMPOSE} ps
