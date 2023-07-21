@@ -116,6 +116,11 @@ class TwitterManager
         return $this->save($twitter);
     }
 
+    public function getCountTwittersOfUser(User $user): int
+    {
+        return $this->twitterRepository->countTwittersOfUser($user);
+    }
+
     // Remove twitter from DB
     public function remove(Twitter $twitter): void
     {

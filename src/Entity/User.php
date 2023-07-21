@@ -70,6 +70,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Twitter::class, cascade: ['persist'])]
     private Collection $twitters;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Friend::class, cascade: ['persist'])]
+    private Collection $friends;
+
     #[ORM\Column(name: 'token_recover', length: 256, nullable: true)]
     private ?string $tokenRecover = null;
 
@@ -82,6 +85,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function __construct()
     {
         $this->twitters = new ArrayCollection();
+        $this->friends = new ArrayCollection();
         $this->setRoles([self::ROLE_USER]);
         $this->createUuid();
         $this->setDateTime();
@@ -286,6 +290,49 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<Friend>
+     */
+    public function getFriends(): Collection
+    {
+        return $this->friends;
+    }
+
+    /**
+     * @param Collection<Friend> $friends
+     *
+     * @return $this
+     */
+    public function setFriends(Collection $friends): self
+    {
+        $this->friends = $friends;
+
+        return $this;
+    }
+
+    public function addFriend(Twitter $friend): self
+    {
+        if (!$this->friends->contains($friend)) {
+            $this->friends[] = $friend;
+            $friend->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriend(Friend $friend): self
+    {
+        if ($this->friends->contains($friend)) {
+            $this->friends->removeElement($friend);
+            // set the owning side to null (unless already changed)
+            if ($friend->getUser() === $this) {
+                $friend->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getAvatar(): ?string
     {
         return $this->avatar;
@@ -309,30 +356,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
-
-//    public function getCreatedAt(): \DateTime
-//    {
-//        return $this->createdAt;
-//    }
-//
-//    public function setCreatedAt(\DateTime $createdAt): self
-//    {
-//        $this->createdAt = $createdAt;
-//
-//        return $this;
-//    }
-//
-//    public function getUpdatedAt(): \DateTime
-//    {
-//        return $this->updatedAt;
-//    }
-//
-//    public function setUpdatedAt(\DateTime $updatedAt): self
-//    {
-//        $this->updatedAt = $updatedAt;
-//
-//        return $this;
-//    }
 
     public function eraseCredentials()
     {

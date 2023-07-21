@@ -2,27 +2,30 @@
 
 namespace App\Controller\Web;
 
-use App\Repository\UserRepository;
+use App\Entity\User;
+use App\Manager\FriendManager;
+use App\Manager\TwitterManager;
 use Symfony\Component\HttpFoundation\Response;
 
 class BlockController extends AbstractWebController
 {
     public function __construct(
-        private UserRepository $userRepository
+        private FriendManager $friendManager,
+        private TwitterManager $twitterManager
     ) {
     }
 
-    public function userCover($id)
+    public function userCover(User $user): Response
     {
-        $user = $this->userRepository->find($id);
         if (!$user) {
             return new Response();
         }
-        //        $count_svistyns = $this->getDoctrine()->getRepository(Svistyn::class)->counterSvistynsByUser($user);
 
         return $this->render('block/cover.html.twig', [
             'user' => $user,
-//            'count_svistyns' => $count_svistyns,
+            'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
+            'followers' => $this->friendManager->getCountFollowersOfUser($user) ?? 0,
+            'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
         ]);
     }
 }
