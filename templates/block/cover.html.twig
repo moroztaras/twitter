@@ -7,10 +7,12 @@
         <div uk-grid class="uk-flex-center user-cover-grid">
             <div class="uk-width-medium ">
                 <ul class="uk-list uk-list-striped uk-background-default uk-text-center">
-                    <li>{{ 'FOLLOW'|trans }}<br>
+                    <li>{{ 'FOLLOWING'|trans }}<br>
                         <span class="uk-text-large">
-                          {{ render(controller('App\\Controller\\Web\\BlockController::following',{ 'id': user.id })) }}
-                        </span>
+                            <a href="{{ path('user_list_following', {'id': user.id}) }}">
+                                {{ following }}
+                            </a>
+                       </span>
                     </li>
                     {% if (user != app.user)  %}
                         <li>
@@ -44,13 +46,16 @@
                 <ul class="uk-list uk-list-striped uk-background-default uk-text-center">
                     <li>{{ 'FOLLOWERS'|trans }}<br>
                         <span class="uk-text-large">
-{#                            {{ render(controller('App\\Controller\\BlockController::followers',{ 'id': user.id })) }}#}
+                            <a href="{{ path('user_list_followers', {'id': user.id}) }}">
+                                {{ followers }}
+                            </a>
                         </span>
                     </li>
                     <li>{{ 'TWITTERS'|trans }}<br>
                         <span class="uk-text-large">
-{#                            {{ count_svistyns | length }}#}
-                        </span></li>
+                            {{ twitters }}
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>

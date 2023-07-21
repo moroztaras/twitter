@@ -53,9 +53,19 @@ class FriendManager
         return $this->friendRepository->countFollowingsOfOneUser($user);
     }
 
+    public function getCountFollowersOfUser(User $user): int
+    {
+        return $this->friendRepository->countFollowersOfOneUser($user);
+    }
+
     public function followingOfUser(User $user): array
     {
         return $this->friendRepository->allFollowingsOfOneUser($user);
+    }
+
+    public function followersOfUser(User $user): array
+    {
+        return $this->friendRepository->allFollowersOfOneUser($user);
     }
 
     private function removeFriend(Friend $friend): void

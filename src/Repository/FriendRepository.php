@@ -40,10 +40,30 @@ class FriendRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function countFollowersOfOneUser($user): int
+    {
+        return $this->createQueryBuilder('fr')
+            ->select('COUNT(fr.id)')
+            ->where('fr.friend = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function allFollowingsOfOneUser(User $user): array
     {
         return $this->createQueryBuilder('fr')
             ->where('fr.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('fr.createdAt', Criteria::DESC)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function allFollowersOfOneUser(User $user): array
+    {
+        return $this->createQueryBuilder('fr')
+            ->where('fr.friend = :user')
             ->setParameter('user', $user)
             ->orderBy('fr.createdAt', Criteria::DESC)
             ->getQuery()

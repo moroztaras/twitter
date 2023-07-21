@@ -36,7 +36,6 @@ class TwitterRepository extends ServiceEntityRepository
         ;
     }
 
-    // For get page
     /**
      * @return \Traversable&\Countable
      */
@@ -48,5 +47,15 @@ class TwitterRepository extends ServiceEntityRepository
             ->setMaxResults($limit);
 
         return new Paginator($query, false);
+    }
+
+    public function countTwittersOfUser(User $user): int
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

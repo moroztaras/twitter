@@ -41,7 +41,16 @@ class FriendController extends AbstractWebController
     public function userListFollowing(User $user): Response
     {
         return $this->render('web/friend/following_list.html.twig', [
-            'following' => $this->friendManager->followingOfUser($user),
+            'followings' => $this->friendManager->followingOfUser($user),
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/user/{id}/followers', name: 'user_list_followers', requirements: ['id' => '\d+'], defaults: ['id' => null], methods: 'GET')]
+    public function userListFollowers(User $user): Response
+    {
+        return $this->render('web/friend/followers_list.html.twig', [
+            'followers' => $this->friendManager->followersOfUser($user),
             'user' => $user,
         ]);
     }
