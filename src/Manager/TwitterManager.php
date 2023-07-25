@@ -136,4 +136,9 @@ class TwitterManager
 
         return $twitter;
     }
+
+    public function twittersOfFollowing(User $user, int $limit): array
+    {
+        return $this->twitterRepository->findLastTwittersOfFriends($user, $limit);
+    }
 }
