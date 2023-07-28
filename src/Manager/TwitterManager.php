@@ -121,6 +121,11 @@ class TwitterManager
         return $this->twitterRepository->countTwittersOfUser($user);
     }
 
+    public function twittersOfFollowing(User $user, int $limit): array
+    {
+        return $this->twitterRepository->findLastTwittersOfFriends($user, $limit);
+    }
+
     // Remove twitter from DB
     public function remove(Twitter $twitter): void
     {
@@ -135,10 +140,5 @@ class TwitterManager
         $this->doctrine->getManager()->flush();
 
         return $twitter;
-    }
-
-    public function twittersOfFollowing(User $user, int $limit): array
-    {
-        return $this->twitterRepository->findLastTwittersOfFriends($user, $limit);
     }
 }

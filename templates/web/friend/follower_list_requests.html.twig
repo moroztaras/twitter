@@ -1,0 +1,21 @@
+{% extends "Layout/layout-default.html.twig" %}
+{% block title %}{{ 'aplications_users'|trans }}{% endblock %}
+{% block main %}
+    <div class="uk-section uk-section-xsmall">
+        <div class="uk-container uk-container-xsmall">
+            {% for friend in friends %}
+                {{ include('web/friend/modeView/full.html.twig', {'friend':friend}) }}
+                <p uk-margin class="center">
+                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 1 }) }}" style="text-decoration: none">
+                        <button class="uk-button uk-button-default">{{ 'accept'|trans }}</button>
+                    </a>
+                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 0 }) }}" style="text-decoration: none">
+                        <button class="uk-button uk-button-danger">{{ 'cancel'|trans }}</button>
+                    </a>
+                </p>
+            {% else %}
+                <p uk-margin class="center">{{ 'no_new_applications'|trans }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

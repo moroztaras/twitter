@@ -9,7 +9,7 @@
                 <ul class="uk-list uk-list-striped uk-background-default uk-text-center">
                     <li>{{ 'FOLLOWING'|trans }}<br>
                         <span class="uk-text-large">
-                            <a href="{{ path('user_list_following', {'id': user.id}) }}">
+                            <a href="{{ path('web_user_list_following', {'id': user.id}) }}">
                                 {{ following }}
                             </a>
                        </span>
@@ -46,7 +46,7 @@
                 <ul class="uk-list uk-list-striped uk-background-default uk-text-center">
                     <li>{{ 'FOLLOWERS'|trans }}<br>
                         <span class="uk-text-large">
-                            <a href="{{ path('user_list_followers', {'id': user.id}) }}">
+                            <a href="{{ path('web_user_list_followers', {'id': user.id}) }}">
                                 {{ followers }}
                             </a>
                         </span>
