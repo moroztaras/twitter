@@ -10,10 +10,10 @@
                 <nav>
                     <ul class="uk-nav uk-text-small" uk-grid>
                         {% if app.user %}
-{#                            <a href="{{ path('user_list_applications') }}" style="text-decoration: none; color: #777777;">#}
-{#                                <span uk-icon="icon: bell"></span>#}
-{#                                {{ render(controller('App\\Controller\\FriendsController::applicationsInFriend')) }}#}
-{#                            </a>#}
+                            <a href="{{ path('web_list_follower_requests') }}" style="text-decoration: none; color: #777777;">
+                                <span uk-icon="icon: bell"></span>
+                                {{ render(controller('App\\Controller\\Web\\FriendController::countRequestsFriendShip')) }}
+                            </a>
 {#                            <a href="{{ path('user_messages_list') }}" style="text-decoration: none; color: #777777;">#}
 {#                                <span uk-icon="icon: mail"></span>#}
 {#                                {{ render(controller('App\\Controller\\MessageController::getCountAllNotReadMessages')) }}#}

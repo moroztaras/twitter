@@ -11,17 +11,11 @@
         </div>
         <hr>
         <ul class="uk-list uk-padding uk-padding-small">
-          <li>{{ 'following'|trans }}: <span class="uk-link">
-{#              {{ render(controller('App\\Controller\\BlockController::following',{ 'id': user.id })) }}#}
-            </span></li>
-          <li>{{ 'followers'|trans }}: <span class="uk-link">
-{#              {{ render(controller('App\\Controller\\BlockController::followers',{ 'id': user.id })) }}#}
-            </span></li>
-          <li>{{ 'posts'|trans }}:
-{#            <a href="{{ path('svistyn_post_user',{ 'id': user.id }) }}">#}
-              <span class="uk-link">
-{#                  {{ render(controller('App\\Controller\\BlockController::userCountSvistyn',{ 'id': user.id })) }}#}
-              </span>
+          <li>{{ 'following'|trans }}: <span class="uk-link">{{ following }}</span></li>
+          <li>{{ 'followers'|trans }}: <span class="uk-link">{{ followers }}</span></li>
+          <li>{{ 'twitters'|trans }}:
+            <a href="{{ path('web_twitter_list',{ 'id': user.id }) }}">
+              <span class="uk-link">{{ twitters }}</span>
             </a>
           </li>
         </ul>

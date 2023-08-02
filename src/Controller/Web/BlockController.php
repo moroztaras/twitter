@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 class BlockController extends AbstractWebController
 {
     public function __construct(
-        private FriendManager $friendManager,
-        private TwitterManager $twitterManager
+        private readonly FriendManager $friendManager,
+        private readonly TwitterManager $twitterManager
     ) {
     }
 
@@ -24,7 +24,7 @@ class BlockController extends AbstractWebController
         return $this->render('block/cover.html.twig', [
             'user' => $user,
             'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
-            'followers' => $this->friendManager->getCountFollowersOfUser($user) ?? 0,
+            'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
             'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
         ]);
     }

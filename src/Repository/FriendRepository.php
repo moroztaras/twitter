@@ -35,17 +35,21 @@ class FriendRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('fr')
             ->select('COUNT(fr.id)')
             ->where('fr.user = :user')
+            ->andWhere('fr.status = :status')
             ->setParameter('user', $user)
+            ->setParameter('status', true)
             ->getQuery()
             ->getSingleScalarResult();
     }
 
-    public function countFollowersOfOneUser($user): int
+    public function countFollowersOfOneUser($user, $status): int
     {
         return $this->createQueryBuilder('fr')
             ->select('COUNT(fr.id)')
             ->where('fr.friend = :user')
+            ->andWhere('fr.status = :status')
             ->setParameter('user', $user)
+            ->setParameter('status', $status)
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -54,17 +58,21 @@ class FriendRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('fr')
             ->where('fr.user = :user')
+            ->andWhere('fr.status = :status')
             ->setParameter('user', $user)
+            ->setParameter('status', true)
             ->orderBy('fr.createdAt', Criteria::DESC)
             ->getQuery()
             ->getResult();
     }
 
-    public function allFollowersOfOneUser(User $user): array
+    public function allFollowersOfOneUserByStatus(User $user, bool $status): array
     {
         return $this->createQueryBuilder('fr')
             ->where('fr.friend = :user')
+            ->andWhere('fr.status = :status')
             ->setParameter('user', $user)
+            ->setParameter('status', $status)
             ->orderBy('fr.createdAt', Criteria::DESC)
             ->getQuery()
             ->getResult();

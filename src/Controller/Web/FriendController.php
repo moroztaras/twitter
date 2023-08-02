@@ -26,8 +26,8 @@ class FriendController extends AbstractWebController
         ]);
     }
 
-    #[Route('/user/friend/{friend}/status/{status}/change', name: 'user_friend_status_change', methods: 'GET')]
-    public function changeFriendShip(User $friend, bool $status): Response
+    #[Route('/user/friend/{friend}/status/{status}/change', name: 'web_user_friend_status_change', methods: 'GET')]
+    public function changeFriendShip(User $friend, int $status): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -37,7 +37,7 @@ class FriendController extends AbstractWebController
         return $this->redirectToRoute('user_twitter_list', ['id' => $friend->getId()]);
     }
 
-    #[Route('/user/{id}/following', name: 'user_list_following', requirements: ['id' => '\d+'], defaults: ['id' => null], methods: 'GET')]
+    #[Route('/user/{id}/following', name: 'web_user_list_following', requirements: ['id' => '\d+'], defaults: ['id' => null], methods: 'GET')]
     public function userListFollowing(User $user): Response
     {
         return $this->render('web/friend/following_list.html.twig', [
@@ -46,11 +46,28 @@ class FriendController extends AbstractWebController
         ]);
     }
 
-    #[Route('/user/{id}/followers', name: 'user_list_followers', requirements: ['id' => '\d+'], defaults: ['id' => null], methods: 'GET')]
+    #[Route('/user/{id}/followers', name: 'web_user_list_followers', requirements: ['id' => '\d+'], defaults: ['id' => null], methods: 'GET')]
     public function userListFollowers(User $user): Response
     {
         return $this->render('web/friend/followers_list.html.twig', [
-            'followers' => $this->friendManager->followersOfUser($user),
+            'followers' => $this->friendManager->followersOfUser($user, true),
+            'user' => $user,
+        ]);
+    }
+
+    public function countRequestsFriendShip(): Response
+    {
+        return new Response($this->friendManager->getCountFollowersOfUser($this->getUser(), false) ?? 0);
+    }
+
+    #[Route('/user/followers/requests', name: 'web_list_follower_requests', methods: 'GET')]
+    public function listFollowerRequests(): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->render('web/friend/follower_list_requests.html.twig', [
+            'friends' => $this->friendManager->followersOfUser($user),
             'user' => $user,
         ]);
     }
