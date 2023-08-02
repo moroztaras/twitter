@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TwitterController extends AbstractWebController
 {
+    private const LIMIT_TWITTERS = 30;
+
     public function __construct(
         private TwitterManager $twitterManager,
         private TwitterCommentRepository $twitterCommentRepository,
@@ -32,6 +34,22 @@ class TwitterController extends AbstractWebController
         $user = $this->getUser();
 
         return $this->renderTwittersList($request, $user);
+    }
+
+    #[Route('/twitter/following', name: 'web_twitter_following', methods: ['GET'])]
+    public function twittersOfFollowings(Request $request): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->render('web/twitter/feed.html.twig', [
+            'twitters' => $this->paginator->paginate(
+                $this->twitterManager->twittersOfFollowing($user, self::LIMIT_TWITTERS),
+                $request->query->getInt('page', 1),
+                $this->getParameter('pagination_limit')
+            ),
+            'user' => $user,
+        ]);
     }
 
     #[Route('user/{id}/twitter/list', name: 'user_twitter_list', requirements: ['id' => '\d+'], methods: 'GET')]

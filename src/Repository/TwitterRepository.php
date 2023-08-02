@@ -58,4 +58,19 @@ class TwitterRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function findLastTwittersOfFriends(User $user, int $limit): array
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.user', 'user')
+            ->leftJoin('user.friends', 'friends')
+            ->where('friends.friend = :user')
+            ->andWhere('friends.status = :status')
+            ->setParameter('user', $user)
+            ->setParameter('status', true)
+            ->setMaxResults($limit)
+            ->orderBy('t.createdAt', Criteria::DESC)
+            ->getQuery()
+            ->getResult();
+    }
 }
