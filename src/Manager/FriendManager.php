@@ -15,31 +15,34 @@ class FriendManager
     ) {
     }
 
-    public function handleStatusChangeFriendship(User $user, User $friend, bool $status): array
+    public function handleStatusChangeFriendship(User $user, User $friend, int $status): array
     {
         /** @var Friend $friendShip */
-        $friendShip = $this->checkFriendShip($user, $friend);
+        $friendShip = $this->checkFriendShip($friend, $user);
 
-        if (0 == $status) {
-            if ($friendShip) {
+        switch ($status) {
+            case 0:
+                /** @var Friend $friendShip */
+                $friendShip = $this->checkFriendShip($user, $friend);
+                if ($friendShip) {
+                    $this->removeFriend($friendShip);
+
+                    return ['status' => 'danger', 'message' => 'application_has_been_removed'];
+                } else {
+                    $newFriend = (new Friend())->setUser($user)->setFriend($friend);
+                    $this->saveFriend($newFriend);
+
+                    return ['status' => 'success', 'message' => 'application_has_been_sent'];
+                }
+                // no break
+            case 1:
+                $this->saveFriend($friendShip->setStatus(true));
+
+                return ['status' => 'success', 'message' => 'application_has_been_successfully_verified'];
+            default:
                 $this->removeFriend($friendShip);
 
-                return ['status' => 'danger', 'message' => 'friend_remove'];
-            } else {
-                $newFriend = (new Friend())
-                    ->setUser($user)
-                    ->setFriend($friend)
-                ;
-                $this->saveFriend($newFriend);
-
-                return ['status' => 'success', 'message' => 'application_has_been_sent'];
-            }
-        } else {
-            $friendShip->setStatus(true);
-
-            $this->saveFriend($friendShip);
-
-            return ($status) ? ['success', 'application_has_been_successfully_verified'] : ['danger', 'application_has_been_canceled'];
+                return ['status' => 'danger', 'message' => 'application_has_been_canceled'];
         }
     }
 

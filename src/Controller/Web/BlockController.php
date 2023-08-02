@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 class BlockController extends AbstractWebController
 {
     public function __construct(
-        private FriendManager $friendManager,
-        private TwitterManager $twitterManager
+        private readonly FriendManager $friendManager,
+        private readonly TwitterManager $twitterManager
     ) {
     }
 

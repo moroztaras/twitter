@@ -27,7 +27,7 @@ class FriendController extends AbstractWebController
     }
 
     #[Route('/user/friend/{friend}/status/{status}/change', name: 'web_user_friend_status_change', methods: 'GET')]
-    public function changeFriendShip(User $friend, bool $status): Response
+    public function changeFriendShip(User $friend, int $status): Response
     {
         /** @var User $user */
         $user = $this->getUser();

@@ -5,6 +5,8 @@ namespace App\Controller\Web;
 use App\Entity\User;
 use App\Form\Model\UserProfileModel;
 use App\Form\UserProfileType;
+use App\Manager\FriendManager;
+use App\Manager\TwitterManager;
 use App\Manager\UserProfileManager;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,9 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserProfileController extends AbstractWebController
 {
     public function __construct(
-        private UserProfileManager $profileManager,
-        private RequestStack $requestStack,
-        private UserRepository $userRepository
+        private readonly UserProfileManager $profileManager,
+        private readonly RequestStack $requestStack,
+        private readonly UserRepository $userRepository,
+        private readonly FriendManager $friendManager,
+        private readonly TwitterManager $twitterManager,
     ) {
     }
 
@@ -48,6 +52,9 @@ class UserProfileController extends AbstractWebController
 
         return $this->render('web/userProfile/profile.html.twig', [
             'user' => $user,
+            'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
+            'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
+            'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
         ]);
     }
 
