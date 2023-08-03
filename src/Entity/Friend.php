@@ -10,6 +10,10 @@ class Friend
 {
     use DateTimeEntity;
 
+    public const STATUS_ADD = 'add';
+    public const STATUS_CANCEL = 'cancel';
+    public const STATUS_REJECT = 'reject';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
