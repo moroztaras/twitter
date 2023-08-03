@@ -16,7 +16,7 @@ class FriendController extends ApiController
     ) {
     }
 
-    #[Route('api/user/following', name: 'api_user_list_following', methods: 'GET')]
+    #[Route('api/user/followings', name: 'api_user_list_followings', methods: 'GET')]
     public function userListFollowing(Request $request): JsonResponse
     {
         /** @var User $user */
@@ -24,6 +24,17 @@ class FriendController extends ApiController
 
         return $this->json([
             'followings' => $this->friendManager->followingOfUser($user)], Response::HTTP_OK, [], ['following' => true]
+        );
+    }
+
+    #[Route('api/user/followers', name: 'api_user_list_followers', methods: 'GET')]
+    public function userListFollowers(Request $request): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        return $this->json([
+            'followers' => $this->friendManager->followersOfUser($user, true)], Response::HTTP_OK, [], ['followers' => true]
         );
     }
 }

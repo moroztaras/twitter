@@ -28,6 +28,19 @@ class FriendNormalizer implements NormalizerInterface
                 ],
             ];
         }
+        if (isset($context['followers'])) {
+            $data = [
+                'follower' => [
+                    'uuid' => $object->getUser()->getUuid(),
+                    'firstName' => $object->getUser()->getFirstName(),
+                    'lastName' => $object->getUser()->getLastName(),
+                    'avatar' => $object->getUser()->getAvatar(),
+                    'blocked' => $object->getUser()->isStatus(),
+                    'birthday' => $object->getUser()->getBirthday()->format('d-m-Y'),
+                    'createdAt' => $object->getUser()->getCreatedAt()->format('d-m-Y'),
+                ],
+            ];
+        }
 
         return array_merge_recursive(
             $data ?? [],
