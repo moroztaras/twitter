@@ -28,7 +28,7 @@ class FriendNormalizer implements NormalizerInterface
                 ],
             ];
         }
-        if (isset($context['followers'])) {
+        if (isset($context['followers']) || isset($context['request'])) {
             $data = [
                 'follower' => [
                     'uuid' => $object->getUser()->getUuid(),
