@@ -6,11 +6,11 @@
             {% for friend in friends %}
                 {{ include('web/friend/modeView/full.html.twig', {'friend':friend}) }}
                 <p uk-margin class="center">
-                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 1 }) }}" style="text-decoration: none">
+                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 'add' }) }}" style="text-decoration: none">
                         <button class="uk-button uk-button-default">{{ 'accept'|trans }}</button>
                     </a>
-                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 3 }) }}" style="text-decoration: none">
-                        <button class="uk-button uk-button-danger">{{ 'cancel'|trans }}</button>
+                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 'reject' }) }}" style="text-decoration: none">
+                        <button class="uk-button uk-button-danger">{{ 'reject'|trans }}</button>
                     </a>
                 </p>
             {% else %}

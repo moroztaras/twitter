@@ -15,13 +15,13 @@ class FriendManager
     ) {
     }
 
-    public function handleStatusChangeFriendship(User $user, User $friend, int $status): array
+    public function handleStatusChangeFriendship(User $user, User $friend, string $status): array
     {
         /** @var Friend $friendShip */
         $friendShip = $this->checkFriendShip($friend, $user);
 
         switch ($status) {
-            case 0:
+            case Friend::STATUS_CANCEL:
                 /** @var Friend $friendShip */
                 $friendShip = $this->checkFriendShip($user, $friend);
                 if ($friendShip) {
@@ -35,14 +35,14 @@ class FriendManager
                     return ['status' => 'success', 'message' => 'application_has_been_sent'];
                 }
                 // no break
-            case 1:
+            case Friend::STATUS_ADD:
                 $this->saveFriend($friendShip->setStatus(true));
 
                 return ['status' => 'success', 'message' => 'application_has_been_successfully_verified'];
             default:
                 $this->removeFriend($friendShip);
 
-                return ['status' => 'danger', 'message' => 'application_has_been_canceled'];
+                return ['status' => 'danger', 'message' => 'application_has_been_rejected'];
         }
     }
 
