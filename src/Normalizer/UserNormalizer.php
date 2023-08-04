@@ -3,10 +3,16 @@
 namespace App\Normalizer;
 
 use App\Entity\User;
+use App\Manager\FriendManager;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class UserNormalizer implements NormalizerInterface
 {
+    public function __construct(
+        private readonly FriendManager $friendManager
+    ) {
+    }
+
     /**
      * @@param User $object object to normalize
      * @param null $format
@@ -33,6 +39,8 @@ class UserNormalizer implements NormalizerInterface
                 'avatar' => $object->getAvatar(),
                 'cover' => $object->getCover(),
                 'blocked' => $object->isStatus(),
+                'following' => $this->friendManager->getCountFollowingsOfUser($object) ?? 0,
+                'followers' => $this->friendManager->getCountFollowersOfUser($object, true) ?? 0,
             ];
         }
 
