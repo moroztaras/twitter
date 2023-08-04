@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Manager\FriendManager;
 use Ramsey\Uuid\Uuid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,5 +69,22 @@ class FriendController extends ApiController
         return $this->json([
             'requests' => $this->friendManager->followersOfUser($user)], Response::HTTP_OK, [], ['request' => true]
         );
+    }
+
+    #[Route('api/user/follower/{uuid_follower}/status/{status}/change', name: 'api_user_follower_status_change', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['POST', 'PUT'])]
+    #[ParamConverter('follower', class: User::class, options: ['mapping' => ['uuid_follower' => 'uuid']])]
+    public function followerStatusChange(Request $request, User $follower, string $status): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        $response = $this->friendManager->handleStatusChangeFriendship($user, $follower, $status);
+
+        return $this->json([
+            'follower' => [
+                'status' => $response['status'],
+                'message' => $response['message'],
+            ],
+        ], Response::HTTP_OK);
     }
 }
