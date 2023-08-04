@@ -78,8 +78,10 @@ class TwitterController extends ApiController
 
     // Delete twitter
     #[Route('/{uuid}', name: 'api_twitter_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'DELETE')]
-    public function delete(Twitter $twitter): SuccessResponse
+    public function delete(Request $request, Twitter $twitter): SuccessResponse
     {
+        $this->getCurrentUser($request);
+
         $this->twitterManager->remove($twitter);
 
         return new SuccessResponse();
