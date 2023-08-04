@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\User;
 use App\Manager\FriendManager;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +22,16 @@ class FriendController extends ApiController
     {
         /** @var User $user */
         $user = $this->getCurrentUser($request);
+
+        return $this->json([
+            'followings' => $this->friendManager->followingOfUser($user)], Response::HTTP_OK, [], ['following' => true]
+        );
+    }
+
+    #[Route('api/user/{uuid}/followings', name: 'api_user_show_list_followings', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'GET')]
+    public function showListFollowingOfUser(Request $request, User $user): JsonResponse
+    {
+        $this->getCurrentUser($request);
 
         return $this->json([
             'followings' => $this->friendManager->followingOfUser($user)], Response::HTTP_OK, [], ['following' => true]
