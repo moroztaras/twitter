@@ -49,6 +49,16 @@ class FriendController extends ApiController
         );
     }
 
+    #[Route('api/user/{uuid}/followers', name: 'api_user_show_list_followers', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'GET')]
+    public function showListFollowersOfUser(Request $request, User $user): JsonResponse
+    {
+        $this->getCurrentUser($request);
+
+        return $this->json([
+            'followers' => $this->friendManager->followersOfUser($user, true)], Response::HTTP_OK, [], ['followers' => true]
+        );
+    }
+
     #[Route('api/user/followers/requests', name: 'api_user_followers_list_requests', methods: 'GET')]
     public function listRequestsFromFollowers(Request $request): JsonResponse
     {
