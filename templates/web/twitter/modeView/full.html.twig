@@ -31,21 +31,21 @@
 {#                <div class="st-post-fd st-post-fd--embed">{{ twitter.video|video_embed_iframe }}</div><br>#}
             </div>
         {% endif %}
-{#        {% if svistyn.parent is not null %}#}
-{#            <div class="st-post-fd st-post-fd--parent">#}
-{#                {{ include('Svistyn/ModeView/full.html.twig', {'svistyn': svistyn.parent } ) }}#}
-{#            </div>#}
-{#        {% else %}#}
+        {% if twitter.isParent == true %}
+            <div class="st-post-fd st-post-fd--parent">
+                {{ include('web/twitter/modeView/full.html.twig', {'twitter': twitter.parent } ) }}
+            </div>
+        {% else %}
             <div class="st-post-fd st-post-fd--show uk-text-small">
                 <a href="{{ path('web_twitter_view', {'id': twitter.id}) }}">{{ 'more_details'|trans }}</a>
             </div>
-{#        {% endif %}#}
+        {% endif %}
     </div>
     <div class="uk-card-footer">
-{#        {% if svistyn.parent is null and app.user and app.user.id != svistyn.user.id %}#}
-{#            {{ include('Svistyn/inc/svistyn-post-action-link.html.twig', { 'svistyn' : svistyn }) }}#}
-{#        {% elseif svistyn.parent is null or svistyn.isParent %}#}
+        {% if twitter.parent is null and app.user and app.user.id != twitter.user.id %}
+            {{ include('web/twitter/inc/twiitter-post-action-link.html.twig', { 'twitter' : twitter }) }}
+        {% elseif twitter.parent is null or twitter.isParent %}
             {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter }) }}
-{#        {% endif %}#}
+        {% endif %}
     </div>
 </div>

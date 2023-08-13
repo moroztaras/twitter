@@ -1,0 +1,18 @@
+{% extends "layout/layout-default.html.twig" %}
+
+{% block title %}{{ 'twitter_share'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="uk-section uk-section-xsmall">
+        <div class="uk-container uk-container-xsmall">
+            <div class="center">{{ 'share_twitter'|trans }}</div>
+            {{ form_start(form) }}
+            {{ form_row(form.text) }}
+            {{ include('web/twitter/modeView/share.html.twig', { 'twitter.parent' : twitter.parent }) }}
+            <span class="input-group-prepend">
+                    <button class="btn btn-secondary" type="submit">{{ 'to_shate'|trans }}</button>
+                </span>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

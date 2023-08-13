@@ -126,6 +126,11 @@ class TwitterManager
         return $this->twitterRepository->findLastTwittersOfFriends($user, $limit);
     }
 
+    public function createNewTwitterForShare(Twitter $twitter, User $user): Twitter
+    {
+        return (new Twitter())->setParent($twitter)->setUser($user)->setText(null)->setVideo(null);
+    }
+
     // Remove twitter from DB
     public function remove(Twitter $twitter): void
     {

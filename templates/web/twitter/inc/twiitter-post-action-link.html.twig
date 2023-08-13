@@ -1,18 +1,18 @@
 <div uk-grid class="uk-grid-small uk-text-small">
     <div class="item">
         <span uk-icon="icon: forward"></span>
-        <i>{{ render(controller('App\\Controller\\Web\\BlockController::countReTwitters',{ 'id': twitter.id })) }}</i>
-        {{ 'count_re_twitters'|trans }}
+        <i>{{ render(controller('App\\Controller\\Web\\BlockController::countReTwitters',{ 'twitter': twitter.id })) }}</i>
+        <a href="{{ path('web_twitter_share', { 'id' : twitter.id }) }}">{{ 'to_re_twitter'|trans }}</a>
     </div>
     <div class="item">
         <span uk-icon="icon: heart"></span>
-{#        <i>{{ twitter.ratingTotal }}</i>#}0
-        {{ 'rating_twitter'|trans }}
+{#        <i>{{ svistyn.ratingTotal }}</i>#}
+        {{ 'rating_svist'|trans }}
     </div>
     <div class="item">
         <span uk-icon="icon: comments"></span>
         <i>
-{#            {{ render(controller('App\\Controller\\Web\\CommentController::countCommentsOfTwitter',{ 'twitter': twitter.id })) }}#}0
+{#            {{ render(controller('App\\Controller\\Web\\CommentController::countCommentsOfTwitter',{ 'twitter': twitter.id })) }}#}
         </i>
         {{ 'comments'|trans }}
     </div>

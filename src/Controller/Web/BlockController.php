@@ -2,6 +2,7 @@
 
 namespace App\Controller\Web;
 
+use App\Entity\Twitter;
 use App\Entity\User;
 use App\Manager\FriendManager;
 use App\Manager\TwitterManager;
@@ -27,5 +28,10 @@ class BlockController extends AbstractWebController
             'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
             'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
         ]);
+    }
+
+    public function countReTwitters(Twitter $twitter): Response
+    {
+        return new Response('0');
     }
 }

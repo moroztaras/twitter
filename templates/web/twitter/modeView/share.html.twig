@@ -1,0 +1,39 @@
+<div class="uk-card uk-card-default uk-card-small uk-margin-small">
+    <div class="uk-card-header">
+        <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-auto">
+                <img data-src="{{ twitter.parent.user.avatar }}" width="40" height="40" alt uk-img>
+            </div>
+            <div class="uk-width-expand">
+                <div>
+                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', { 'id' : twitter.parent.user.id }) }}">
+                        {{ twitter.parent.user.firstName }} {{ twitter.parent.user.lastName }}
+                    </a>
+                </div>
+                <p class="uk-text-meta uk-margin-remove-top">
+                    <time datetime="{{ twitter.parent.createdAt|date('Y-m-d H:i:s') }}">
+                        {{ twitter.parent.createdAt|date('M d, Y') }}
+                    </time>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="uk-card uk-card-body">
+        {% if twitter.parent.text is not null %}
+            <div class="st-post-fd st-post-fd--text"><p>{{ twitter.parent.text  }}</p></div>
+        {% endif %}
+        {% if twitter.parent.photo is not null %}
+            <div class="st-post-fd st-post-fd--photo uk-text-center"><img data-src="{{ twitter.parent.photo }}" alt uk-img></div>
+        {% endif %}
+        {% if twitter.video is not null %}
+            <div class="st-post-fd st-post-fd--embed">{{ twitter.parent.video }}</div>
+        {% endif %}
+    </div>
+    <div class="uk-card-footer">
+        {% if twitter.parent is null and app.user and app.user.id != twitter.user.id %}
+            {{ include('web/twitter/inc/twitter-post-action-link.html.twig', { 'twitter' : twitter }) }}
+        {% elseif twitter.parent is null or twitter.isParent %}
+            {{ include('web/twitter/inc/twitter-post-action.html.twig', { 'twitter' : twitter }) }}
+        {% endif %}
+    </div>
+</div>
