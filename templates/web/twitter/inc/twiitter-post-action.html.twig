@@ -1,8 +1,12 @@
 <div uk-grid class="uk-grid-small uk-text-small">
     <div class="item">
         <span uk-icon="icon: forward"></span>
-        <i>{{ render(controller('App\\Controller\\Web\\BlockController::countReTwitters',{ 'id': twitter.id })) }}</i>
-        {{ 'count_re_twitters'|trans }}
+        <i>{{ render(controller('App\\Controller\\Web\\BlockController::countReTwitters',{ 'twitter': twitter.id })) }}</i>
+        {% if app.user and app.user.id != twitter.user.id and twitter.isParent == false%}
+            <a href="{{ path('web_twitter_share', { 'id' : twitter.id }) }}">{{ 'to_re_twitter'|trans }}</a>
+        {% else %}
+            {{ 're_twittered'|trans }}
+        {% endif %}
     </div>
     <div class="item">
         <span uk-icon="icon: heart"></span>
@@ -11,9 +15,7 @@
     </div>
     <div class="item">
         <span uk-icon="icon: comments"></span>
-        <i>
-{#            {{ render(controller('App\\Controller\\Web\\CommentController::countCommentsOfTwitter',{ 'twitter': twitter.id })) }}#}0
-        </i>
+        <i>{{ render(controller('App\\Controller\\Web\\BlockController::countCommentsOfTwitter',{ 'id': twitter.id })) }}</i>
         {{ 'comments'|trans }}
     </div>
     <div class="item">

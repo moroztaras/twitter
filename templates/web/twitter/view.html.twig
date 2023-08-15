@@ -41,11 +41,7 @@
                     {% endif %}
                 </div>
                 <div class="uk-card-footer">
-                    {% if twitter.parent is null and app.user and app.user.id != twitter.user.id %}
-                        {{ include('web/twitter/inc/twiitter-post-action-link.html.twig', { 'twitter' : twitter, 'comments': comments }) }}
-                    {% elseif twitter.parent is null or twitter.isParent %}
-                        {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter, 'comments': comments }) }}
-                    {% endif %}
+                    {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter }) }}
                 </div>
             </div>
             {% if app.user %}

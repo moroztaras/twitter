@@ -34,4 +34,9 @@ class BlockController extends AbstractWebController
     {
         return new Response('0');
     }
+
+    public function countCommentsOfTwitter(Twitter $twitter): Response
+    {
+        return new Response('0');
+    }
 }
