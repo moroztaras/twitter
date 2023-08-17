@@ -28,18 +28,15 @@
         {% endif %}
         {% if twitter.video is not null %}
             <div class="st-post-fd st-post-fd--embed">
-{#                <div class="st-post-fd st-post-fd--embed">{{ twitter.video|video_embed_iframe }}</div><br>#}
+                <div class="st-post-fd st-post-fd--embed">{{ twitter.video }}</div><br>
             </div>
         {% endif %}
-        {% if twitter.isParent == true %}
-            <div class="st-post-fd st-post-fd--parent">
-                {{ include('web/twitter/modeView/full.html.twig', {'twitter': twitter.parent } ) }}
-            </div>
-        {% else %}
-            <div class="st-post-fd st-post-fd--show uk-text-small">
-                <a href="{{ path('web_twitter_view', {'id': twitter.id}) }}">{{ 'more_details'|trans }}</a>
-            </div>
+        {% if twitter.parent is not null %}
+            {{ include('web/twitter/modeView/share.html.twig', {'twitter.parent': twitter.parent } ) }}
         {% endif %}
+        <div class="st-post-fd st-post-fd--show uk-text-small">
+            <a href="{{ path('web_twitter_view', {'id': twitter.id}) }}">{{ 'more_details'|trans }}</a>
+        </div>
     </div>
     <div class="uk-card-footer">
         {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter }) }}
