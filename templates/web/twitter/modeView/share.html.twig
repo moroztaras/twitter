@@ -26,7 +26,10 @@
             <div class="st-post-fd st-post-fd--photo uk-text-center"><img data-src="{{ twitter.parent.photo }}" alt uk-img></div>
         {% endif %}
         {% if twitter.video is not null %}
-            <div class="st-post-fd st-post-fd--embed">{{ twitter.parent.video }}</div>
+            <div class="st-post-fd st-post-fd--embed">
+{#                {{ twitter.video|video_embed_iframe }}#}
+                <embed width="670" height="400" src="https://www.youtube.com/embed/jUjeps1hxIw">
+            </div>
         {% endif %}
     </div>
     <div class="uk-card-footer">
