@@ -13,7 +13,7 @@
                 <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.createdAt|date('Y-m-d H:i') }}</time></p>
             </div>
             {% if app.user %}
-                {{ include('web/twitter/menu.html.twig', { 'twitter' : twitter }) }}
+                {{ include('web/twitter/inc/menu.html.twig', { 'twitter' : twitter }) }}
             {% endif %}
         </div>
     </div>
