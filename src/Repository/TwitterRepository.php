@@ -73,4 +73,14 @@ class TwitterRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function countReTwitters(Twitter $twitter): int
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->andWhere('t.parent = :twitter')
+            ->setParameter('twitter', $twitter)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
