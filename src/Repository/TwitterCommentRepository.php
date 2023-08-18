@@ -33,4 +33,14 @@ class TwitterCommentRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function countCommentsOfTwitter(Twitter $twitter): int
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->andWhere('c.twitter = :twitter')
+            ->setParameter('twitter', $twitter)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

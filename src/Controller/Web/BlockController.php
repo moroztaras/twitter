@@ -6,13 +6,15 @@ use App\Entity\Twitter;
 use App\Entity\User;
 use App\Manager\FriendManager;
 use App\Manager\TwitterManager;
+use App\Repository\TwitterCommentRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class BlockController extends AbstractWebController
 {
     public function __construct(
         private readonly FriendManager $friendManager,
-        private readonly TwitterManager $twitterManager
+        private readonly TwitterManager $twitterManager,
+        private readonly TwitterCommentRepository $twitterCommentRepository,
     ) {
     }
 
@@ -37,6 +39,6 @@ class BlockController extends AbstractWebController
 
     public function countCommentsOfTwitter(Twitter $twitter): Response
     {
-        return new Response('0');
+        return new Response($this->twitterCommentRepository->countCommentsOfTwitter($twitter));
     }
 }
