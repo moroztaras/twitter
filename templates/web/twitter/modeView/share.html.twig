@@ -2,7 +2,7 @@
     <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-auto">
-                <img data-src="{{ twitter.parent.user.avatar }}" width="40" height="40" alt uk-img>
+                <img data-src="{% if twitter.parent.user.avatar != null %}/files/user/avatar/{{ twitter.parent.user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img>
             </div>
             <div class="uk-width-expand">
                 <div>
@@ -10,33 +10,24 @@
                         {{ twitter.parent.user.firstName }} {{ twitter.parent.user.lastName }}
                     </a>
                 </div>
-                <p class="uk-text-meta uk-margin-remove-top">
-                    <time datetime="{{ twitter.parent.createdAt|date('Y-m-d H:i:s') }}">
-                        {{ twitter.parent.createdAt|date('M d, Y') }}
-                    </time>
-                </p>
+                <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.parent.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.parent.createdAt|date('M d, Y') }}</time></p>
             </div>
         </div>
     </div>
     <div class="uk-card uk-card-body">
         {% if twitter.parent.text is not null %}
-            <div class="st-post-fd st-post-fd--text"><p>{{ twitter.parent.text  }}</p></div>
+            <div class="st-post-fd st-post-fd--text"><p>{{ twitter.parent.text|nl2br  }}</p></div>
         {% endif %}
         {% if twitter.parent.photo is not null %}
-            <div class="st-post-fd st-post-fd--photo uk-text-center"><img data-src="{{ twitter.parent.photo }}" alt uk-img></div>
-        {% endif %}
-        {% if twitter.video is not null %}
-            <div class="st-post-fd st-post-fd--embed">
-{#                {{ twitter.video|video_embed_iframe }}#}
-                <embed width="670" height="400" src="https://www.youtube.com/embed/jUjeps1hxIw">
+            <div class="st-post-fd st-post-fd--photo uk-text-center">
+                <img data-src="/files/twitter/photo/{{ twitter.parent.photo }}" alt uk-img style="max-width: 550px">
             </div>
         {% endif %}
-    </div>
-    <div class="uk-card-footer">
-        {% if twitter.parent is null and app.user and app.user.id != twitter.user.id %}
-            {{ include('web/twitter/inc/twitter-post-action-link.html.twig', { 'twitter' : twitter }) }}
-        {% elseif twitter.parent is null or twitter.isParent %}
-            {{ include('web/twitter/inc/twitter-post-action.html.twig', { 'twitter' : twitter }) }}
+        {% if twitter.parent.video is not null %}
+            <div class="st-post-fd st-post-fd--embed">
+{#                {{ twitter.video|video_embed_iframe }}#}
+                <embed width="710" height="400" src={{ twitter.parent.video }}>
+            </div>
         {% endif %}
     </div>
 </div>
