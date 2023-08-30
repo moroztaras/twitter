@@ -1,22 +1,21 @@
 <div uk-grid class="uk-grid-small uk-text-small">
     <div class="item">
         <span uk-icon="icon: forward"></span>
-{#        <i>{{ twitter.countSvists }}</i>#}
-        {{ 'svistnuti'|trans }}
-    </div>
-    <div class="item">
-        <img src="{{ asset('/images/zvizdnyt.png')}}">
-{#        <i>{{ twitter.countZvizds }}</i>#}
-        {{ 'zvizdnuti'|trans }}
+        <i>{{ render(controller('App\\Controller\\Web\\BlockController::countReTwitters',{ 'twitter': twitter.id })) }}</i>
+        {% if app.user and app.user.id != twitter.user.id and twitter.isParent == false%}
+            <a href="{{ path('web_twitter_share', { 'id' : twitter.id }) }}">{{ 'to_re_twitter'|trans }}</a>
+        {% else %}
+            {{ 're_twittered'|trans }}
+        {% endif %}
     </div>
     <div class="item">
         <span uk-icon="icon: heart"></span>
-{#        <i>{{ twitter.ratingTotal }}</i>#}
+{#        <i>{{ twitter.ratingTotal }}</i>#}0
         {{ 'rating_twitter'|trans }}
     </div>
     <div class="item">
         <span uk-icon="icon: comments"></span>
-{#        <i>{{ render(controller('App\\Controller\\CommentController::getCountComments',{ 'id': twitter.id })) }}</i>#}
+        <i>{{ render(controller('App\\Controller\\Web\\BlockController::countCommentsOfTwitter',{ 'id': twitter.id })) }}</i>
         {{ 'comments'|trans }}
     </div>
     <div class="item">

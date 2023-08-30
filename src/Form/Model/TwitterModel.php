@@ -32,7 +32,7 @@ class TwitterModel
         return $this;
     }
 
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
 
@@ -51,11 +51,11 @@ class TwitterModel
         return $this;
     }
 
-    public function setEntityTwitter(Twitter $twitter): void
+    public function setEntityTwitter(Twitter $twitter): self
     {
-        $this
-            ->setText($twitter->getText())
-            ->setVideo($twitter->getVideo())
+        return $this
+            ->setText($twitter->getText() ?? null)
+            ->setVideo($twitter->getVideo() ?? null)
         ;
     }
 }

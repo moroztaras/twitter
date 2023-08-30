@@ -28,7 +28,7 @@ class TwitterFixtures extends Fixture implements DependentFixtureInterface
             $twitter = (new Twitter())
                 ->setText($faker->word)
                 ->setPhoto('Motivation.jpeg')
-                ->setVideo('https://www.youtube.com/watch?v=19tIt3D_yiI')
+                ->setVideo('https://www.youtube.com/embed/19tIt3D_yiI')
                 ->setUser($admin)
                 ->setUuid(Uuid::uuid4())
             ;
@@ -49,7 +49,7 @@ class TwitterFixtures extends Fixture implements DependentFixtureInterface
             $twitter = (new Twitter())
                 ->setText($faker->word)
                 ->setPhoto('Motivation.jpeg')
-                ->setVideo('https://www.youtube.com/watch?v=19tIt3D_yiI')
+                ->setVideo('https://www.youtube.com/embed/19tIt3D_yiI')
                 ->setUser($user)
                 ->setUuid(Uuid::uuid4())
             ;
