@@ -27,7 +27,7 @@ class Twitter
         maxMessage: 'The text must be no more than 50 characters'
     )]
     #[ORM\Column(name: 'text')]
-    private string $text;
+    private ?string $text;
 
     #[ORM\Column(name: 'video', nullable: true)]
     private ?string $video;
@@ -35,11 +35,11 @@ class Twitter
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'twitters')]
     private ?User $user;
 
-    // The number of post views
+    // The number of twitter views
     #[ORM\Column(name: 'views')]
     private int $views = 0;
 
-    // View post for display
+    // View twitter for display
     #[ORM\Column(name: 'status')]
     private bool $status = true;
 
@@ -50,9 +50,12 @@ class Twitter
     #[ORM\OrderBy(['id' => 'DESC'])]
     private Collection $comments;
 
-    /**
-     * Twitter construct.
-     */
+    #[ORM\ManyToOne(targetEntity: 'Twitter')]
+    #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id')]
+    private $parent;
+
+    private bool $isParent = false;
+
     public function __construct(UuidInterface $uuid = null)
     {
         if (!$uuid) {
@@ -69,12 +72,12 @@ class Twitter
         return $this->id;
     }
 
-    public function getText(): string
+    public function getText(): ?string
     {
         return $this->text;
     }
 
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
 
@@ -165,6 +168,35 @@ class Twitter
                 $comment->setTwitter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setParent(Twitter $parent): Twitter
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getParent(): Twitter|null
+    {
+        if (is_null($this->parent)) {
+            return $this->parent;
+        }
+        $this->parent->setIsParent(true);
+
+        return $this->parent;
+    }
+
+    public function isParent(): bool
+    {
+        return $this->isParent;
+    }
+
+    public function setIsParent(bool $isParent): self
+    {
+        $this->isParent = $isParent;
 
         return $this;
     }

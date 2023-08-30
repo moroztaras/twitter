@@ -1,0 +1,1 @@
+<iframe uk-responsive {{ attributes|attr|raw }}{% if url is not empty %} src="{{ url }}{% if query is defined and query is not empty %}?{{ query | url_encode |raw }}{% endif %}{% if fragment is defined and fragment is not empty %}#{{ fragment }}{% endif %}"{% endif %}></iframe>

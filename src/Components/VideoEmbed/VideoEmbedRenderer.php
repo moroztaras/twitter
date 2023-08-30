@@ -4,17 +4,10 @@ namespace App\Components\VideoEmbed;
 
 class VideoEmbedRenderer
 {
-    /**
-     * @var \Twig_Environment;
-     */
-    private $twig;
-
-    private $videoEmbedManager;
-
-    public function __construct(\Twig_Environment $twig, VideoEmbedManager $videoEmbedManager)
+    public function __construct(
+        private \Twig_Environment $twig,
+        private VideoEmbedManager $videoEmbedManager)
     {
-        $this->twig = $twig;
-        $this->videoEmbedManager = $videoEmbedManager;
     }
 
     /**
@@ -29,7 +22,7 @@ class VideoEmbedRenderer
     {
         $provider = $this->videoEmbedManager->getProviderInput($input);
         $options = $provider->renderEmbedCode(670, 380, false);
-        $template = $this->twig->render('VideoEmbed/iframe.html.twig', $options);
+        $template = $this->twig->render('web/videoEmbed/iframe.html.twig', $options);
 
         return $template;
     }

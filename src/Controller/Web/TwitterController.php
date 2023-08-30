@@ -23,7 +23,8 @@ class TwitterController extends AbstractWebController
         private TwitterManager $twitterManager,
         private TwitterCommentRepository $twitterCommentRepository,
         private RequestStack $requestStack,
-        private PaginatorInterface $paginator
+        private PaginatorInterface $paginator,
+        private TwitterModel $twitterModel,
     ) {
     }
 
@@ -119,6 +120,35 @@ class TwitterController extends AbstractWebController
         ]);
     }
 
+    #[Route('/twitter/{id}/share', name: 'web_twitter_share', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function share(Request $request, Twitter $twitter): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$twitter || $twitter->getUser()->getId() == $user->getId() || null != $twitter->getParent()) {
+            return $this->redirectToRoute('user_twitter_list', ['id' => $twitter->getUser()->getId()]);
+        }
+        $shareTwitter = $this->twitterManager->createNewTwitterForShare($twitter, $user);
+        $this->twitterModel->setEntityTwitter($shareTwitter);
+
+        $twitterForm = $this->createForm(TwitterType::class, $this->twitterModel);
+        $twitterForm->handleRequest($request);
+        if ($twitterForm->isSubmitted() && $twitterForm->isValid()) {
+            $shareTwitter = $this->twitterManager->editTwitter($shareTwitter, $this->twitterModel);
+            $this->requestStack->getSession()->getFlashBag()->add('success', 'twitter_shared_successfully');
+
+            return $this->redirectToRoute('web_twitter_view', [
+                'id' => $shareTwitter->getId(),
+            ]);
+        }
+
+        return $this->render('web/twitter/share.html.twig', [
+            'form' => $twitterForm->createView(),
+            'twitter' => $shareTwitter,
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/twitter/{id}/delete', name: 'web_twitter_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Twitter $twitter): Response
     {
@@ -144,6 +174,11 @@ class TwitterController extends AbstractWebController
             'form' => $form->createView(),
             'user' => $user,
         ]);
+    }
+
+    public function countCommentsOfTwitter(Twitter $twitter): Response
+    {
+        return new Response('5');
     }
 
     private function renderTwittersList(Request $request, User $user): Response

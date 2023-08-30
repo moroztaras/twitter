@@ -13,7 +13,7 @@
                 <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.createdAt|date('Y-m-d H:i') }}</time></p>
             </div>
             {% if app.user %}
-                {{ include('web/twitter/menu.html.twig', { 'twitter' : twitter }) }}
+                {{ include('web/twitter/inc/menu.html.twig', { 'twitter' : twitter }) }}
             {% endif %}
         </div>
     </div>
@@ -28,24 +28,18 @@
         {% endif %}
         {% if twitter.video is not null %}
             <div class="st-post-fd st-post-fd--embed">
-{#                <div class="st-post-fd st-post-fd--embed">{{ twitter.video|video_embed_iframe }}</div><br>#}
+{#                {{ twitter.video|video_embed_iframe }}#}
+                <embed width="710" height="400" src={{ twitter.video }}>
             </div>
         {% endif %}
-{#        {% if svistyn.parent is not null %}#}
-{#            <div class="st-post-fd st-post-fd--parent">#}
-{#                {{ include('Svistyn/ModeView/full.html.twig', {'svistyn': svistyn.parent } ) }}#}
-{#            </div>#}
-{#        {% else %}#}
-            <div class="st-post-fd st-post-fd--show uk-text-small">
-                <a href="{{ path('web_twitter_view', {'id': twitter.id}) }}">{{ 'more_details'|trans }}</a>
-            </div>
-{#        {% endif %}#}
+        {% if twitter.parent is not null %}
+            {{ include('web/twitter/modeView/share.html.twig', {'twitter.parent': twitter.parent } ) }}
+        {% endif %}
+        <div class="st-post-fd st-post-fd--show uk-text-small">
+            <a href="{{ path('web_twitter_view', {'id': twitter.id}) }}">{{ 'more_details'|trans }}</a>
+        </div>
     </div>
     <div class="uk-card-footer">
-{#        {% if svistyn.parent is null and app.user and app.user.id != svistyn.user.id %}#}
-{#            {{ include('Svistyn/inc/svistyn-post-action-link.html.twig', { 'svistyn' : svistyn }) }}#}
-{#        {% elseif svistyn.parent is null or svistyn.isParent %}#}
-            {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter }) }}
-{#        {% endif %}#}
+        {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter }) }}
     </div>
 </div>
