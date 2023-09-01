@@ -108,14 +108,12 @@ class TwitterController extends AbstractWebController
                 'id' => $twitter->getId(),
             ]);
         }
-
-        $twitterModel = new TwitterModel();
-        $twitterModel->setEntityTwitter($twitter);
-        $twitterForm = $this->createForm(TwitterType::class, $twitterModel);
+        $this->twitterModel->setEntityTwitter($twitter);
+        $twitterForm = $this->createForm(TwitterType::class, $this->twitterModel);
         $twitterForm->handleRequest($request);
 
         if ($twitterForm->isSubmitted() && $twitterForm->isValid()) {
-            $this->twitterManager->editTwitter($twitter, $twitterModel, $twitterForm->get('photo')->getData());
+            $this->twitterManager->editTwitter($twitter, $this->twitterModel, $twitterForm->get('photo')->getData());
             $this->requestStack->getSession()->getFlashBag()->add('success', 'twitter_edited_successfully');
 
             return $this->redirectToRoute('web_twitter_view', [
