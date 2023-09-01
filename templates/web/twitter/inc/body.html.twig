@@ -8,7 +8,7 @@
 {% endif %}
 {% if twitter.video is not null %}
     <div class="st-post-fd st-post-fd--embed">
-{#                            {{ twitter.embedVideo|video_embed_iframe }}#}
+{#       {{ twitter.embedVideo|video_embed_iframe }}#}
         <embed width="710" height="400" src={{ twitter.video }}>
     </div>
 {% endif %}

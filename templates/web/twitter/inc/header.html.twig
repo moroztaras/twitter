@@ -5,10 +5,10 @@
     <div class="uk-width-expand">
         <div>
             <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', { 'id' : twitter.user.id }) }}">
-                {{ twitter.user.firstName }}{{ twitter.user.lastName }}
+                {{ twitter.user.firstName }} {{ twitter.user.lastName }}
             </a>
         </div>
-        <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.createdAt|date('M d, Y') }}</time></p>
+        <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i') }}">{{ twitter.createdAt|date('Y-m-d H:i') }}</time></p>
     </div>
     {% if app.user == twitter.user %}
         {{ include('web/twitter/inc/menu.html.twig', { 'twitter' : twitter }) }}
