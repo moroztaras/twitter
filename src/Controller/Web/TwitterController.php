@@ -99,6 +99,16 @@ class TwitterController extends AbstractWebController
     #[Route('/twitter/{id}/edit', name: 'web_twitter_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Twitter $twitter): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($twitter->getUser()->getUuid() !== $user->getUuid()) {
+            $this->requestStack->getSession()->getFlashBag()->add('warning', 'twitter_edit_is_forbidden');
+
+            return $this->redirectToRoute('web_twitter_view', [
+                'id' => $twitter->getId(),
+            ]);
+        }
+
         $twitterModel = new TwitterModel();
         $twitterModel->setEntityTwitter($twitter);
         $twitterForm = $this->createForm(TwitterType::class, $twitterModel);

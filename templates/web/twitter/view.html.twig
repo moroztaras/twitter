@@ -16,7 +16,7 @@
                             </div>
                             <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.createdAt|date('M d, Y') }}</time></p>
                         </div>
-                        {% if app.user %}
+                        {% if app.user == twitter.user %}
                             {{ include('web/twitter/inc/menu.html.twig', { 'twitter' : twitter }) }}
                         {% endif %}
                     </div>
