@@ -6,16 +6,18 @@
 
     <!-- Twitter Body -->
     <div class="uk-card uk-card-body">
-        {{ include('web/twitter/inc/body.html.twig', { 'twitter' : twitter }) }}
+        {{ include('web/twitter/inc/body.html.twig', { 'twitter' : twitter, twitterWidthVideo:twitterWidthVideo }) }}
     </div>
-
-    <!-- Twitter Show Button -->
-    <div class="st-post-fd st-post-fd--show uk-text-small">
-        <a href="{{ path('web_twitter_view', {'id': twitter.id}) }}">{{ 'more_details'|trans }}</a>
-    </div>
-
-    <!-- Twitter Footer -->
-    <div class="uk-card-footer">
-        {{ include('web/twitter/inc/footer.html.twig', { 'twitter' : twitter }) }}
-    </div>
+    {% if modeView =='list' or  modeView =='view'%}
+        <!-- Twitter Show Button -->
+        <div class="st-post-fd st-post-fd--show uk-text-small">
+            <a href="{{ path('web_twitter_view', {'id': twitter.id}) }}">{{ 'more_details'|trans }}</a>
+        </div>
+    {% endif %}
+    {% if modeView =='list' or  modeView =='view'%}
+        <!-- Twitter Footer -->
+        <div class="uk-card-footer">
+            {{ include('web/twitter/inc/footer.html.twig', { 'twitter' : twitter }) }}
+        </div>
+    {% endif %}
 </div>

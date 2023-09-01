@@ -152,7 +152,7 @@ class TwitterController extends AbstractWebController
 
         return $this->render('web/twitter/share.html.twig', [
             'form' => $twitterForm->createView(),
-            'twitter' => $shareTwitter,
+            'twitter' => $twitter,
             'user' => $user,
         ]);
     }

@@ -9,9 +9,9 @@
 {% if twitter.video is not null %}
     <div class="st-post-fd st-post-fd--embed">
 {#       {{ twitter.embedVideo|video_embed_iframe }}#}
-        <embed width="710" height="400" src={{ twitter.video }}>
+        <embed width="{{ twitterWidthVideo }}" height="400" src={{ twitter.video }}>
     </div>
 {% endif %}
 {% if twitter.parent is not null %}
-    {{ include('web/twitter/modeView/share.html.twig', {'twitter.parent': twitter.parent } ) }}
+    {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter.parent, 'twitterWidthVideo':600, 'modeView':'share' }) }}
 {% endif %}
