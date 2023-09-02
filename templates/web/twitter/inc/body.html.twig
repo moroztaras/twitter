@@ -7,11 +7,11 @@
     </div>
 {% endif %}
 {% if twitter.video is not null %}
-    <div class="st-post-fd st-post-fd--embed">
+    <div class="st-post-fd st-post-fd--embed uk-text-center">
 {#       {{ twitter.embedVideo|video_embed_iframe }}#}
-        <embed width="{{ twitterWidthVideo }}" height="400" src={{ twitter.video }}>
+        <embed width="550" height="400" src={{ twitter.video }}>
     </div>
 {% endif %}
 {% if twitter.parent is not null %}
-    {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter.parent, 'twitterWidthVideo':600, 'modeView':'share' }) }}
+    {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter.parent, 'modeView':'share' }) }}
 {% endif %}
