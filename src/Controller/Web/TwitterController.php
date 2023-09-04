@@ -99,13 +99,21 @@ class TwitterController extends AbstractWebController
     #[Route('/twitter/{id}/edit', name: 'web_twitter_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Twitter $twitter): Response
     {
-        $twitterModel = new TwitterModel();
-        $twitterModel->setEntityTwitter($twitter);
-        $twitterForm = $this->createForm(TwitterType::class, $twitterModel);
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($twitter->getUser()->getUuid() !== $user->getUuid()) {
+            $this->requestStack->getSession()->getFlashBag()->add('warning', 'twitter_edit_is_forbidden');
+
+            return $this->redirectToRoute('web_twitter_view', [
+                'id' => $twitter->getId(),
+            ]);
+        }
+        $this->twitterModel->setEntityTwitter($twitter);
+        $twitterForm = $this->createForm(TwitterType::class, $this->twitterModel);
         $twitterForm->handleRequest($request);
 
         if ($twitterForm->isSubmitted() && $twitterForm->isValid()) {
-            $this->twitterManager->editTwitter($twitter, $twitterModel, $twitterForm->get('photo')->getData());
+            $this->twitterManager->editTwitter($twitter, $this->twitterModel, $twitterForm->get('photo')->getData());
             $this->requestStack->getSession()->getFlashBag()->add('success', 'twitter_edited_successfully');
 
             return $this->redirectToRoute('web_twitter_view', [
@@ -144,7 +152,7 @@ class TwitterController extends AbstractWebController
 
         return $this->render('web/twitter/share.html.twig', [
             'form' => $twitterForm->createView(),
-            'twitter' => $shareTwitter,
+            'twitter' => $twitter,
             'user' => $user,
         ]);
     }

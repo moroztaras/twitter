@@ -8,7 +8,7 @@
             <div class="center">{{ 'share_twitter'|trans }}</div>
             {{ form_start(form) }}
                 {{ form_row(form.text) }}
-                {{ include('web/twitter/modeView/share.html.twig', { 'twitter.parent' : twitter.parent }) }}
+                {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter, 'modeView':'share' }) }}
                 <span class="input-group-prepend">
                     <button class="btn btn-secondary" type="submit">{{ 'to_shate'|trans }}</button>
                 </span>

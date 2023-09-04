@@ -25,9 +25,9 @@
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
             {% for twitter in twitters %}
-                {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter }) }}
+                {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter, 'modeView':'list' }) }}
             {% endfor %}
-              {{ include('pagination/knp_pagination.html.twig', {'pagination' : twitters}) }}
+            {{ include('pagination/knp_pagination.html.twig', {'pagination' : twitters}) }}
         </div>
     </div>
 {% endblock %}
