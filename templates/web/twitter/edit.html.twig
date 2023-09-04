@@ -3,27 +3,18 @@
 {% block main %}
     <div class="uk-container uk-container-xsmall" xmlns="http://www.w3.org/1999/html">
         <div class="uk-section uk-padding uk-background-default kuk-shadow">
+            <div class="center">{{ 'edit_twitter'|trans }}</div>
             {{ form_start(form) }}
-            {{ form_row(form.text) }}
-            {{ form_row(form.video) }}
-{#            {% if (svistyn.parent == false) %}#}
-{#                {{ form_row(form.embed) }}#}
-                {% if twitter.video is not null %}
-{#                    <div class="st-post-fd st-post-fd--embed">{{ svistyn.embedVideo|video_embed_iframe }}</div><br>#}
-                {% endif %}
+                {{ form_row(form.text) }}
+                {{ form_row(form.video) }}
                 {{ form_row(form.photo) }}
-                {% if twitter.photo is not null %}
-                    <div class="st-post-fd st-post-fd--photo uk-text-center">
-                        <img data-src="/files/twitter/photo/{{ twitter.photo }}" alt uk-img style="max-width: 550px">
-                    </div>
-                {% endif %}
-{#            {% else%}#}
-{#                {{ include('Svistyn/ModeView/share.html.twig', {'svistyn.parent': svistyn.parent } ) }}#}
-{#            {% endif %}#}
                 <span class="input-group-prepend">
                     <button class="btn btn-secondary" type="submit">{{ 'edit'|trans }}</button>
                 </span>
             {{ form_end(form) }}
+            <!--Twitter Pre View -->
+            <div class="center">{{ 'pre_view_twitter'|trans }}</div>
+            {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter, 'modeView':'edit' }) }}
         </div>
     </div>
 {% endblock %}

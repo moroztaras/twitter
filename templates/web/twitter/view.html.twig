@@ -3,51 +3,26 @@
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
             <div class="uk-card uk-card-default uk-card-small uk-margin-small">
+                <!-- Twitter Header -->
                 <div class="uk-card-header">
-                    <div class="uk-grid-small uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                            <img data-src="{% if twitter.user.avatar != null %}/files/user/avatar/{{ twitter.user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img>
-                        </div>
-                        <div class="uk-width-expand">
-                            <div>
-                                <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', { 'id' : twitter.user.id }) }}">
-                                    {{ twitter.user.firstName }}{{ twitter.user.lastName }}
-                                </a>
-                            </div>
-                            <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ twitter.createdAt|date('Y-m-d H:i:s') }}">{{ twitter.createdAt|date('M d, Y') }}</time></p>
-                        </div>
-                        {% if app.user %}
-                            {{ include('web/twitter/inc/menu.html.twig', { 'twitter' : twitter }) }}
-                        {% endif %}
-                    </div>
+                    {{ include('web/twitter/inc/header.html.twig', { 'twitter' : twitter }) }}
                 </div>
+                <!-- Twitter Body -->
                 <div class="uk-card uk-card-body">
-                    {% if twitter.text is not null %}
-                        <div class="st-post-fd st-post-fd--text"><p>{{ twitter.text|nl2br  }}</p></div>
-                    {% endif %}
-                    {% if twitter.photo is not null %}
-                        <div class="st-post-fd st-post-fd--photo uk-text-center">
-                            <img data-src="/files/twitter/photo/{{ twitter.photo }}" alt uk-img style="max-width: 550px">
-                        </div>
-                    {% endif %}
-                    {% if twitter.video is not null %}
-                        <div class="st-post-fd st-post-fd--embed">
-{#                            {{ twitter.embedVideo|video_embed_iframe }}#}
-                            <embed width="710" height="400" src={{ twitter.video }}>
-                        </div>
-                    {% endif %}
-                    {% if twitter.parent is not null %}
-                        {{ include('web/twitter/modeView/share.html.twig', {'twitter.parent': twitter.parent } ) }}
-                    {% endif %}
+                    {{ include('web/twitter/inc/body.html.twig', { 'twitter' : twitter }) }}
                 </div>
+                <!-- Twitter Footer -->
                 <div class="uk-card-footer">
-                    {{ include('web/twitter/inc/twiitter-post-action.html.twig', { 'twitter' : twitter }) }}
+                    {{ include('web/twitter/inc/footer.html.twig', { 'twitter' : twitter }) }}
                 </div>
             </div>
+            <!-- Comment Form -->
             {% if app.user %}
                 {{ render(controller('App\\Controller\\Web\\TwitterCommentController::create', {'id_twitter':twitter.id})) }}
             {% endif %}
+            <!-- List Comments -->
             {{ include('web/twitterComment/list.html.twig', {'comments' : comments}) }}
+            <!-- Pagination Comments -->
 {#            {{ include('pagination/kpn_pagination.html.twig', {'field' : comments}) }}#}
         </div>
     </div>

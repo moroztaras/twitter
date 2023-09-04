@@ -1,0 +1,17 @@
+{% if twitter.text is not null %}
+    <div class="st-post-fd st-post-fd--text"><p>{{ twitter.text|nl2br  }}</p></div>
+{% endif %}
+{% if twitter.photo is not null %}
+    <div class="st-post-fd st-post-fd--photo uk-text-center">
+        <img data-src="/files/twitter/photo/{{ twitter.photo }}" alt uk-img style="max-width: 550px">
+    </div>
+{% endif %}
+{% if twitter.video is not null %}
+    <div class="st-post-fd st-post-fd--embed uk-text-center">
+{#       {{ twitter.embedVideo|video_embed_iframe }}#}
+        <embed width="550" height="400" src={{ twitter.video }}>
+    </div>
+{% endif %}
+{% if twitter.parent is not null %}
+    {{ include('web/twitter/modeView/full.html.twig', { 'twitter' : twitter.parent, 'modeView':'share' }) }}
+{% endif %}
