@@ -20,7 +20,7 @@ class TwitterType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'maxlength' => 1000,
-                    ],
+                ],
             ])
             ->add('photo', FileType::class, [
                 'label' => 'photo',

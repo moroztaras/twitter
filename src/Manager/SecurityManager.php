@@ -7,6 +7,7 @@ use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Expected\ExpectedBadRequestJsonHttpException;
 use App\Exception\Expected\UserNotFoundException;
 use App\Form\Model\Forgot;
+use App\Form\Model\UserProfileSecurityModel;
 use App\Model\LoginModel;
 use App\Repository\UserRepository;
 use App\Response\SuccessResponse;
@@ -108,6 +109,17 @@ class SecurityManager
         $this->emailManager->sendEmailRecoverPassword($user);
 
         return new SuccessResponse('An email has been sent with a link to reset your password');
+    }
+
+    public function changeEmailAndPasswordOfUser(User $user, UserProfileSecurityModel $userProfileSecurityModel): bool
+    {
+        $user->setEmail($userProfileSecurityModel->getEmail());
+
+        if ($userProfileSecurityModel->getNewPassword()) {
+            $this->saveUser($user, $userProfileSecurityModel->getNewPassword());
+        }
+
+        return true;
     }
 
     // Save user in DB
