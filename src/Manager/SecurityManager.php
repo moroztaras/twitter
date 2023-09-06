@@ -113,6 +113,7 @@ class SecurityManager
 
     public function changeEmailAndPasswordOfUser(User $user, UserProfileSecurityModel $userProfileSecurityModel): bool
     {
+        // TODO add check email
         $user->setEmail($userProfileSecurityModel->getEmail());
 
         if ($userProfileSecurityModel->getNewPassword()) {
