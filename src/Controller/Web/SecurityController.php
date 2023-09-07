@@ -24,7 +24,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 #[Route('', name: 'app')]
 class SecurityController extends AbstractController
 {
-    public const REDIRECT_TO_ROUTE = 'app_web_post_list';
+    public const REDIRECT_TO_ROUTE = 'user_twitter_list';
 
     /**
      * SecurityController constructor.

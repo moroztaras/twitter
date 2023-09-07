@@ -11,13 +11,13 @@
         </div>
         <hr>
         <ul class="uk-list uk-padding uk-padding-small">
-          <li>{{ 'following'|trans }}: <span class="uk-link">{{ following }}</span></li>
-          <li>{{ 'followers'|trans }}: <span class="uk-link">{{ followers }}</span></li>
-          <li>{{ 'twitters'|trans }}:
-            <a href="{{ path('web_twitter_list',{ 'id': user.id }) }}">
-              <span class="uk-link">{{ twitters }}</span>
-            </a>
-          </li>
+{#          <li>{{ 'following'|trans }}: <span class="uk-link">{{ following }}</span></li>#}
+{#          <li>{{ 'followers'|trans }}: <span class="uk-link">{{ followers }}</span></li>#}
+{#          <li>{{ 'twitters'|trans }}:#}
+{#            <a href="{{ path('web_twitter_list',{ 'id': user.id }) }}">#}
+{#              <span class="uk-link">{{ twitters }}</span>#}
+{#            </a>#}
+{#          </li>#}
         </ul>
       </div>
     </div>
@@ -25,15 +25,15 @@
       <div class="uk-padding uk-padding-small uk-background uk-background-default">
         <nav class="uk-navbar-container">
           <ul class="uk-navbar-nav">
-            <li class="{% if app.request.attributes.get('_route') == 'user_canonical' %}uk-active{% endif %}">
+            <li class="{% if app.request.attributes.get('_route') == 'web_user_profile_default' %}uk-active{% endif %}">
               <a href="{{ path('web_user_profile_default', {'id' : user.id}) }}">{{ 'profile'|trans }}</a>
             </li>
             {% if app.user == user  %}
-                <li class="{% if app.request.attributes.get('_route') == 'user_edit_canonical' %}uk-active{% endif %}">
+                <li class="{% if app.request.attributes.get('_route') == 'web_user_profile_edit' %}uk-active{% endif %}">
                   <a href="{{ path('web_user_profile_edit') }}">{{ 'edit'|trans }}</a>
                 </li>
-                <li class="{% if app.request.attributes.get('_route') == 'user_security_canonical' %}uk-active{% endif %}">
-{#                  <a href="{{ path('user_security_canonical') }}">{{ 'security'|trans }}</a>#}
+                <li class="{% if app.request.attributes.get('_route') == 'web_user_profile_change_password' %}uk-active{% endif %}">
+                  <a href="{{ path('web_user_profile_security') }}">{{ 'security'|trans }}</a>
                 </li>
             {% endif %}
           </ul>
