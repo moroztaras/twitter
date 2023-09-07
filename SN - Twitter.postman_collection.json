@@ -1,0 +1,1024 @@
+{
+	"info": {
+		"_postman_id": "0f2fd098-a092-40ed-8e0b-c8bae6a8ff7a",
+		"name": "SN - Twitter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11796877"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "api user register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": {  \n    \"email\": \"user@twitter.ua\",\n    \"plain_password\": \"qwerty\",\n    \"first_name\": \"First Name\",\n    \"last_name\": \"Last Name\",\n    \"birthday\": \"1980-01-11\",\n    \"gender\": \"male\",\n    \"country\": \"Ukraine\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/register",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "mail@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "HTTP_x-api-key",
+								"value": "f29da71b-4198-4d56-aa9a-a11554879865",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": {\n    \"email\": \"moroztaras@twitter.ua\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/login",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-api-key",
+								"value": "4778ad0c-60aa-4d39-9c88-59e86f5afdbe",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user edit",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "mail@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "HTTP_x-api-key",
+								"value": "222488ad-85e2-4149-bd64-5a6762bf37da",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"firstName\": \"Taras1406\",\n        \"lastName\": \"Moroz\",\n        \"email\": \"moroztaras1406@mail.ua\",\n        \"plain_password\": null,\n        \"gender\": \"male\",\n        \"birthday\": \"15-07-1986\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user forgot",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "mail@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "HTTP_x-api-key",
+								"value": "f29da71b-4198-4d56-aa9a-a11554879865",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"forgot\": {\n    \"email\": \"moroztaras1407@mail.ua\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/forgot",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Twitter",
+			"item": [
+				{
+					"name": "api twitter create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"twitter\": {\n        \"text\": \"Twitter text\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "4778ad0c-60aa-4d39-9c88-59e86f5afdbe",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter?page=1",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"twitter\": {\n        \"text\": \"Edit twitter text13:30\",\n        \"video\": \"https://www.youtube.com/watch?v=19tIt3D_yiI\",\n        \"photo\": \"Motivation.jpeg\",\n        \"status\": true\n        \n    }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"{{uuid-twitter}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"{{uuid-twitter}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter remove",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"{{uuid-twitter}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Twittter  Comments",
+			"item": [
+				{
+					"name": "api twitter comments list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-api-key",
+								"value": "bc59439b-6529-4cba-8d14-839c2982f88b",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comments/page=1",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
+								"comments",
+								"page=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter comment show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-api-key",
+								"value": "bc59439b-6529-4cba-8d14-839c2982f88b",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
+								"comment",
+								"2be44372-924d-4d40-88af-56dae603aec1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter comment create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-api-key",
+								"value": "bc59439b-6529-4cba-8d14-839c2982f88b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"twitter-comment\": {\n        \"comment\": \"New comment2051\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter comment edit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-api-key",
+								"value": "bc59439b-6529-4cba-8d14-839c2982f88b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"twitter-comment\": {\n        \"comment\": \"Edit comment22:15\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
+								"comment",
+								"2be44372-924d-4d40-88af-56dae603aec1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api twitter comment delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-api-key",
+								"value": "bc59439b-6529-4cba-8d14-839c2982f88b",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"twitter",
+								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
+								"comment",
+								"2be44372-924d-4d40-88af-56dae603aec1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friend",
+			"item": [
+				{
+					"name": "api user following",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "794015a8-5770-4ac2-8019-35d8c0665913",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/followings",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"followings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api followings other user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "794015a8-5770-4ac2-8019-35d8c0665913",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/{{uuid-user}}/followings",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"{{uuid-user}}",
+								"followings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user followers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "794015a8-5770-4ac2-8019-35d8c0665913",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/followers",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"followers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api followers other user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "794015a8-5770-4ac2-8019-35d8c0665913",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/{{uuid-user}}/followers",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"{{uuid-user}}",
+								"followers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user followers requests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "794015a8-5770-4ac2-8019-35d8c0665913",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/followers/requests",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"followers",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user follower status change",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "mail1@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "794015a8-5770-4ac2-8019-35d8c0665913",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://social.network.tmoroz.com/api/user/follower/{{uuid_follower}}/status/{{status_follower}}/change",
+							"protocol": "http",
+							"host": [
+								"social",
+								"network",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"follower",
+								"{{uuid_follower}}",
+								"status",
+								"{{status_follower}}",
+								"change"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
