@@ -4,8 +4,11 @@ namespace App\Controller\Web;
 
 use App\Entity\User;
 use App\Form\Model\UserProfileModel;
+use App\Form\Model\UserProfileSecurityModel;
+use App\Form\UserProfileSecurityType;
 use App\Form\UserProfileType;
 use App\Manager\FriendManager;
+use App\Manager\SecurityManager;
 use App\Manager\TwitterManager;
 use App\Manager\UserProfileManager;
 use App\Repository\UserRepository;
@@ -13,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user/profile')]
@@ -24,6 +28,9 @@ class UserProfileController extends AbstractWebController
         private readonly UserRepository $userRepository,
         private readonly FriendManager $friendManager,
         private readonly TwitterManager $twitterManager,
+        private readonly SecurityManager $securityManager,
+        private readonly UserProfileSecurityModel $userProfileSecurityModel,
+        private readonly UserPasswordHasherInterface $passwordEncoder,
     ) {
     }
 
@@ -75,6 +82,35 @@ class UserProfileController extends AbstractWebController
         }
 
         return $this->render(view: 'web/userProfile/edit.html.twig', parameters: [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/security', name: 'web_user_profile_security')]
+    public function security(Request $request): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $this->userProfileSecurityModel->setUser($user);
+        $form = $this->createForm(UserProfileSecurityType::class, $this->userProfileSecurityModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->passwordEncoder->isPasswordValid($user, $this->userProfileSecurityModel->getPassword())) {
+                $this->securityManager->changeEmailAndPasswordOfUser($user, $this->userProfileSecurityModel);
+                $this->requestStack->getSession()->getFlashBag()->add('success', 'user_change_security_successfully');
+
+                return $this->redirectToRoute('web_user_profile');
+            } else {
+                $this->requestStack->getSession()->getFlashBag()->add('danger', 'data_is_not_correct');
+
+                return $this->redirectToRoute('web_user_profile_security');
+            }
+        }
+
+        return $this->render(view: 'web/userProfile/security.html.twig', parameters: [
             'form' => $form->createView(),
             'user' => $user,
         ]);
