@@ -70,7 +70,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"login\": {\n    \"email\": \"moroztaras@twitter.ua\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
+							"raw": "{\n  \"login\": {\n    \"email\": \"admin@twitter.ua\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
 						},
 						"url": {
 							"raw": "http://social.network.tmoroz.com/api/user/login",
@@ -252,6 +252,55 @@
 								"api",
 								"user",
 								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api user password change",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "mail@mail.ua",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "17274850-ffa1-421d-8802-89cf5f98e19c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"security\": {\n        \"password\": \"qwerty\",\n        \"new_password\": \"new_password\",\n        \"email\": \"new_email@twitter.ua\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/user/security",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"security"
 							]
 						}
 					},
