@@ -136,4 +136,14 @@ class SecurityManager
         $this->doctrine->getManager()->persist($user);
         $this->doctrine->getManager()->flush();
     }
+
+    public function changeEmailAndPassword(User $user, string $content)
+    {
+        /** @var UserProfileSecurityModel $security */
+        $security = $this->apiObjectValidator->deserializeAndValidate($content, UserProfileSecurityModel::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[security]',
+        ]);
+
+        $this->changeEmailAndPasswordOfUser($user, $security);
+    }
 }

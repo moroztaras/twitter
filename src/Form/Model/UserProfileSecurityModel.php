@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class UserProfileSecurityModel
 {
-    //    #[Assert\Length(min: '8', max: '50')]
+    #[Assert\Length(min: '8', max: '50')]
     private string $password;
 
     #[Assert\Length(min: '8', max: '50')]

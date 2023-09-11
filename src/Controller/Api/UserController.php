@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
 use App\Manager\SecurityManager;
+use App\Response\SuccessResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,6 +63,21 @@ class UserController extends ApiController
         }
 
         return $this->json(['user' => $this->securityManager->edit($content, $user)], Response::HTTP_OK);
+    }
+
+    // Change password of user
+    #[Route(path: '/security', name: '_security', methods: 'POST')]
+    public function security(Request $request): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        if (!($content = $request->getContent())) {
+            throw new BadRequestJsonHttpException('Bad Request.');
+        }
+        $this->securityManager->changeEmailAndPassword($user, $content);
+
+        return new SuccessResponse('The user\'s secret data has been successfully changed.');
     }
 
     // Forgot password of user
