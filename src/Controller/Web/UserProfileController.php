@@ -65,6 +65,16 @@ class UserProfileController extends AbstractWebController
         ]);
     }
 
+    public function photoAndInfo(User $user): Response
+    {
+        return $this->render('web/userProfile/profile.html.twig', [
+            'user' => $user,
+            'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
+            'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
+            'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
+        ]);
+    }
+
     // User profile edit
     #[Route('/edit', name: 'web_user_profile_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request): Response
@@ -84,6 +94,9 @@ class UserProfileController extends AbstractWebController
         return $this->render(view: 'web/userProfile/edit.html.twig', parameters: [
             'form' => $form->createView(),
             'user' => $user,
+            'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
+            'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
+            'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
         ]);
     }
 
@@ -113,6 +126,9 @@ class UserProfileController extends AbstractWebController
         return $this->render(view: 'web/userProfile/security.html.twig', parameters: [
             'form' => $form->createView(),
             'user' => $user,
+            'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
+            'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
+            'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
         ]);
     }
 }
