@@ -57,12 +57,7 @@ class UserProfileController extends AbstractWebController
             return $this->redirectToRoute('web_user_profile_default');
         }
 
-        return $this->render('web/userProfile/profile.html.twig', [
-            'user' => $user,
-            'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
-            'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
-            'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
-        ]);
+        return $this->render('web/userProfile/profile.html.twig', $this->renderUserInfo($user));
     }
 
     // User profile edit
@@ -81,10 +76,7 @@ class UserProfileController extends AbstractWebController
             return $this->redirectToRoute('web_user_profile_default');
         }
 
-        return $this->render(view: 'web/userProfile/edit.html.twig', parameters: [
-            'form' => $form->createView(),
-            'user' => $user,
-        ]);
+        return $this->render(view: 'web/userProfile/edit.html.twig', parameters: array_merge(['form' => $form->createView()], $this->renderUserInfo($user)));
     }
 
     #[Route('/security', name: 'web_user_profile_security')]
@@ -110,9 +102,16 @@ class UserProfileController extends AbstractWebController
             }
         }
 
-        return $this->render(view: 'web/userProfile/security.html.twig', parameters: [
-            'form' => $form->createView(),
+        return $this->render(view: 'web/userProfile/security.html.twig', parameters: array_merge(['form' => $form->createView()], $this->renderUserInfo($user)));
+    }
+
+    private function renderUserInfo(User $user): array
+    {
+        return [
             'user' => $user,
-        ]);
+            'following' => $this->friendManager->getCountFollowingsOfUser($user) ?? 0,
+            'followers' => $this->friendManager->getCountFollowersOfUser($user, true) ?? 0,
+            'twitters' => $this->twitterManager->getCountTwittersOfUser($user) ?? 0,
+        ];
     }
 }
