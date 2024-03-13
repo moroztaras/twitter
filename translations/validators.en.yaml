@@ -1,0 +1,15 @@
+password_must_match: 'The password fields must match'
+email_already_in_use : 'This email address is already in use'
+user:
+  fullname:
+    not_blank: 'Full name is a required field'
+  email:
+    not_blank: 'Email address required field'
+  plainPassword:
+    not_blank: 'Password required field'
+  birthday:
+    not_blank: 'Date of birth is a required field'
+  gender:
+    not_blank: 'Gender is a required field'
+  region:
+    not_blank: 'Country required field'
