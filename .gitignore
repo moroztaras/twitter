@@ -24,3 +24,7 @@
 ###< friendsofphp/php-cs-fixer ###
 
 .deptrac.cache
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

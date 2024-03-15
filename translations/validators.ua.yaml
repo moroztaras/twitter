@@ -1,0 +1,15 @@
+password_must_match: 'Поля пароля повинні збігатися.'
+email_already_in_use : 'Ця електронна адреса вже використовується'
+user:
+  fullname:
+    not_blank: "Повне ім'я обов'язкове поле"
+  email:
+    not_blank: "Ел. адреса обов'язкове поле"
+  plainPassword:
+    not_blank: "Пароль обов'язкове поле"
+  birthday:
+    not_blank: "Дата народження обов'язкове поле"
+  gender:
+    not_blank: "Стать обов'язкове поле"
+  region:
+    not_blank: "Країна обов'язкове поле"

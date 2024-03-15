@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/user/profile')]
+#[Route('{_locale<%app.supported_locales%>}/user/profile')]
 class UserProfileController extends AbstractWebController
 {
     public function __construct(
