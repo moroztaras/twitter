@@ -2,4 +2,4 @@
 
 - [Install](docs/install.md)
 
-© 2023
+© 2023-2024

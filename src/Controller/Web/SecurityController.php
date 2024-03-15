@@ -18,17 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-/**
- * Class SecurityController.
- */
-#[Route('', name: 'app')]
+#[Route('{_locale<%app.supported_locales%>}', name: 'app')]
 class SecurityController extends AbstractController
 {
     public const REDIRECT_TO_ROUTE = 'user_twitter_list';
 
-    /**
-     * SecurityController constructor.
-     */
     public function __construct(
         private ManagerRegistry $doctrine,
         private SecurityManager $securityManager,

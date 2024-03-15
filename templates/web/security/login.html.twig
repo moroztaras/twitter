@@ -1,40 +1,29 @@
 {% extends "Layout/layout-default.html.twig" %}
 
 {% block body_attr %}page-login{% endblock %}
-{% block title %}{{ 'login'|trans }}{% endblock %}
+{% block title %}{{ 'login'|trans|raw }}{% endblock %}
 
 {% block main %}
     <div class="uk-container uk-container-small">
         <div class="uk-section uk-padding uk-background-default kuk-shadow">
-            <h2 class="uk-heading-divider">{{ 'login'|trans }}</h2>
+            <h2 class="uk-heading-divider">{{ 'login'|trans|raw }}</h2>
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email"><br>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Password"><br>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="{{ 'email'|trans }}"><br>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="{{ 'password'|trans|raw }}"><br>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                {#
-                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                See https://symfony.com/doc/current/security/remember_me.html
-
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
-                    </label>
-                </div>
-                #}
-
-                <button class="btn btn-lg btn-primary" type="submit">{{ 'sing_in'|trans }}</button>
+                <button class="btn btn-lg btn-primary" type="submit">{{ 'sign_in'|trans|raw }}</button>
             </form>
             <a href="{{ path('app_recover_password') }}" class="uk-link uk-text-small">
-                {{ 'forgot_your_account'|trans }}
+                {{ 'forgot_your_account'|trans|raw }}
             </a>
             <hr>
             <p class="uk-text-small">
-                {{ 'first_time_on_site'|trans }}? <a href="{{ path('app_registration') }}" class="uk-link">{{ 'create_account'|trans }}</a>
+                {{ 'first_time_on_site'|trans|raw }}? <a href="{{ path('app_registration') }}" class="uk-link">{{ 'create_account'|trans }}</a>
             </p>
         </div>
     </div>
