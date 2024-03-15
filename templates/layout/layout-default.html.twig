@@ -63,6 +63,27 @@
                             <li><a href="{{ path('app_login') }}">{{ 'log_in'|trans }}</a></li>
                             <li><a href="{{ path('app_registration') }}">{{ 'sign_up'|trans }}</a></li>
                         {% endif %}
+                        <li>
+                            <div class="us-prof-header">
+                                <span uk-icon="world" class="uk-margin-small-right"></span>
+                            </div>
+                            <div uk-drop="mode: click; offset: 20; pos: bottom-right" class="uk-card uk-card-default kuk-width-small">
+                                <nav class="uk-padding-small">
+                                    <ul class="uk-nav uk-list-divider uk-text-small">
+                                        <li>
+                                            <a href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({_locale: 'en'}) ) }}">
+                                                {{ 'en'|trans }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({_locale: 'ua'}) ) }}">
+                                                {{ 'ua'|trans }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
             </div>

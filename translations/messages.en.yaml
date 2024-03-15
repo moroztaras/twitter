@@ -12,13 +12,19 @@ http_error_500:
   description: 'Internal server error.'
   suggestion: 'Спробуйте завантажити цю сторінку знову через кілька хвилин або <a href="%url%">поверніться на головну сторінку</a>.'
 
-sign_up: 'Sing up'
+en: 'English'
+ua: 'Ukrainian'
+
+sign_up: 'Sign up'
+sign_in: 'Sign in'
 log_in: 'Log in'
 login: 'Log in'
 recover_password: 'Recover password'
 recover: 'Recover'
 
-full_name: "Full name"
+first_name: 'First name'
+last_name: 'Last name'
+full_name: 'Full name'
 email: 'Email'
 gender: 'Gender'
 male: 'Male'
