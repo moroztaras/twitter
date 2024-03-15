@@ -50,7 +50,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private ?\DateTimeInterface $birthday = null;
 
     #[ORM\Column(name: 'status')]
-    private bool $status = false;
+    private bool $status = true;
 
     #[ORM\Column(name: 'gender', length: 10)]
     private string $gender;
@@ -79,9 +79,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(name: 'api_key', unique: true)]
     private string $apiKey;
 
-    /**
-     * User construct.
-     */
     public function __construct()
     {
         $this->twitters = new ArrayCollection();

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('{_locale<%app.supported_locales%>}')]
 class TwitterCommentController extends AbstractWebController
 {
     public function __construct(

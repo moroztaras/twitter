@@ -72,11 +72,13 @@
                                     <ul class="uk-nav uk-list-divider uk-text-small">
                                         <li>
                                             <a href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({_locale: 'en'}) ) }}">
+                                                <img src="{{ asset('/images/english_flag_icon.png')}}" alt="{{ 'en'|trans }}" style="width:10%;">
                                                 {{ 'en'|trans }}
                                             </a>
                                         </li>
                                         <li>
                                             <a href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({_locale: 'ua'}) ) }}">
+                                                <img src="{{ asset('/images/ukraine_flag_icon.png')}}" alt="{{ 'ua'|trans }}" style="width:10%;">
                                                 {{ 'ua'|trans }}
                                             </a>
                                         </li>

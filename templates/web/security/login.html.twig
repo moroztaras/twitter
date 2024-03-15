@@ -11,8 +11,8 @@
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email"><br>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Password"><br>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="{{ 'email'|trans }}"><br>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="{{ 'password'|trans|raw }}"><br>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('{_locale<%app.supported_locales%>}')]
 class TwitterController extends AbstractWebController
 {
     private const LIMIT_TWITTERS = 30;
