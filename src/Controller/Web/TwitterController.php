@@ -72,7 +72,7 @@ class TwitterController extends AbstractWebController
 
         if ($twitterForm->isSubmitted() && $twitterForm->isValid()) {
             $this->twitterManager->create($user, $twitterModel, $twitterForm->get('photo')->getData());
-            $this->requestStack->getSession()->getFlashBag()->add('success', 'twitter_created_successfully');
+            $this->requestStack->getSession()->getFlashBag()->add('success', 'added_new_twitter_successfully');
 
             return $this->redirectToRoute('web_twitter_list');
         }

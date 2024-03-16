@@ -1,10 +1,10 @@
 {% extends "Layout/layout-default.html.twig" %}
-{% block title %}{{ 'crete_twitter'|trans }}{% endblock %}
+{% block title %}{{ 'crete_twitter'|trans|raw }}{% endblock %}
 
 {% block main %}
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
-            <div class="center">{{ 'new_twitter'|trans }}</div>
+            <div class="center">{{ 'new_twitter'|trans|raw }}</div>
             {{ form_start(form) }}
                 {{ form_row(form.text) }}
                 {{ form_row(form.photo) }}

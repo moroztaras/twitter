@@ -10,7 +10,7 @@
         {% if app.user == user  %}
             <div class="uk-text-center uk-margin">
                 <a href="{{ path('web_twitter_new') }}" class="uk-button uk-button-default" style="margin-right: 5px;">
-                    <i class="fa fa-plus-square-o"></i>{{ 'add_twitter'|trans }}
+                    <i class="fa fa-plus-square-o"></i>{{ 'add_twitter'|trans|raw }}
                 </a>
             </div>
         {% else  %}
