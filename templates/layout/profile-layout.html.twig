@@ -11,9 +11,9 @@
         </div>
         <hr>
         <ul class="uk-list uk-padding uk-padding-small">
-          <li>{{ 'following'|trans }}: <span class="uk-link">{{ following }}</span></li>
-          <li>{{ 'followers'|trans }}: <span class="uk-link">{{ followers }}</span></li>
-          <li>{{ 'twitters'|trans }}:
+          <li>{{ 'following'|trans|raw }}: <span class="uk-link">{{ following }}</span></li>
+          <li>{{ 'followers'|trans|raw }}: <span class="uk-link">{{ followers }}</span></li>
+          <li>{{ 'twitters'|trans|raw }}:
             <a href="{{ path('web_user_twitter_list',{ 'id': user.id }) }}">
               <span class="uk-link">{{ twitters }}</span>
             </a>
