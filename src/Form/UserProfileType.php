@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Form\Model\UserProfileModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -28,8 +29,8 @@ class UserProfileType extends AbstractType
             ->add('gender', ChoiceType::class, [
                 'label' => 'gender',
                 'choices' => [
-                   'male' => 'm',
-                  'female' => 'w',
+                    'male' => User::GENDER_MALE,
+                    'female' => User::GENDER_FEMALE,
                 ],
                 'attr' => [
                     'class' => 'uk-flex uk-flex-middle kuk-child-margin-small-left',
@@ -39,9 +40,6 @@ class UserProfileType extends AbstractType
                 ])
             ->add('birthday', BirthdayType::class, [
                 'label' => 'birthday',
-                'attr' => [
-                    'class' => 'uk-flex kuk-child-margin-small-left',
-                ],
             ])
             ->add('country', CountryType::class, [
                 'label' => 'country',

@@ -70,36 +70,25 @@ class RegistrationType extends AbstractType
             ->add('gender', ChoiceType::class, [
                 'label' => 'gender',
                 'choices' => [
-                    'male' => 'male',
-                    'female' => 'female',
+                    'male' => User::GENDER_MALE,
+                    'female' => User::GENDER_FEMALE,
                 ],
                 'attr' => [
                     'class' => 'uk-flex uk-flex-middle kuk-child-margin-small-left',
-                ],
-                'label_attr' => [
-                    'class' => 'uk-hidden',
                 ],
                 'multiple' => false,
                 'expanded' => true,
             ])
             ->add('birthday', BirthdayType::class, [
                 'label' => 'birthday',
-                'label_attr' => [
-                    'class' => 'uk-hidden',
-                ],
-                'attr' => [
-                    'class' => 'uk-flex kuk-child-margin-small-left',
-                ],
             ])
             ->add('country', CountryType::class, [
                 'label' => 'country',
-                'label_attr' => [
-                    'class' => 'uk-hidden',
-                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'sign_up',
-            ]);
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
