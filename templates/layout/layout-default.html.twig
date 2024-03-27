@@ -14,10 +14,10 @@
                                 <span uk-icon="icon: bell"></span>
                                 {{ render(controller('App\\Controller\\Web\\FriendController::countRequestsFriendShip')) }}
                             </a>
-{#                            <a href="{{ path('user_messages_list') }}" style="text-decoration: none; color: #777777;">#}
-{#                                <span uk-icon="icon: mail"></span>#}
-{#                                {{ render(controller('App\\Controller\\MessageController::getCountAllNotReadMessages')) }}#}
-{#                            </a>#}
+                            <a href="{{ path('web_user_dialogues_list') }}" style="text-decoration: none; color: #777777;">
+                                <span uk-icon="icon: mail"></span>
+                                {{ render(controller('App\\Controller\\Web\\MessageController::numberAllUnReadMessages')) }}
+                            </a>
                             <li>
                                 <a href="{{ path('web_user_profile_default', { 'id' : app.user.id }) }}" class="user-profile">
                                     <div class="us-prof-header">
@@ -36,13 +36,13 @@
                                                 <a href="{{ path('web_user_profile_default') }}"><span uk-icon="user" class="uk-margin-small-right"></span> {{ 'profile'|trans }}</a>
                                             </li>
                                             <li>
-{#                                                <a href="{{ path('user_messages_list') }}"><span uk-icon="mail" class="uk-margin-small-right"></span> {{ 'messages'|trans }}</a>#}
+                                                <a href="{{ path('web_user_dialogues_list') }}"><span uk-icon="mail" class="uk-margin-small-right"></span> {{ 'messages'|trans }}</a>
                                             </li>
-                                            {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                                <li>
+{#                                            {% if is_granted("ROLE_SUPER_ADMIN") %}#}
+{#                                                <li>#}
 {#                                                    <a href="{{ path('admin_dashboard') }}"><span uk-icon="settings" class="uk-margin-small-right"></span> {{ 'admin_panel'|trans }}</a>#}
-                                                </li>
-                                            {% endif %}
+{#                                                </li>#}
+{#                                            {% endif %}#}
                                             <li>
 {#                                                <a href="{{ path('svistyn_feed_following') }}"><span uk-icon="twitter" class="uk-margin-small-right"></span> {{ 'feed'|trans }}</a>#}
                                             </li>

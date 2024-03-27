@@ -4,6 +4,7 @@ namespace App\Controller\Web;
 
 use App\Entity\Twitter;
 use App\Entity\User;
+use App\Manager\DialogueManager;
 use App\Manager\FriendManager;
 use App\Manager\TwitterManager;
 use App\Repository\TwitterCommentRepository;
@@ -17,6 +18,7 @@ class BlockController extends AbstractWebController
         private readonly TwitterManager $twitterManager,
         private readonly TwitterRepository $twitterRepository,
         private readonly TwitterCommentRepository $twitterCommentRepository,
+        private readonly DialogueManager $dialogueManager,
     ) {
     }
 
@@ -42,5 +44,16 @@ class BlockController extends AbstractWebController
     public function countCommentsOfTwitter(Twitter $twitter): Response
     {
         return new Response($this->twitterCommentRepository->countCommentsOfTwitter($twitter));
+    }
+
+    public function dialoguesList(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render(
+            'web/dialogue/list.html.twig', [
+            'user' => $user,
+            'dialogues' => $this->dialogueManager->allUserDialogs($user),
+        ]);
     }
 }

@@ -1,0 +1,7 @@
+{% for dialogue in dialogues %}
+{#    {% if dialogue.creator == user %}#}
+        {{ include('web/dialogue/modeView/full.html.twig',{'dialogue':dialogue, 'user': (dialogue.creator == user ? dialogue.receiver : dialogue.creator)}) }}
+{#    {% else %}#}
+{#        {{ include('Dialogue/ModeView/full.html.twig',{'dialogue':dialogue, 'user':dialogue.creator}) }}#}
+{#    {% endif %}#}
+{% endfor %}

@@ -1,0 +1,17 @@
+<div class="uk-card uk-card-default uk-card-small uk-margin-small">
+    <div class="uk-card-header">
+        <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-auto">
+                <img data-src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img class="uk-margin-small-right">
+            </div>
+            <div class="uk-width-expand">
+                <div>
+                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_dialogue_messages_list', { 'uuid_dialogue' : dialogue.uuid }) }}">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </a>
+                    {{ render(controller('App\\Controller\\Web\\DialogueController::numberUnReadMessagesOfDialogue',{'dialogueId' : dialogue.id})) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
