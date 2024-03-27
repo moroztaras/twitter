@@ -1,0 +1,25 @@
+{% for message in messages %}
+
+    {% if user == message.receiver %}
+{#        {{ render(controller('App\\Controller\\MessageController::messageRead',{ 'message': message })) }}#}
+    {% endif %}
+    <div class="uk-card uk-card-default uk-card-small uk-margin-small">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-auto">
+                    <img data-src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img class="uk-margin-small-right">
+                </div>
+                <div class="uk-width-expand">
+                    <div><a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', { 'id' : message.sender.id }) }}">{{ message.sender.firstName }} {{ message.sender.lastName }}</a></div>
+                    <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ message.createdAt|date('H:i:s Y-m-d') }}">{{ message.createdAt|date('H:i:s M d, Y') }}</time></p>
+                </div>
+                {{ include('web/message/modeView/menu.html.twig',{'id':message.id, 'id_dialogue':id_dialogue}) }}
+            </div>
+        </div>
+        <div class="uk-card uk-card-body">
+            <div class="st-post-fd st-post-fd--text">
+                <p>{{message.message}}</p>
+            </div>
+        </div>
+    </div>
+{% endfor %}
