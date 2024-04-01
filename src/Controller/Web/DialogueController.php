@@ -18,7 +18,7 @@ class DialogueController extends AbstractWebController
     {
         $user = $this->getUser();
 
-        return $this->render('web/message/index.html.twig', [
+        return $this->render('web/dialogue/index.html.twig', [
             'user' => $user,
         ]);
     }
