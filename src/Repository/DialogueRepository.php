@@ -34,4 +34,17 @@ class DialogueRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneDialogue(User $user, User $receiver): Dialogue|null
+    {
+        return $this
+            ->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.creator = :user OR d.receiver = :receiver')
+            ->orWhere('d.creator = :receiver OR d.receiver = :user')
+            ->setParameter('user', $user)
+            ->setParameter('receiver', $receiver)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

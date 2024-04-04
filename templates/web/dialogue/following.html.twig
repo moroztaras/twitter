@@ -1,0 +1,26 @@
+{% extends "Layout/layout-default.html.twig" %}
+
+{% block title %}Following {% if user is not null %}| {{ user.firstName }} {{ user.lastName }}{% endif %}{% endblock %}
+{% block main %}
+    <div class="uk-section uk-section-xsmall">
+        <div class="uk-container uk-container-xsmall">
+            <div class="center">{{ 'create_new_dialogue'|trans|raw }}</div>
+            {% for following in followings %}
+                <div class="uk-card uk-card-default uk-card-small uk-margin-small">
+                    <div class="uk-card-header">
+                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                            <div class="uk-width-auto">
+                                <img data-src="{% if following.friend.avatar != null %}/files/user/avatar/{{ following.friend.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img>
+                            </div>
+                            <div class="uk-width-expand">
+                                <a class="uk-text-small uk-text-muted" href="{{ path('web_user_dialogue',{'uuid':following.friend.uuid}) }}">
+                                    {{ following.friend.firstName }} {{ following.friend.LastName }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
