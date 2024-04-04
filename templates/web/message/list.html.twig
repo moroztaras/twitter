@@ -15,12 +15,12 @@
                     <nav class="uk-navbar-container">
                         <ul class="uk-navbar-nav">
                             <li class="{% if app.request.attributes.get('_route') == 'user_canonical' %}uk-active{% endif %}">
-                                <a href="{{ path('web_user_dialogues_list') }}">{{ 'messages'|trans }}</a>
+                                <a href="{{ path('web_user_dialogues_list') }}">{{ 'dialogues'|trans }}</a>
                             </li>
                             <li class="{% if app.request.attributes.get('_route') == 'user_canonical' %}uk-active{% endif %}">
-{#                                <a href="{{ path('web_user_dialogue_delete',{'id_dialogue':dialogue}) }}">#}
+                                <a href="{{ path('web_user_dialogue_delete',{'uuid':dialogue.uuid}) }}">
                                     <span uk-icon="icon: trash" class="uk-margin-small-right"></span>
-{#                                </a>#}
+                                </a>
                             </li>
                         </ul>
                     </nav>

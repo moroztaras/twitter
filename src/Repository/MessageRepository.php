@@ -27,7 +27,6 @@ class MessageRepository extends ServiceEntityRepository
     {
         return $this
             ->createQueryBuilder('m')
-//            ->select('message')
             ->where('m.dialogue = :id')
             ->addOrderBy('m.createdAt', Criteria::DESC)
             ->setParameter('id', $dialogueId)

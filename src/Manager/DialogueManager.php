@@ -22,7 +22,7 @@ class DialogueManager
 
     public function createNewDialogue(User $user, User $receiver): string
     {
-        $dialogue = $this->dialogueRepository->xfindOneDialogue($user, $receiver);
+        $dialogue = $this->dialogueRepository->findOneDialogue($user, $receiver);
         if ($dialogue) {
             return $dialogue->getUuid();
         }
@@ -32,6 +32,12 @@ class DialogueManager
         $this->saveDialogue($dialogue);
 
         return $dialogue->getUuid();
+    }
+
+    public function removeDialogue(Dialogue $dialogue): void
+    {
+        $this->doctrine->getManager()->remove($dialogue);
+        $this->doctrine->getManager()->flush();
     }
 
     private function saveDialogue(Dialogue $dialogue): void

@@ -25,8 +25,8 @@ class MessageController extends AbstractWebController
     ) {
     }
 
-    #[Route('/{uuid_dialogue}/messages', name: 'web_user_dialogue_messages_list', requirements: ['uuid' => Uuid::VALID_PATTERN])]
-    #[ParamConverter('dialogue', class: Dialogue::class, options: ['mapping' => ['uuid_dialogue' => 'uuid']])]
+    #[Route('/dialogue/{uuid}/messages', name: 'web_user_dialogue_messages_list', requirements: ['uuid' => Uuid::VALID_PATTERN])]
+    #[ParamConverter('dialogue', class: Dialogue::class, options: ['mapping' => ['uuid' => 'uuid']])]
     public function userDialogueMessagesList(Request $request, Dialogue $dialogue): Response
     {
         /** @var User $user */
@@ -44,7 +44,7 @@ class MessageController extends AbstractWebController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->messageManager->sendMessage($user, $dialogue, $model->getMessage());
 
-            return $this->redirectToRoute('web_user_dialogue_messages_list', ['uuid_dialogue' => $dialogue->getUuid()]);
+            return $this->redirectToRoute('web_user_dialogue_messages_list', ['uuid' => $dialogue->getUuid()]);
         }
 
         return $this->render('web/message/list.html.twig', [

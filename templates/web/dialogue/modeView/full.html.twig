@@ -6,7 +6,7 @@
             </div>
             <div class="uk-width-expand">
                 <div>
-                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_dialogue_messages_list', { 'uuid_dialogue' : dialogue.uuid }) }}">
+                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_dialogue_messages_list', { 'uuid' : dialogue.uuid }) }}">
                         {{ user.firstName }} {{ user.lastName }}
                     </a>
                     {{ render(controller('App\\Controller\\Web\\DialogueController::numberUnReadMessagesOfDialogue',{'dialogueId' : dialogue.id})) }}

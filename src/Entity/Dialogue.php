@@ -26,7 +26,7 @@ class Dialogue
     #[ORM\JoinColumn(name: 'receiver_id', referencedColumnName: 'id')]
     private User $receiver;
 
-    #[ORM\OneToMany(mappedBy: 'dialogue', targetEntity: Message::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'dialogue', targetEntity: Message::class, cascade: ['persist', 'remove'])]
     private Collection $messages;
 
     public function __construct()
