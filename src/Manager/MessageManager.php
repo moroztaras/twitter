@@ -41,6 +41,12 @@ class MessageManager
         return $message;
     }
 
+    public function removeMessage(Message $message): void
+    {
+        $this->doctrine->getManager()->remove($message);
+        $this->doctrine->getManager()->flush();
+    }
+
     private function saveMessage(Message $message): void
     {
         $this->doctrine->getManager()->persist($message);
