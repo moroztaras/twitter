@@ -32,6 +32,15 @@ class MessageManager
         $this->saveMessage($message);
     }
 
+    public function editMessage(Message $message, string $textMessage): Message
+    {
+        $message->setMessage($textMessage);
+
+        $this->saveMessage($message);
+
+        return $message;
+    }
+
     private function saveMessage(Message $message): void
     {
         $this->doctrine->getManager()->persist($message);

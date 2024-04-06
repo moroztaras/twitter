@@ -13,7 +13,9 @@
                     <div><a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', { 'id' : message.sender.id }) }}">{{ message.sender.firstName }} {{ message.sender.lastName }}</a></div>
                     <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ message.createdAt|date('H:i:s Y-m-d') }}">{{ message.createdAt|date('H:i:s M d, Y') }}</time></p>
                 </div>
-                {{ include('web/message/modeView/menu.html.twig',{'id':message.id, 'id_dialogue':id_dialogue}) }}
+                {% if app.user == message.sender %}
+                    {{ include('web/message/modeView/menu.html.twig',{'uuid':message.uuid}) }}
+                {% endif %}
             </div>
         </div>
         <div class="uk-card uk-card-body">

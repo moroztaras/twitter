@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Message>
@@ -50,5 +51,10 @@ class MessageRepository extends ServiceEntityRepository
         }
 
         return $query->getQuery()->getSingleScalarResult();
+    }
+
+    public function existsSenderOfMessageByUuid(string $uuid, UserInterface $user): bool
+    {
+        return null !== $this->findOneBy(['uuid' => $uuid, 'sender' => $user]);
     }
 }
