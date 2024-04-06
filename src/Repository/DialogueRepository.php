@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Dialogue>
@@ -46,5 +47,10 @@ class DialogueRepository extends ServiceEntityRepository
             ->setParameter('receiver', $receiver)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function existsCreatorDialogueByUuid(string $uuid, UserInterface $user): bool
+    {
+        return null !== $this->findOneBy(['uuid' => $uuid, 'creator' => $user]);
     }
 }

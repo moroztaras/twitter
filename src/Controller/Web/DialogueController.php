@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Manager\DialogueManager;
 use App\Manager\FriendManager;
 use App\Manager\MessageManager;
+use App\Security\Voter\DialogueVoter;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('{_locale<%app.supported_locales%>}/dialogue')]
 class DialogueController extends AbstractWebController
@@ -60,7 +62,8 @@ class DialogueController extends AbstractWebController
 
     #[Route('/{uuid}/delete', name: 'web_user_dialogue_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['POST', 'GET'])]
     #[ParamConverter('dialogue', class: Dialogue::class, options: ['mapping' => ['uuid' => 'uuid']])]
-    public function deleteDialogue(Request $request, Dialogue $dialogue): Response|RedirectResponse
+    #[IsGranted(DialogueVoter::IS_CREATOR, subject: 'uuid')]
+    public function deleteDialogue(Request $request, Dialogue $dialogue, string $uuid): Response|RedirectResponse
     {
         $form = $this->createForm(EntityDeleteForm::class);
         $form->handleRequest($request);
