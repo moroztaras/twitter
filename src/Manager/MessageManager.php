@@ -18,7 +18,22 @@ class MessageManager
 
     public function messagesOfDialogue(int $dialogueId, User $user): array
     {
-        return $this->messageRepository->allMessagesOfDialogue($dialogueId, $user->getUuid());
+        $messages = $this->messageRepository->allMessagesOfDialogue($dialogueId, $user->getUuid());
+
+        $statusFlush = false;
+        /** @var Message $message */
+        foreach ($messages as $message) {
+            if ($message->getReceiver() === $user && (false == $message->getStatus())) {
+                $statusFlush = true;
+                $message->setStatus(true);
+                $this->doctrine->getManager()->persist($message);
+            }
+        }
+        if ($statusFlush) {
+            $this->doctrine->getManager()->flush();
+        }
+
+        return $messages;
     }
 
     public function sendMessage(User $user, Dialogue $dialogue, string $message): void

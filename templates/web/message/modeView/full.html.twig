@@ -1,8 +1,4 @@
 {% for message in messages %}
-
-    {% if user == message.receiver %}
-{#        {{ render(controller('App\\Controller\\MessageController::messageRead',{ 'message': message })) }}#}
-    {% endif %}
     <div class="uk-card uk-card-default uk-card-small uk-margin-small">
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
