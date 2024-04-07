@@ -17,11 +17,13 @@
                             <li class="{% if app.request.attributes.get('_route') == 'user_canonical' %}uk-active{% endif %}">
                                 <a href="{{ path('web_user_dialogues_list') }}">{{ 'dialogues'|trans }}</a>
                             </li>
-                            <li class="{% if app.request.attributes.get('_route') == 'user_canonical' %}uk-active{% endif %}">
-                                <a href="{{ path('web_user_dialogue_delete',{'uuid':dialogue.uuid}) }}">
-                                    <span uk-icon="icon: trash" class="uk-margin-small-right"></span>
-                                </a>
-                            </li>
+                            {% if dialogue.creator == user %}
+                                <li class="{% if app.request.attributes.get('_route') == 'user_canonical' %}uk-active{% endif %}">
+                                    <a href="{{ path('web_user_dialogue_delete',{'uuid':dialogue.uuid}) }}">
+                                        <span uk-icon="icon: trash" class="uk-margin-small-right"></span>
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </nav>
                     <h3 class="uk-heading-line uk-margin-small-top"><span>{% block profile_title %}{{ 'messages'|trans }}{% endblock %}</span></h3>
