@@ -17,7 +17,7 @@ Project on Symfony 6 using docker
 
 ### Create project config
 ```bash
-% cd symfony6-php8-docker-2023
+% cd twitter
 % cp .env .env.local
 % cp ./docker/.env.dist ./docker/.env
 ```
@@ -30,6 +30,10 @@ It's credentials to database.
 ### Run a project with the docker
 ```bash
 % make dc_up
+```
+### Download all dependency packages
+```bash
+composer install
 ```
 
 ### Execute a migration to the latest available version

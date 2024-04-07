@@ -17,18 +17,18 @@
                     {% if (user != app.user)  %}
                         <li>
                             <span class="uk-text-large">
-{#                              <a href="{{ path('user_message', { 'id': user.id }) }}">#}
+                              <a href="{{ path('web_user_dialogues_list', { 'id': user.id }) }}">
                                     <img src="{{ asset('images/message_icon.jpg') }}" width="80px" class="uk-margin-small-right">
-{#                              </a>#}
+                              </a>
                             </span>
                         </li>
                     {% else %}
                         <li>
               <span class="uk-text-large">
-{#                <a href="{{ path('user_messages_list') }}" style="text-decoration: none">#}
+                <a href="{{ path('web_user_dialogues_list') }}" style="text-decoration: none">
                     <img src="{{ asset('images/message_icon.jpg') }}" width="80px" class="uk-margin-small-right">
-{#                    {{ render(controller('App\\Controller\\MessageController::getCountAllNotReadMessages')) }}#}
-{#                </a>#}
+                    {{ render(controller('App\\Controller\\Web\\MessageController::numberAllUnReadMessages')) }}
+                </a>
               </span>
                         </li>
                     {% endif %}

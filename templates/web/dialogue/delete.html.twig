@@ -1,0 +1,13 @@
+{% extends "Layout/layout-default.html.twig" %}
+{% block main %}
+    <div class="m-panel size-tb mg-c">
+        <div class="m-content">
+            <div class="x_panel">
+                <div class="center">
+                    <p class="bd-highlight">{{ 'delete_dialogue_question'|trans }}?</p>
+                    {{ include('form/delete.html.twig', { 'form' : form, 'cancel_url' : path('web_user_dialogue_messages_list',{'uuid':uuid}) }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
