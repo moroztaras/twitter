@@ -1,0 +1,21 @@
+<li>
+    <div class="us-prof-header">
+        <span uk-icon="icon: chevron-down"></span>
+    </div>
+    <div uk-drop="mode: click; offset: 20; pos: bottom-right" class="uk-card uk-card-default kuk-width-small">
+        <nav class="uk-padding-small">
+            <ul class="uk-nav uk-list-divider uk-text-small">
+                <li>
+                    <a href="{{ path('web_user_message_edit',{'uuid':uuid}) }}">
+                        <span uk-icon="icon: pencil" class="uk-margin-small-right"></span> {{ 'edit'|trans }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('web_user_message_delete',{'uuid':uuid}) }}">
+                        <span uk-icon="icon: trash" class="uk-margin-small-right"></span> {{ 'delete'|trans }}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</li>

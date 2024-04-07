@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FriendController extends AbstractWebController
 {
     public function __construct(
-        private FriendManager $friendManager,
+        private readonly FriendManager $friendManager,
         private readonly RequestStack $requestStack,
     ) {
     }
