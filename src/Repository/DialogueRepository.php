@@ -28,7 +28,6 @@ class DialogueRepository extends ServiceEntityRepository
     {
         return $this
             ->createQueryBuilder('d')
-            ->select('d')
             ->where('d.receiver = :user OR d.creator = :user')
             ->addOrderBy('d.updatedAt', Criteria::DESC)
             ->setParameter('user', $user)
