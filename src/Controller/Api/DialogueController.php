@@ -31,6 +31,18 @@ class DialogueController extends ApiController
         ], Response::HTTP_OK);
     }
 
+    #[Route('api/user/dialogue/{uuid_receiver}', name: 'api_user_dialogue_create', requirements: ['uuid_receiver' => Uuid::VALID_PATTERN], methods: 'POST')]
+    #[ParamConverter('receiver', class: User::class, options: ['mapping' => ['uuid_receiver' => 'uuid']])]
+    public function create(Request $request, User $receiver): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        return $this->json([
+            'dialogue' => $this->dialogueManager->createNewDialogue($user, $receiver),
+        ], Response::HTTP_OK);
+    }
+
     #[Route('api/user/dialogue/{uuid}', name: 'api_user_dialogue_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'DELETE')]
     #[ParamConverter('dialogue', class: Dialogue::class, options: ['mapping' => ['uuid' => 'uuid']])]
     public function delete(Request $request, Dialogue $dialogue): JsonResponse
