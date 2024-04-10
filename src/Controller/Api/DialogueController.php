@@ -2,8 +2,12 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Dialogue;
 use App\Entity\User;
 use App\Manager\DialogueManager;
+use App\Response\SuccessResponse;
+use Ramsey\Uuid\Uuid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,5 +29,17 @@ class DialogueController extends ApiController
         return $this->json([
             'dialogues' => $this->dialogueManager->allUserDialogs($user),
         ], Response::HTTP_OK);
+    }
+
+    #[Route('api/user/dialogue/{uuid}', name: 'api_user_dialogue_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'DELETE')]
+    #[ParamConverter('dialogue', class: Dialogue::class, options: ['mapping' => ['uuid' => 'uuid']])]
+    public function delete(Request $request, Dialogue $dialogue): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        $this->dialogueManager->removeDialogue($dialogue);
+
+        return new SuccessResponse();
     }
 }
