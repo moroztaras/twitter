@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "0f2fd098-a092-40ed-8e0b-c8bae6a8ff7a",
+		"_postman_id": "bf23d7b4-fc8b-45dd-ba59-2008493d50ea",
 		"name": "SN - Twitter",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "11796877"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4867612"
 	},
 	"item": [
 		{
@@ -18,21 +18,7 @@
 							"mode": "raw",
 							"raw": "{\n  \"user\": {  \n    \"email\": \"user@twitter.ua\",\n    \"plain_password\": \"qwerty\",\n    \"first_name\": \"First Name\",\n    \"last_name\": \"Last Name\",\n    \"birthday\": \"1980-01-11\",\n    \"gender\": \"male\",\n    \"country\": \"Ukraine\"\n  }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/register",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"register"
-							]
-						}
+						"url": "{{host}}/api/user/register"
 					},
 					"response": []
 				},
@@ -41,23 +27,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "mail@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "qwerty",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"username": "mail@mail.ua",
+								"password": "qwerty",
+								"showPassword": false
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -70,23 +44,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"login\": {\n    \"email\": \"admin@twitter.ua\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
+							"raw": "{\n  \"login\": {\n    \"email\": \"user@twitter.ua\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/login",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"login"
-							]
-						}
+						"url": "{{host}}/api/user/login"
 					},
 					"response": []
 				},
@@ -99,35 +59,17 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"password": "mail1@mail.ua",
+								"username": "mail1@mail.ua",
+								"showPassword": false
+							}
 						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "x-api-key",
 								"value": "{{x-api-key}}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "x-api-key",
-								"value": "4778ad0c-60aa-4d39-9c88-59e86f5afdbe",
 								"type": "text"
 							}
 						],
@@ -135,20 +77,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user"
-							]
-						}
+						"url": "{{host}}/api/user"
 					},
 					"response": []
 				},
@@ -157,50 +86,25 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "mail@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "qwerty",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"username": "mail@mail.ua",
+								"password": "qwerty",
+								"showPassword": false
+							}
 						},
 						"method": "PUT",
 						"header": [
 							{
-								"key": "HTTP_x-api-key",
-								"value": "222488ad-85e2-4149-bd64-5a6762bf37da",
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": {\n        \"firstName\": \"Taras1406\",\n        \"lastName\": \"Moroz\",\n        \"email\": \"moroztaras1406@mail.ua\",\n        \"plain_password\": null,\n        \"gender\": \"male\",\n        \"birthday\": \"15-07-1986\"\n    }\n}"
+							"raw": "{\n    \"user\": {\n        \"firstName\": \"Taras\",\n        \"lastName\": \"Moroz\",\n        \"email\": \"moroztaras@mail.ua\",\n        \"gender\": \"male\",\n        \"birthday\": \"15-07-1986\"\n    }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user"
-							]
-						}
+						"url": "{{host}}/api/user"
 					},
 					"response": []
 				},
@@ -209,23 +113,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "mail@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "qwerty",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"username": "mail@mail.ua",
+								"password": "qwerty",
+								"showPassword": false
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -237,23 +129,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"forgot\": {\n    \"email\": \"moroztaras1407@mail.ua\"\n  }\n}"
+							"raw": "{\n  \"forgot\": {\n    \"email\": \"moroztaras@mail.ua\"\n  }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/forgot",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"forgot"
-							]
-						}
+						"url": "{{host}}/api/user/forgot"
 					},
 					"response": []
 				},
@@ -262,47 +140,25 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "mail@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "qwerty",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"username": "mail@mail.ua",
+								"password": "qwerty",
+								"showPassword": false
+							}
 						},
 						"method": "POST",
 						"header": [
 							{
 								"key": "x-api-key",
-								"value": "17274850-ffa1-421d-8802-89cf5f98e19c",
+								"value": "{{x-api-key}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"security\": {\n        \"password\": \"qwerty\",\n        \"new_password\": \"new_password\",\n        \"email\": \"new_email@twitter.ua\"\n  }\n}"
+							"raw": "{\n  \"security\": {\n        \"password\": \"qwerty\",\n        \"new_password\": \"new_password\",\n        \"email\": \"moroztaras@mail.ua\"\n  }\n}"
 						},
-						"url": {
-							"raw": "{{host}}/api/user/security",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"security"
-							]
-						}
+						"url": "{{host}}/api/user/security"
 					},
 					"response": []
 				}
@@ -326,20 +182,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"twitter\": {\n        \"text\": \"Twitter text\"\n    }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter"
 					},
 					"response": []
 				},
@@ -398,21 +241,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"twitter\": {\n        \"text\": \"Edit twitter text13:30\",\n        \"video\": \"https://www.youtube.com/watch?v=19tIt3D_yiI\",\n        \"photo\": \"Motivation.jpeg\",\n        \"status\": true\n        \n    }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"{{uuid-twitter}}"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}"
 					},
 					"response": []
 				},
@@ -434,21 +263,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"{{uuid-twitter}}"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}"
 					},
 					"response": []
 				},
@@ -463,21 +278,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"{{uuid-twitter}}"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/{{uuid-twitter}}"
 					},
 					"response": []
 				}
@@ -503,23 +304,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comments/page=1",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
-								"comments",
-								"page=1"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comments/page=1"
 					},
 					"response": []
 				},
@@ -540,23 +325,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
-								"comment",
-								"2be44372-924d-4d40-88af-56dae603aec1"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1"
 					},
 					"response": []
 				},
@@ -581,22 +350,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"twitter-comment\": {\n        \"comment\": \"New comment2051\"\n    }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
-								"comment"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment"
 					},
 					"response": []
 				},
@@ -621,23 +375,7 @@
 							"mode": "raw",
 							"raw": "{\n    \"twitter-comment\": {\n        \"comment\": \"Edit comment22:15\"\n    }\n}"
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
-								"comment",
-								"2be44372-924d-4d40-88af-56dae603aec1"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1"
 					},
 					"response": []
 				},
@@ -658,23 +396,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"twitter",
-								"f664aa16-a6aa-415e-a83e-2a5633fc4b56",
-								"comment",
-								"2be44372-924d-4d40-88af-56dae603aec1"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/twitter/f664aa16-a6aa-415e-a83e-2a5633fc4b56/comment/2be44372-924d-4d40-88af-56dae603aec1"
 					},
 					"response": []
 				}
@@ -692,23 +414,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"password": "mail1@mail.ua",
+								"username": "mail1@mail.ua",
+								"showPassword": false
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -728,21 +438,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/followings",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"followings"
-							]
-						}
+						"url": "{{host}}/api/user/followings"
 					},
 					"response": []
 				},
@@ -755,23 +451,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"password": "mail1@mail.ua",
+								"username": "mail1@mail.ua",
+								"showPassword": false
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -791,22 +475,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/{{uuid-user}}/followings",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"{{uuid-user}}",
-								"followings"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/user/{{uuid-user}}/followings"
 					},
 					"response": []
 				},
@@ -819,23 +488,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"password": "mail1@mail.ua",
+								"username": "mail1@mail.ua",
+								"showPassword": false
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -855,21 +512,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/followers",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"followers"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/user/followers"
 					},
 					"response": []
 				},
@@ -882,23 +525,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"password": "mail1@mail.ua",
+								"username": "mail1@mail.ua",
+								"showPassword": false
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -918,22 +549,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/{{uuid-user}}/followers",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"{{uuid-user}}",
-								"followers"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/user/{{uuid-user}}/followers"
 					},
 					"response": []
 				},
@@ -946,23 +562,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"password": "mail1@mail.ua",
+								"username": "mail1@mail.ua",
+								"showPassword": false
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -982,22 +586,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/followers/requests",
-							"protocol": "http",
-							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"followers",
-								"requests"
-							]
-						}
+						"url": "http://social.network.tmoroz.com/api/user/followers/requests"
 					},
 					"response": []
 				},
@@ -1009,23 +598,11 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "mail1@mail.ua",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
+							"basic": {
+								"password": "mail1@mail.ua",
+								"username": "mail1@mail.ua",
+								"showPassword": false
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -1045,23 +622,92 @@
 							"mode": "raw",
 							"raw": ""
 						},
+						"url": "http://social.network.tmoroz.com/api/user/follower/{{uuid_follower}}/status/{{status_follower}}/change"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dialogue",
+			"item": [
+				{
+					"name": "api user dialogues list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/api/user/dialogues"
+					},
+					"response": []
+				},
+				{
+					"name": "api user dialogue delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/api/user/dialogue/{{uuid_dialogue}}"
+					},
+					"response": []
+				},
+				{
+					"name": "api user dialogue create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/api/user/dialogue/{{uuid_following}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "api message list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://social.network.tmoroz.com/api/user/follower/{{uuid_follower}}/status/{{status_follower}}/change",
-							"protocol": "http",
+							"raw": "{{host}}/api/dialogue/{{uuid_dialogue}}/messages?page=1",
 							"host": [
-								"social",
-								"network",
-								"tmoroz",
-								"com"
+								"{{host}}"
 							],
 							"path": [
 								"api",
-								"user",
-								"follower",
-								"{{uuid_follower}}",
-								"status",
-								"{{status_follower}}",
-								"change"
+								"dialogue",
+								"{{uuid_dialogue}}",
+								"messages"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
 							]
 						}
 					},
