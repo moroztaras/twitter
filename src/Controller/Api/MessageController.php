@@ -25,7 +25,7 @@ class MessageController extends ApiController
 
     #[Route('api/dialogue/{uuid}/messages', name: 'api_user_dialogue_messages_list', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['GET'])]
     #[ParamConverter('dialogue', class: Dialogue::class, options: ['mapping' => ['uuid' => 'uuid']])]
-    public function MessagesListOfDialogue(Request $request, Dialogue $dialogue): JsonResponse
+    public function messagesListOfDialogue(Request $request, Dialogue $dialogue): JsonResponse
     {
         /** @var User $user */
         $user = $this->getCurrentUser($request);
@@ -40,5 +40,14 @@ class MessageController extends ApiController
                 $request->query->getInt('limit', self::MESSAGE_PAGE_LIMIT)
             ),
         ], Response::HTTP_OK);
+    }
+
+    #[Route('api/message/{uuid}', name: 'api_message_show', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['GET'])]
+    public function message(Request $request, string $uuid): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        return $this->json(['message' => $this->messageManager->getMessage($uuid)], Response::HTTP_OK);
     }
 }

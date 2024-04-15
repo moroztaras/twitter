@@ -35,6 +35,10 @@ class MessageManager
 
         return $messages;
     }
+    public function getMessage(string $uuid): Message
+    {
+        return $this->messageRepository->getMessageByUuid($uuid);
+    }
 
     public function sendMessage(User $user, Dialogue $dialogue, string $message): void
     {
@@ -42,7 +46,7 @@ class MessageManager
             ->setMessage($message)
             ->setDialogue($dialogue)
             ->setSender($user)
-            ->setReceiver(($dialogue->getCreator() === $user) ? $dialogue->getReceiver() : $user);
+            ->setReceiver(($dialogue->getCreator()->getUuid() === $user->getUuid()) ? $dialogue->getReceiver() : $user);
 
         $this->saveMessage($message);
     }

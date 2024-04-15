@@ -712,6 +712,21 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "api message show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/api/message/{{uuid_message}}"
+					},
+					"response": []
 				}
 			]
 		}
