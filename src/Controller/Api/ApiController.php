@@ -8,9 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class ApiController.
- */
 abstract class ApiController extends AbstractController
 {
     protected ManagerRegistry $doctrine;

@@ -94,7 +94,7 @@ class MessageController extends AbstractWebController
         $form = $this->createForm(EntityDeleteForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->messageManager->removeMessage($message);
+            $this->messageManager->removeMessage($uuid);
             $this->requestStack->getSession()->getFlashBag()->add('danger', 'message_was_deleted_successfully');
 
             return $this->redirectToRoute('web_user_dialogue_messages_list', [

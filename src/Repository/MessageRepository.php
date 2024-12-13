@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Message;
 use App\Entity\User;
+use App\Exception\Expected\MessageNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class MessageRepository extends ServiceEntityRepository
 {
+    use RepositoryModifyTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Message::class);
@@ -56,5 +59,15 @@ class MessageRepository extends ServiceEntityRepository
     public function existsSenderOfMessageByUuid(string $uuid, UserInterface $user): bool
     {
         return null !== $this->findOneBy(['uuid' => $uuid, 'sender' => $user]);
+    }
+
+    public function getMessageByUuid(string $uuid): Message
+    {
+        $message = $this->findOneBy(['uuid' => $uuid]);
+        if (null === $message) {
+            throw new MessageNotFoundException();
+        }
+
+        return $message;
     }
 }

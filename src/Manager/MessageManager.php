@@ -35,6 +35,10 @@ class MessageManager
 
         return $messages;
     }
+    public function getMessage(string $uuid): Message
+    {
+        return $this->messageRepository->getMessageByUuid($uuid);
+    }
 
     public function sendMessage(User $user, Dialogue $dialogue, string $message): void
     {
@@ -42,7 +46,7 @@ class MessageManager
             ->setMessage($message)
             ->setDialogue($dialogue)
             ->setSender($user)
-            ->setReceiver(($dialogue->getCreator() === $user) ? $dialogue->getReceiver() : $user);
+            ->setReceiver(($dialogue->getCreator()->getUuid() === $user->getUuid()) ? $dialogue->getReceiver() : $user);
 
         $this->saveMessage($message);
     }
@@ -56,10 +60,11 @@ class MessageManager
         return $message;
     }
 
-    public function removeMessage(Message $message): void
+    public function removeMessage(string $uuid): void
     {
-        $this->doctrine->getManager()->remove($message);
-        $this->doctrine->getManager()->flush();
+        $message = $this->messageRepository->getMessageByUuid($uuid);
+
+        $this->messageRepository->removeAndCommit($message);
     }
 
     private function saveMessage(Message $message): void

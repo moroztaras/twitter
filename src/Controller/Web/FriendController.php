@@ -35,7 +35,7 @@ class FriendController extends AbstractWebController
         $message = $this->friendManager->handleStatusChangeFriendship($user, $friend, $status);
         $this->requestStack->getSession()->getFlashBag()->add($message['status'], $message['message']);
 
-        return $this->redirectToRoute('user_twitter_list', ['id' => $friend->getId()]);
+        return $this->redirectToRoute('web_user_twitter_list', ['id' => $friend->getId()]);
     }
 
     #[Route('/user/{id}/following', name: 'web_user_list_following', requirements: ['id' => '\d+'], defaults: ['id' => null], methods: 'GET')]
