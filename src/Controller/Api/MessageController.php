@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\Dialogue;
 use App\Entity\User;
 use App\Manager\MessageManager;
+use App\Response\SuccessResponse;
 use Knp\Component\Pager\PaginatorInterface;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -49,5 +50,16 @@ class MessageController extends ApiController
         $user = $this->getCurrentUser($request);
 
         return $this->json(['message' => $this->messageManager->getMessage($uuid)], Response::HTTP_OK);
+    }
+
+    #[Route('api/message/{uuid}', name: 'api_message_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['DELETE'])]
+    public function delete(Request $request, string $uuid): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+
+        $this->messageManager->removeMessage($uuid);
+
+        return new SuccessResponse();
     }
 }

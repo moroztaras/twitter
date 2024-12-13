@@ -60,10 +60,11 @@ class MessageManager
         return $message;
     }
 
-    public function removeMessage(Message $message): void
+    public function removeMessage(string $uuid): void
     {
-        $this->doctrine->getManager()->remove($message);
-        $this->doctrine->getManager()->flush();
+        $message = $this->messageRepository->getMessageByUuid($uuid);
+
+        $this->messageRepository->removeAndCommit($message);
     }
 
     private function saveMessage(Message $message): void
