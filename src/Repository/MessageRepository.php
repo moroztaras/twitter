@@ -20,6 +20,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class MessageRepository extends ServiceEntityRepository
 {
+    use RepositoryModifyTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Message::class);
