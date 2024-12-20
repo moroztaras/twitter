@@ -7,14 +7,11 @@ use App\Entity\Friend;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
-use Ramsey\Uuid\Nonstandard\Uuid;
 
 class FriendFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-
         // Get references from users
         /** @var User $admin */
         $admin = $this->getReference(UserFixtures::USER_ADMIN);
