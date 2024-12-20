@@ -54,6 +54,7 @@ class FriendRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    // Who the user is following
     public function allFollowingsOfOneUser(User $user): array
     {
         return $this->createQueryBuilder('fr')
@@ -66,6 +67,7 @@ class FriendRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // Who follows the user
     public function allFollowersOfOneUserByStatus(User $user, bool $status): array
     {
         return $this->createQueryBuilder('fr')

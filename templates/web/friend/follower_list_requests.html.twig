@@ -3,13 +3,13 @@
 {% block main %}
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
-            {% for friend in friends %}
-                {{ include('web/friend/modeView/full.html.twig', {'friend':friend}) }}
+            {% for follower in followers %}
+                {{ include('web/friend/modeView/full.html.twig', {'friend':follower}) }}
                 <p uk-margin class="center">
-                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 'add' }) }}" style="text-decoration: none">
+                    <a href="{{ path('web_user_friend_status_change',{ 'friend':follower.user.id, 'status': 'add' }) }}" style="text-decoration: none">
                         <button class="uk-button uk-button-default">{{ 'accept'|trans }}</button>
                     </a>
-                    <a href="{{ path('web_user_friend_status_change',{ 'friend':friend.user.id, 'status': 'reject' }) }}" style="text-decoration: none">
+                    <a href="{{ path('web_user_friend_status_change',{ 'friend':follower.user.id, 'status': 'reject' }) }}" style="text-decoration: none">
                         <button class="uk-button uk-button-danger">{{ 'reject'|trans }}</button>
                     </a>
                 </p>
