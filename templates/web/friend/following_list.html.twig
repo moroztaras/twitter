@@ -13,13 +13,14 @@
                             </div>
                             <div class="uk-width-expand">
                                 <div>
-                                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', {'id': following.friend.id}) }}">
-                                        {{ following.friend.firstName }} {{ following.friend.LastName }}
+                                    <a class="uk-text-small uk-text-muted"
+                                       href="{{ path('web_user_profile', {'id': following.friend.id}) }}">
+                                        {{ following.friend.firstName }} {{ following.friend.lastName }}
                                     </a>
                                 </div>
                                 <p class="uk-text-meta uk-margin-remove-top">
-                                    <time datetime="{{ following.friend.createdAt|date('Y-m-d H:i:s') }}">
-                                        {{ following.friend.createdAt|date('M d, Y') }}
+                                    <time datetime="{{ following.createdAt|date('Y-m-d H:i') }}">
+                                        {{ following.createdAt|date('Y-m-d H:i') }}
                                     </time>
                                 </p>
                             </div>

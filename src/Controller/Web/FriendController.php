@@ -56,11 +56,6 @@ class FriendController extends AbstractWebController
         ]);
     }
 
-    public function countRequestsFriendShip(): Response
-    {
-        return new Response($this->friendManager->getCountFollowersOfUser($this->getUser(), false) ?? 0);
-    }
-
     #[Route('/user/followers/requests', name: 'web_list_follower_requests', methods: 'GET')]
     public function listFollowerRequests(): Response
     {
@@ -68,8 +63,13 @@ class FriendController extends AbstractWebController
         $user = $this->getUser();
 
         return $this->render('web/friend/follower_list_requests.html.twig', [
-            'friends' => $this->friendManager->followersOfUser($user),
+            'followers' => $this->friendManager->followersOfUser($user),
             'user' => $user,
         ]);
+    }
+
+    public function countRequestsFriendShip(): Response
+    {
+        return new Response($this->friendManager->getCountFollowersOfUser($this->getUser(), false) ?? 0);
     }
 }
