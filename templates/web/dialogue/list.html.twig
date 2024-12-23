@@ -4,5 +4,5 @@
         </a>
 </div>
 {% for dialogue in dialogues %}
-        {{ include('web/dialogue/modeView/full.html.twig',{'dialogue':dialogue, 'user': (dialogue.creator == user ? dialogue.receiver : dialogue.creator)}) }}
+        {{ render(controller('App\\Controller\\Web\\DialogueController::dialogueUserInfo',{ 'dialogue' : dialogue.id })) }}
 {% endfor %}

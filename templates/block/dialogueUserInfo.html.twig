@@ -1,0 +1,20 @@
+<div class="uk-card uk-card-default uk-card-small uk-margin-small">
+    <div class="uk-card-header">
+        <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-auto">
+                <img data-src="{% if userReceiver[0]['avatar'] != null %}/files/user/avatar/{{ userReceiver[0]['avatar'] }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img class="uk-margin-small-right">
+            </div>
+            <div class="uk-width-expand">
+                <div>
+                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_dialogue_messages_list', { 'uuid' : uuidDialogue }) }}">
+                        {{ userReceiver[0]['firstName'] }} {{ userReceiver[0]['lastName'] }}
+                    </a>
+                    {% if numberMessages != 0 %}
+                        <span class="uk-badge">{{ numberMessages }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

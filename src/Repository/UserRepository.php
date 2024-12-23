@@ -25,4 +25,15 @@ class UserRepository extends ServiceEntityRepository
     {
         return $this->findOneBy(['email' => $email]);
     }
+
+    public function findOneById(int $id): array
+    {
+        return $this
+            ->createQueryBuilder('u')
+            ->select('u.id', 'u.firstName', 'u.lastName', 'u.avatar')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
