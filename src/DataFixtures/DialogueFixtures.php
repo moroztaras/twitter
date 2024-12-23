@@ -3,13 +3,16 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use App\Entity\Friend;
+use App\Entity\Dialogue;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Ramsey\Uuid\Nonstandard\Uuid;
 
-class FriendFixtures extends Fixture implements DependentFixtureInterface
+class DialogueFixtures extends Fixture implements DependentFixtureInterface
 {
+    final public const DIALOGUE = 'dialogue';
+
     public function load(ObjectManager $manager): void
     {
         // Get references from users
@@ -18,14 +21,24 @@ class FriendFixtures extends Fixture implements DependentFixtureInterface
         /** @var User $user */
         $user = $this->getReference(UserFixtures::USER);
 
-        $friend = (new Friend())
-            ->setUser($user)
-            ->setFriend($admin)
-            ->setStatus(0);
+        $dialogue = (new Dialogue())
+            ->setCreator($admin)
+            ->setReceiver($user)
+            ->setUuid(Uuid::uuid4());
 
-        $manager->persist($friend);
+        $dialogues = [
+            self::DIALOGUE => $dialogue
+        ];
+
+
+        $manager->persist($dialogue);
 
         $manager->flush();
+
+        // Add References - link from other fixture on this fixture
+        foreach ($dialogues as $code => $dialogue) {
+            $this->addReference($code, $dialogue);
+        }
     }
 
     // Depend on User

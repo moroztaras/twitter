@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Manager\DialogueManager;
 use App\Manager\FriendManager;
 use App\Manager\MessageManager;
+use App\Manager\UserProfileManager;
 use App\Security\Voter\DialogueVoter;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -26,16 +27,15 @@ class DialogueController extends AbstractWebController
         private readonly MessageManager $messageManager,
         private readonly FriendManager $friendManager,
         private readonly RequestStack $requestStack,
+        private readonly UserProfileManager $userProfileManager,
     ) {
     }
 
     #[Route('', name: 'web_user_dialogues_list')]
     public function dialogues(): Response
     {
-        $user = $this->getUser();
-
         return $this->render('web/dialogue/index.html.twig', [
-            'user' => $user,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -81,10 +81,15 @@ class DialogueController extends AbstractWebController
         ]);
     }
 
-    public function numberUnReadMessagesOfDialogue(int $dialogueId): Response
+    public function dialogueUserInfo(Dialogue $dialogue): Response
     {
-        return $this->render('block/numberOfUnreadMessages.html.twig', [
-            'numberMessages' => $this->messageManager->numberNotReadMessages($this->getUser(), $dialogueId),
-       ]);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->render('block/dialogueUserInfo.html.twig', [
+            'userReceiver'=> $this->userProfileManager->getUserInfo(($dialogue->getCreator() == $user ? $dialogue->getReceiver()->getId() : $dialogue->getCreator()->getId())),
+            'numberMessages' => $this->messageManager->numberNotReadMessages($user, $dialogue->getId()),
+            'uuidDialogue' => $dialogue->getUuid(),
+        ]);
     }
 }

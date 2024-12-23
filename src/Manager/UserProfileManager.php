@@ -4,6 +4,7 @@ namespace App\Manager;
 
 use App\Entity\User;
 use App\Form\Model\UserProfileModel;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -20,6 +21,7 @@ class UserProfileManager
         private string $coverDir,
         private ManagerRegistry $doctrine,
         private FileManager $fileManager,
+        private UserRepository $userRepository,
     ) {
     }
 
@@ -44,6 +46,11 @@ class UserProfileManager
         ;
 
         $this->save($user);
+    }
+
+    public function getUserInfo(int $idUser):array
+    {
+       return $this->userRepository->findOneById($idUser);
     }
 
     // Save user in DB
