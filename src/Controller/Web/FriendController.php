@@ -4,6 +4,7 @@ namespace App\Controller\Web;
 
 use App\Entity\User;
 use App\Manager\FriendManager;
+use App\Manager\UserProfileManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,7 @@ class FriendController extends AbstractWebController
     public function __construct(
         private readonly FriendManager $friendManager,
         private readonly RequestStack $requestStack,
+        private readonly UserProfileManager $userProfileManager,
     ) {
     }
 
@@ -71,5 +73,12 @@ class FriendController extends AbstractWebController
     public function countRequestsFriendShip(): Response
     {
         return new Response($this->friendManager->getCountFollowersOfUser($this->getUser(), false) ?? 0);
+    }
+
+    public function friendUserInfo(int $idUser): Response
+    {
+        return $this->render('block/friendUserInfo.html.twig', [
+            'user'=> $this->userProfileManager->getUserInfo($idUser),
+        ]);
     }
 }

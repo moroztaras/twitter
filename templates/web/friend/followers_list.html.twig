@@ -5,8 +5,7 @@
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
             {% for follower in followers %}
-                {{ include('web/friend/modeView/full.html.twig', {'friend':follower}) }}
-                </div>
+                {{ render(controller('App\\Controller\\Web\\FriendController::friendUserInfo',{ 'idUser' : follower.user.id })) }}
             {% endfor %}
         </div>
     </div>
