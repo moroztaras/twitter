@@ -4,7 +4,7 @@
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
             {% for follower in followers %}
-                {{ include('web/friend/modeView/full.html.twig', {'friend':follower}) }}
+                {{ render(controller('App\\Controller\\Web\\FriendController::friendUserInfo',{ 'idUser' : follower.user.id })) }}
                 <p uk-margin class="center">
                     <a href="{{ path('web_user_friend_status_change',{ 'friend':follower.user.id, 'status': 'add' }) }}" style="text-decoration: none">
                         <button class="uk-button uk-button-default">{{ 'accept'|trans }}</button>
