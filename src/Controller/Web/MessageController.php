@@ -8,14 +8,13 @@ use App\Entity\Message;
 use App\Entity\User;
 use App\Form\MessageType;
 use App\Manager\MessageManager;
+use App\Manager\DialogueManager;
 use App\Model\MessageRequest;
 use App\Security\Voter\MessageVoter;
 use Knp\Component\Pager\PaginatorInterface;
 use Ramsey\Uuid\Uuid;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -27,17 +26,19 @@ class MessageController extends AbstractWebController
 
     public function __construct(
         private readonly MessageManager $messageManager,
+        private readonly DialogueManager $dialogueManager,
         private readonly PaginatorInterface $paginator,
-        private readonly RequestStack $requestStack,
     ) {
     }
 
-    #[Route('/dialogue/{uuid}/messages', name: 'web_user_dialogue_messages_list', requirements: ['uuid' => Uuid::VALID_PATTERN])]
-    #[ParamConverter('dialogue', class: Dialogue::class, options: ['mapping' => ['uuid' => 'uuid']])]
-    public function MessagesListOfDialogue(Request $request, Dialogue $dialogue): Response
+    #[Route('/dialogue/{uuid}/messages', name: 'web_user_dialogue_messages_list', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['GET', 'POST'])]
+    public function MessagesListOfDialogue(Request $request, string $uuid): Response
     {
         /** @var User $user */
         $user = $this->getUser();
+
+        /** @var Dialogue $dialogue */
+        $dialogue = $this->dialogueManager->dialogue($uuid);
 
         $messages = $this->paginator->paginate(
             $this->messageManager->messagesOfDialogue($dialogue->getId(), $user),
@@ -106,13 +107,6 @@ class MessageController extends AbstractWebController
             'form' => $form->createView(),
             'user' => $this->getUser(),
             'uuid' => $message->getDialogue()->getUuid(),
-        ]);
-    }
-
-    public function numberAllUnReadMessages(): Response
-    {
-        return $this->render('block/numberOfUnreadMessages.html.twig', [
-            'numberMessages' => $this->messageManager->numberNotReadMessages($this->getUser()),
         ]);
     }
 }

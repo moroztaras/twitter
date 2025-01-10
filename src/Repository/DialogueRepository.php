@@ -52,4 +52,9 @@ class DialogueRepository extends ServiceEntityRepository
     {
         return null !== $this->findOneBy(['uuid' => $uuid, 'creator' => $user]);
     }
+
+    public function findOneByUuid(string $uuid): Dialogue|null
+    {
+        return $this->findOneBy(['uuid' => $uuid]);
+    }
 }
