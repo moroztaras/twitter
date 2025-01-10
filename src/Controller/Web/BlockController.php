@@ -5,6 +5,7 @@ namespace App\Controller\Web;
 use App\Entity\Twitter;
 use App\Entity\User;
 use App\Manager\DialogueManager;
+use App\Manager\MessageManager;
 use App\Manager\FriendManager;
 use App\Manager\TwitterManager;
 use App\Repository\TwitterCommentRepository;
@@ -16,9 +17,10 @@ class BlockController extends AbstractWebController
     public function __construct(
         private readonly FriendManager $friendManager,
         private readonly TwitterManager $twitterManager,
+        private readonly DialogueManager $dialogueManager,
+        private readonly MessageManager $messageManager,
         private readonly TwitterRepository $twitterRepository,
         private readonly TwitterCommentRepository $twitterCommentRepository,
-        private readonly DialogueManager $dialogueManager,
     ) {
     }
 
@@ -54,6 +56,13 @@ class BlockController extends AbstractWebController
             'web/dialogue/list.html.twig', [
             'user' => $user,
             'dialogues' => $this->dialogueManager->allUserDialogs($user),
+        ]);
+    }
+
+    public function numberAllUnReadMessages(): Response
+    {
+        return $this->render('block/numberOfUnreadMessages.html.twig', [
+            'numberMessages' => $this->messageManager->numberNotReadMessages($this->getUser()),
         ]);
     }
 }

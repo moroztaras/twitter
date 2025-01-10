@@ -27,7 +27,7 @@
               <span class="uk-text-large">
                 <a href="{{ path('web_user_dialogues_list') }}" style="text-decoration: none">
                     <img src="{{ asset('images/message_icon.jpg') }}" width="80px" class="uk-margin-small-right">
-                    {{ render(controller('App\\Controller\\Web\\MessageController::numberAllUnReadMessages')) }}
+                    {{ render(controller('App\\Controller\\Web\\BlockController::numberAllUnReadMessages')) }}
                 </a>
               </span>
                         </li>
