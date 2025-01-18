@@ -77,4 +77,9 @@ class MessageManager
     {
         return $this->messageRepository->numberNotReadMessages($user, $dialogueId);
     }
+
+    public function dialogUuidByMessageUuid(string $uuid):array
+    {
+        return $this->messageRepository->findDialogueUuidByMessageUuid($uuid);
+    }
 }

@@ -7,8 +7,8 @@ use App\Entity\Dialogue;
 use App\Entity\Message;
 use App\Entity\User;
 use App\Form\MessageType;
-use App\Manager\MessageManager;
 use App\Manager\DialogueManager;
+use App\Manager\MessageManager;
 use App\Model\MessageRequest;
 use App\Security\Voter\MessageVoter;
 use Knp\Component\Pager\PaginatorInterface;
@@ -64,12 +64,14 @@ class MessageController extends AbstractWebController
     }
 
     #[Route('/messages/{uuid}/edit', name: 'web_user_message_edit', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['GET', 'POST'])]
-    #[ParamConverter('message', class: Message::class, options: ['mapping' => ['uuid' => 'uuid']])]
     #[IsGranted(MessageVoter::IS_SENDER, subject: 'uuid')]
-    public function editMessage(Request $request, Message $message, string $uuid): Response|RedirectResponse
+    public function editMessage(Request $request, string $uuid): Response|RedirectResponse
     {
         /** @var User $user */
         $user = $this->getUser();
+
+        /** @var Message $message */
+        $message = $this->messageManager->getMessage($uuid);
 
         $model = (new MessageRequest())->setMessage($message->getMessage());
         $form = $this->createForm(MessageType::class, $model);
@@ -77,14 +79,14 @@ class MessageController extends AbstractWebController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->messageManager->editMessage($message, $model->getMessage());
 
-            return $this->redirectToRoute('web_user_dialogue_messages_list', ['uuid' => $message->getDialogue()->getUuid()]);
+            return $this->redirectToRoute('web_user_dialogue_messages_list', $this->messageManager->dialogUuidByMessageUuid($uuid));
         }
 
-        return $this->render('web/message/edit.html.twig', [
+        return $this->render('web/message/edit.html.twig', array_merge_recursive([
             'user' => $user,
-            'form' => $form->createView(),
-            'uuid' => $message->getDialogue()->getUuid(),
-        ]);
+            'form' => $form->createView()],
+            $this->messageManager->dialogUuidByMessageUuid($uuid)
+        ));
     }
 
     #[Route('/messages/{uuid}/delete', name: 'web_user_message_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['GET', 'POST'])]

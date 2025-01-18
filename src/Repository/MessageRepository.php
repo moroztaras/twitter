@@ -70,4 +70,15 @@ class MessageRepository extends ServiceEntityRepository
 
         return $message;
     }
+
+    public function findDialogueUuidByMessageUuid(string $uuid):array
+    {
+        return $this->createQueryBuilder('m')
+            ->select('d.uuid')
+            ->leftJoin('m.dialogue', 'd')
+            ->where('m.uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
