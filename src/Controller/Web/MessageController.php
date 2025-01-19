@@ -15,6 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -28,6 +29,7 @@ class MessageController extends AbstractWebController
         private readonly MessageManager $messageManager,
         private readonly DialogueManager $dialogueManager,
         private readonly PaginatorInterface $paginator,
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -90,25 +92,24 @@ class MessageController extends AbstractWebController
     }
 
     #[Route('/messages/{uuid}/delete', name: 'web_user_message_delete', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: ['GET', 'POST'])]
-    #[ParamConverter('message', class: Message::class, options: ['mapping' => ['uuid' => 'uuid']])]
     #[IsGranted(MessageVoter::IS_SENDER, subject: 'uuid')]
-    public function deleteMessage(Request $request, Message $message, string $uuid): Response|RedirectResponse
+    public function deleteMessage(Request $request, string $uuid): Response|RedirectResponse
     {
         $form = $this->createForm(EntityDeleteForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $dialogUuid = $this->messageManager->dialogUuidByMessageUuid($uuid);
+
             $this->messageManager->removeMessage($uuid);
             $this->requestStack->getSession()->getFlashBag()->add('danger', 'message_was_deleted_successfully');
 
-            return $this->redirectToRoute('web_user_dialogue_messages_list', [
-                'uuid' => $message->getDialogue()->getUuid(),
-            ]);
+            return $this->redirectToRoute('web_user_dialogue_messages_list', $dialogUuid);
         }
 
         return $this->render('web/message/delete.html.twig', [
             'form' => $form->createView(),
             'user' => $this->getUser(),
-            'uuid' => $message->getDialogue()->getUuid(),
+            'uuid' => $this->messageManager->dialogUuidByMessageUuid($uuid),
         ]);
     }
 }
