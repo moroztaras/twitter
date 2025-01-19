@@ -28,8 +28,8 @@ class UserProfileManager
     public function edit(
         UserProfileModel $userProfileModel,
         User $user,
-        UploadedFile $avatar = null,
-        UploadedFile $cover = null,
+        ?UploadedFile $avatar = null,
+        ?UploadedFile $cover = null,
     ): void {
         if ($avatar) {
             $user->setAvatar($this->fileManager->upload($avatar, $this->avatarDir));
@@ -48,9 +48,9 @@ class UserProfileManager
         $this->save($user);
     }
 
-    public function getUserInfo(int $idUser):array
+    public function getUserInfo(int $idUser): array
     {
-       return $this->userRepository->findOneById($idUser);
+        return $this->userRepository->findOneById($idUser);
     }
 
     // Save user in DB

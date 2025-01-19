@@ -56,7 +56,7 @@ class Twitter
 
     private bool $isParent = false;
 
-    public function __construct(UuidInterface $uuid = null)
+    public function __construct(?UuidInterface $uuid = null)
     {
         if (!$uuid) {
             $this->createUuid();
@@ -179,7 +179,7 @@ class Twitter
         return $this;
     }
 
-    public function getParent(): Twitter|null
+    public function getParent(): ?Twitter
     {
         if (is_null($this->parent)) {
             return $this->parent;

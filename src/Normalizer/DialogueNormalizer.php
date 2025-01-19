@@ -9,11 +9,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class DialogueNormalizer implements NormalizerInterface
 {
     /**
-     * {@inheritdoc}
-     *
      * @param Dialogue $object
      */
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         $jsonObject = [
             'uuid' => (string) $object->getUuid(),
@@ -24,7 +22,7 @@ class DialogueNormalizer implements NormalizerInterface
         return $jsonObject;
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, ?string $format = null): bool
     {
         return $data instanceof Dialogue;
     }

@@ -27,7 +27,7 @@ class SecurityController extends AbstractController
         private ManagerRegistry $doctrine,
         private SecurityManager $securityManager,
         private EmailManager $emailManager,
-        private RequestStack $requestStack
+        private RequestStack $requestStack,
     ) {
     }
 

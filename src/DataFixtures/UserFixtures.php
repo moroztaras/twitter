@@ -15,7 +15,7 @@ class UserFixtures extends Fixture
     final public const USER = 'user';
 
     public function __construct(
-        private UserPasswordHasherInterface $passwordEncoder
+        private UserPasswordHasherInterface $passwordEncoder,
     ) {
     }
 

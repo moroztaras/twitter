@@ -2,7 +2,7 @@
 
 namespace App\Exception\Expected;
 
-class MessageNotFoundException  extends \RuntimeException
+class MessageNotFoundException extends \RuntimeException
 {
     public function __construct()
     {

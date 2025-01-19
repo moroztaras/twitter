@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
 use App\Entity\Dialogue;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -27,9 +27,8 @@ class DialogueFixtures extends Fixture implements DependentFixtureInterface
             ->setUuid(Uuid::uuid4());
 
         $dialogues = [
-            self::DIALOGUE => $dialogue
+            self::DIALOGUE => $dialogue,
         ];
-
 
         $manager->persist($dialogue);
 

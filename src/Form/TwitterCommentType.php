@@ -18,7 +18,7 @@ class TwitterCommentType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'maxlength' => 1000,
-                    ],
+                ],
             ])
         ;
     }

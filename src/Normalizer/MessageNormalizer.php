@@ -9,11 +9,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class MessageNormalizer implements NormalizerInterface
 {
     /**
-     * {@inheritdoc}
-     *
      * @param Message $object
      */
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         $jsonObject = [
             'uuid' => (string) $object->getUuid(),
@@ -28,7 +26,7 @@ class MessageNormalizer implements NormalizerInterface
         return $jsonObject;
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, ?string $format = null): bool
     {
         return $data instanceof Message;
     }

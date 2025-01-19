@@ -87,7 +87,7 @@ class DialogueController extends AbstractWebController
         $user = $this->getUser();
 
         return $this->render('block/dialogueUserInfo.html.twig', [
-            'userReceiver'=> $this->userProfileManager->getUserInfo(($dialogue->getCreator() == $user ? $dialogue->getReceiver()->getId() : $dialogue->getCreator()->getId())),
+            'userReceiver' => $this->userProfileManager->getUserInfo($dialogue->getCreator() == $user ? $dialogue->getReceiver()->getId() : $dialogue->getCreator()->getId()),
             'numberMessages' => $this->messageManager->numberNotReadMessages($user, $dialogue->getId()),
             'uuidDialogue' => $dialogue->getUuid(),
         ]);

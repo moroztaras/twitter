@@ -25,7 +25,7 @@ class TwitterCommentController extends ApiController
     public function __construct(
         private TwitterCommentManager $twitterCommentManager,
         private TwitterCommentRepository $commentRepository,
-        private PaginatorInterface $paginator
+        private PaginatorInterface $paginator,
     ) {
     }
 

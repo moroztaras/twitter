@@ -15,7 +15,7 @@ class FileManager
      * FileManager constructor.
      */
     public function __construct(
-        private SluggerInterface $slugger
+        private SluggerInterface $slugger,
     ) {
     }
 

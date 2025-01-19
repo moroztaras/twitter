@@ -35,6 +35,7 @@ class MessageManager
 
         return $messages;
     }
+
     public function getMessage(string $uuid): Message
     {
         return $this->messageRepository->getMessageByUuid($uuid);
@@ -73,12 +74,12 @@ class MessageManager
         $this->doctrine->getManager()->flush();
     }
 
-    public function numberNotReadMessages(User $user, int $dialogueId = null): int
+    public function numberNotReadMessages(User $user, ?int $dialogueId = null): int
     {
         return $this->messageRepository->numberNotReadMessages($user, $dialogueId);
     }
 
-    public function dialogUuidByMessageUuid(string $uuid):array
+    public function dialogUuidByMessageUuid(string $uuid): array
     {
         return $this->messageRepository->findDialogueUuidByMessageUuid($uuid);
     }

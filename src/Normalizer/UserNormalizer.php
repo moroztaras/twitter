@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class UserNormalizer implements NormalizerInterface
 {
     public function __construct(
-        private readonly FriendManager $friendManager
+        private readonly FriendManager $friendManager,
     ) {
     }
 
