@@ -37,16 +37,16 @@ class Facebook implements PluginProviderInterface
     public function renderEmbedCode($width, $height, $autoplay)
     {
         return [
-      'provider' => 'facebook',
-      'url' => sprintf('https://www.facebook.com/video/embed?video_id=%s', $this->id, $autoplay),
-//      'url' => sprintf('https://www.facebook.com/plugins/video.php?href=%s', $this->input),
-      'attributes' => [
-        'width' => $width,
-        'height' => $height,
-        'frameborder' => '0',
-        'allowfullscreen' => 'allowfullscreen',
-        'style' => 'border:none;overflow:hidden',
-      ],
-    ];
+            'provider' => 'facebook',
+            'url' => sprintf('https://www.facebook.com/video/embed?video_id=%s', $this->id, $autoplay),
+            //      'url' => sprintf('https://www.facebook.com/plugins/video.php?href=%s', $this->input),
+            'attributes' => [
+                'width' => $width,
+                'height' => $height,
+                'frameborder' => '0',
+                'allowfullscreen' => 'allowfullscreen',
+                'style' => 'border:none;overflow:hidden',
+            ],
+        ];
     }
 }

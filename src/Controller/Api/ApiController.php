@@ -25,12 +25,12 @@ abstract class ApiController extends AbstractController
         return $this->doctrine;
     }
 
-//    protected function getUser(): ?User
-//    {
-//        $user = parent::getUser();
-//
-//        return $user instanceof User ? $user : null;
-//    }
+    //    protected function getUser(): ?User
+    //    {
+    //        $user = parent::getUser();
+    //
+    //        return $user instanceof User ? $user : null;
+    //    }
 
     protected function getCurrentUser(Request $request): ?User
     {

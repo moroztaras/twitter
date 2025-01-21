@@ -124,7 +124,7 @@ class SecurityManager
     }
 
     // Save user in DB
-    private function saveUser(User $user, string $password = null): void
+    private function saveUser(User $user, ?string $password = null): void
     {
         if ($password) {
             $user

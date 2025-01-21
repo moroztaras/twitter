@@ -37,18 +37,18 @@ class Vimeo implements PluginProviderInterface
     public function renderEmbedCode($width, $height, $autoplay)
     {
         $iframe = [
-      'provider' => 'vimeo',
-      'url' => sprintf('https://player.vimeo.com/video/%s', $this->id),
-      'query' => [
-        'autoplay' => $autoplay,
-      ],
-      'attributes' => [
-        'width' => $width,
-        'height' => $height,
-        'frameborder' => '0',
-        'allowfullscreen' => 'allowfullscreen',
-      ],
-    ];
+            'provider' => 'vimeo',
+            'url' => sprintf('https://player.vimeo.com/video/%s', $this->id),
+            'query' => [
+                'autoplay' => $autoplay,
+            ],
+            'attributes' => [
+                'width' => $width,
+                'height' => $height,
+                'frameborder' => '0',
+                'allowfullscreen' => 'allowfullscreen',
+            ],
+        ];
 
         return $iframe;
     }

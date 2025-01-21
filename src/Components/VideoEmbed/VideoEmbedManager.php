@@ -82,9 +82,9 @@ class VideoEmbedManager
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-//  public function renderProvider(PluginProviderInterface $provider){
-//    $options = $provider->renderEmbedCode(670, 380, false);
-//    $template = $this->twig->render('VideoEmbed/iframe.html.twig', $options);
-//    return $template;
-//  }
+    //  public function renderProvider(PluginProviderInterface $provider){
+    //    $options = $provider->renderEmbedCode(670, 380, false);
+    //    $template = $this->twig->render('VideoEmbed/iframe.html.twig', $options);
+    //    return $template;
+    //  }
 }

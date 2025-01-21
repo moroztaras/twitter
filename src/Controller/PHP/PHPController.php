@@ -348,7 +348,7 @@ class PHPController extends AbstractController
         ++$num;
         --$num;
         echo '16**0.5 = ';
-        echo(16 ** 0.5).'<br>';
+        echo (16 ** 0.5).'<br>';
 
         // $var++ - посфіксний запис
         // ++$var - префіксний запис
@@ -1948,7 +1948,7 @@ class PHPController extends AbstractController
     public function recursiya($counter)
     {
         if ($counter > 0) {
-            echo($counter--).'<br>';
+            echo ($counter--).'<br>';
             $this->recursiya($counter);
         } else {
             return;
@@ -1981,7 +1981,7 @@ class PHPController extends AbstractController
         return $sum;
     }
 
-    private function parseOsVersionFromUserAgent(string $userAgent): string|null
+    private function parseOsVersionFromUserAgent(string $userAgent): ?string
     {
         if (preg_match('/^Kidslox\/([\d\.]+) \((Phone|Tablet); ([^)]+)\)$/is', $userAgent, $matches)) {
             return $matches[3];

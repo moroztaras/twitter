@@ -16,7 +16,7 @@
                             </a>
                             <a href="{{ path('web_user_dialogues_list') }}" style="text-decoration: none; color: #777777;">
                                 <span uk-icon="icon: mail"></span>
-                                {{ render(controller('App\\Controller\\Web\\MessageController::numberAllUnReadMessages')) }}
+                                {{ render(controller('App\\Controller\\Web\\BlockController::numberAllUnReadMessages')) }}
                             </a>
                             <li>
                                 <a href="{{ path('web_user_profile_default', { 'id' : app.user.id }) }}" class="user-profile">

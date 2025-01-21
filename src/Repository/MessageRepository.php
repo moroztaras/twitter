@@ -38,7 +38,7 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function numberNotReadMessages(User $user, int $dialogueId = null): int
+    public function numberNotReadMessages(User $user, ?int $dialogueId = null): int
     {
         $query = $this->createQueryBuilder('m')
             ->select('COUNT(m.id)')
@@ -69,5 +69,16 @@ class MessageRepository extends ServiceEntityRepository
         }
 
         return $message;
+    }
+
+    public function findDialogueUuidByMessageUuid(string $uuid): array
+    {
+        return $this->createQueryBuilder('m')
+            ->select('d.uuid')
+            ->leftJoin('m.dialogue', 'd')
+            ->where('m.uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

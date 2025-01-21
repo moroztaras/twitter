@@ -2,9 +2,9 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
 use App\Entity\Dialogue;
 use App\Entity\Message;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -34,7 +34,6 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
             ->setMessage('Hi. How are you. What you doing?')
             ->setDialogue($dialogue)
             ->setUuid(Uuid::uuid4());
-
 
         $manager->persist($message);
 

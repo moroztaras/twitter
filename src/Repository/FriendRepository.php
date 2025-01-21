@@ -23,7 +23,7 @@ class FriendRepository extends ServiceEntityRepository
         parent::__construct($registry, Friend::class);
     }
 
-    public function findOneByUsers(User $user, User $friend): Friend|null
+    public function findOneByUsers(User $user, User $friend): ?Friend
     {
         return $this->findOneBy([
             'user' => $user->getId(), 'friend' => $friend->getId(),

@@ -16,8 +16,8 @@ class VideoEmbedTwig extends \Twig_Extension
     public function getFilters()
     {
         return [
-      new \Twig_SimpleFilter('video_embed_iframe', [$this, 'videoEmbedIframe'], ['is_safe' => ['html']]),
-    ];
+            new \Twig_SimpleFilter('video_embed_iframe', [$this, 'videoEmbedIframe'], ['is_safe' => ['html']]),
+        ];
     }
 
     public function videoEmbedIframe($input)

@@ -20,7 +20,7 @@ class EmailManager
         private ManagerRegistry $doctrine,
         //        private \Swift_Mailer $mailer,
         //        private  \Twig_Environment $twig,
-        private RouterInterface $router
+        private RouterInterface $router,
     ) {
     }
 
@@ -40,11 +40,11 @@ class EmailManager
             return false;
         }
 
-//        $mail = new \Swift_Message();
-//        $mail->setFrom('support@socaial_network.dev');
-//        $mail->setTo($user->getEmail());
-//        $mail->setSubject('Recover password');
-//        $mail->setBody($template);
+        //        $mail = new \Swift_Message();
+        //        $mail->setFrom('support@socaial_network.dev');
+        //        $mail->setTo($user->getEmail());
+        //        $mail->setSubject('Recover password');
+        //        $mail->setBody($template);
 
         $user->setTokenRecover($token);
         $this->doctrine->getManager()->persist($user);

@@ -78,7 +78,7 @@ class FriendController extends AbstractWebController
     public function friendUserInfo(int $idUser): Response
     {
         return $this->render('block/friendUserInfo.html.twig', [
-            'user'=> $this->userProfileManager->getUserInfo($idUser),
+            'user' => $this->userProfileManager->getUserInfo($idUser),
         ]);
     }
 }

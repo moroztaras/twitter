@@ -39,7 +39,7 @@ class TwitterManager
     }
 
     // Web create new twitter
-    public function create(User $user, TwitterModel $twitterModel, UploadedFile $photo = null): Twitter
+    public function create(User $user, TwitterModel $twitterModel, ?UploadedFile $photo = null): Twitter
     {
         $twitter = (new Twitter())
             ->setText($twitterModel->getText())
@@ -57,7 +57,7 @@ class TwitterManager
     }
 
     // Web edit twitter from form
-    public function editTwitter(Twitter $twitter, TwitterModel $twitterModel, UploadedFile $photo = null): Twitter
+    public function editTwitter(Twitter $twitter, TwitterModel $twitterModel, ?UploadedFile $photo = null): Twitter
     {
         if ($photo) {
             $twitter->setPhoto($this->fileManager->upload($photo, $this->photoDir));
@@ -95,7 +95,7 @@ class TwitterManager
         /** @var Twitter $twitter */
         $twitter = $this->apiObjectValidator->deserializeAndValidate($content, Twitter::class, [
             UnwrappingDenormalizer::UNWRAP_PATH => '[twitter]',
-           'new' => true,
+            'new' => true,
         ]);
         $twitter->setUser($user);
 

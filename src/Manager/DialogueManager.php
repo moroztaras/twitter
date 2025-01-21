@@ -20,6 +20,11 @@ class DialogueManager
         return $this->dialogueRepository->dialoguesOfUser($user);
     }
 
+    public function dialogue(string $uuid): Dialogue
+    {
+        return $this->dialogueRepository->findOneByUuid($uuid);
+    }
+
     public function createNewDialogue(User $user, User $receiver): string
     {
         $dialogue = $this->dialogueRepository->findOneDialogue($user, $receiver);

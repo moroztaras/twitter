@@ -6,7 +6,7 @@
             </div>
             <div class="uk-width-expand">
                 <div>
-                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_dialogue_messages_list', { 'uuid' : uuidDialogue }) }}">
+                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_message_new', { 'uuid' : uuidDialogue }) }}">
                         {{ userReceiver[0]['firstName'] }} {{ userReceiver[0]['lastName'] }}
                     </a>
                     {% if numberMessages != 0 %}
