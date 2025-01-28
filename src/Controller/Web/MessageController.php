@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\MessageType;
 use App\Manager\DialogueManager;
 use App\Manager\MessageManager;
+use App\Manager\UserProfileManager;
 use App\Model\MessageRequest;
 use App\Security\Voter\MessageVoter;
 use Knp\Component\Pager\PaginatorInterface;
@@ -27,6 +28,7 @@ class MessageController extends AbstractWebController
     public function __construct(
         private readonly MessageManager $messageManager,
         private readonly DialogueManager $dialogueManager,
+        private readonly UserProfileManager $userProfileManager,
         private readonly PaginatorInterface $paginator,
         private readonly RequestStack $requestStack,
     ) {
@@ -119,6 +121,14 @@ class MessageController extends AbstractWebController
                 $request->query->getInt('page', 1),
                 $request->query->getInt('limit', self::MESSAGE_PAGE_LIMIT)
             ),
+        ]);
+    }
+
+    public function userOfMessage(int $idUser, \DateTime $messageCreatedAt): Response
+    {
+        return $this->render('web/message/modeView/user.html.twig', parameters: [
+            'user' => $this->userProfileManager->getUserInfo($idUser),
+            'messageCreatedAt' => $messageCreatedAt,
         ]);
     }
 }

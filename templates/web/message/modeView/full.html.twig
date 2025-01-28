@@ -2,17 +2,8 @@
     <div class="uk-card uk-card-default uk-card-small uk-margin-small">
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
-                <div class="user-cover-avatar">
-                    <img src="{% if message.sender.avatar != null %}/files/user/avatar/{{ message.sender.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40px" class="uk-background uk-background-default">
-                </div>
-                <div class="uk-width-expand">
-                    <div>
-                        <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', { 'id' : message.sender.id }) }}">
-                            {{ message.sender.firstName }} {{ message.sender.lastName }}
-                        </a>
-                    </div>
-                    <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ message.createdAt|date('H:i Y m d') }}">{{ message.createdAt|date('H:i M d Y') }}</time></p>
-                </div>
+                {{ render(controller('App\\Controller\\Web\\MessageController::userOfMessage',{ 'idUser' : message.sender.id, 'messageCreatedAt': message.createdAt})) }}
+
                 {% if app.user == message.sender %}
                     {{ include('web/message/modeView/menu.html.twig',{'uuid':message.uuid}) }}
                 {% endif %}
