@@ -54,7 +54,7 @@ class TwitterController extends AbstractWebController
         ]);
     }
 
-    #[Route('user/{id}/twitter/list', name: 'web_user_twitter_list', requirements: ['id' => '\d+'], methods: 'GET')]
+    #[Route('/user/{id}/twitter/list', name: 'web_user_twitter_list', requirements: ['id' => '\d+'], methods: 'GET')]
     public function userTwittersList(Request $request, User $user): Response
     {
         return $this->renderTwittersList($request, $user);

@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\JsonResponse as BaseJsonResponse;
 class JsonResponse extends BaseJsonResponse
 {
     /**
-     * {@inheritdoc}
-     *
      * @param bool $preEncoded If the data is already a JSON string
      */
     public function __construct($data = null, $status = 200, $headers = [], bool $preEncoded = false)
@@ -18,8 +16,6 @@ class JsonResponse extends BaseJsonResponse
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param bool $preEncoded If the data is already a JSON string
      */
     public function setData($data = [], bool $preEncoded = false): static

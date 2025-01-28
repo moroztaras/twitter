@@ -28,6 +28,7 @@ class Friend
 
     // Status friendship
     // 0 - sent
+    // 1- confirmed
     #[ORM\Column(name: 'status')]
     private int $status = 0;
 

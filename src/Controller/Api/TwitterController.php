@@ -61,7 +61,7 @@ class TwitterController extends ApiController
     }
 
     // Edit twitter
-   #[Route('/{uuid}', name: 'api_twitter_update', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'PUT')]
+    #[Route('/{uuid}', name: 'api_twitter_update', requirements: ['uuid' => Uuid::VALID_PATTERN], methods: 'PUT')]
     public function update(Request $request, Twitter $twitter): JsonResponse
     {
         $this->getCurrentUser($request);

@@ -17,10 +17,10 @@ class RecoverPasswordType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'email',
                 'label_attr' => [
-                  'class' => 'uk-hidden',
+                    'class' => 'uk-hidden',
                 ],
                 'attr' => ['placeholder' => 'email'],
-                ])
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'recover_password',
             ])

@@ -5,27 +5,7 @@
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container uk-container-xsmall">
             {% for follower in followers %}
-                <div class="uk-card uk-card-default uk-card-small uk-margin-small">
-                    <div class="uk-card-header">
-                        <div class="uk-grid-small uk-flex-middle" uk-grid>
-                            <div class="uk-width-auto">
-                                <img data-src="{% if follower.friend.avatar != null %}/files/user/avatar/{{ follower.user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="40" height="40" alt uk-img>
-                            </div>
-                            <div class="uk-width-expand">
-                                <div>
-                                    <a class="uk-text-small uk-text-muted" href="{{ path('web_user_profile', {'id': follower.user.id}) }}">
-                                        {{ follower.user.firstName }} {{ follower.user.LastName }}
-                                    </a>
-                                </div>
-                                <p class="uk-text-meta uk-margin-remove-top">
-                                    <time datetime="{{ follower.user.createdAt|date('Y-m-d H:i:s') }}">
-                                        {{ follower.user.createdAt|date('M d, Y') }}
-                                    </time>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{ render(controller('App\\Controller\\Web\\FriendController::friendUserInfo',{ 'idUser' : follower.user.id })) }}
             {% endfor %}
         </div>
     </div>

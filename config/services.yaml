@@ -6,6 +6,8 @@
 parameters:
     pagination_limit: '%env(PAGINATION_LIMIT)%'
     app.supported_locales: 'en|ua'
+    exceptions:
+        App\Exception\Expected\MessageNotFoundException: { code: 404 }
 
 services:
     # default configuration for services in *this* file

@@ -36,13 +36,18 @@ class MessageManager
         return $messages;
     }
 
+    public function getMessage(string $uuid): Message
+    {
+        return $this->messageRepository->getMessageByUuid($uuid);
+    }
+
     public function sendMessage(User $user, Dialogue $dialogue, string $message): void
     {
         $message = (new Message())
             ->setMessage($message)
             ->setDialogue($dialogue)
             ->setSender($user)
-            ->setReceiver(($dialogue->getCreator() === $user) ? $dialogue->getReceiver() : $user);
+            ->setReceiver(($dialogue->getCreator()->getUuid() === $user->getUuid()) ? $dialogue->getReceiver() : $user);
 
         $this->saveMessage($message);
     }
@@ -56,10 +61,11 @@ class MessageManager
         return $message;
     }
 
-    public function removeMessage(Message $message): void
+    public function removeMessage(string $uuid): void
     {
-        $this->doctrine->getManager()->remove($message);
-        $this->doctrine->getManager()->flush();
+        $message = $this->messageRepository->getMessageByUuid($uuid);
+
+        $this->messageRepository->removeAndCommit($message);
     }
 
     private function saveMessage(Message $message): void
@@ -68,8 +74,13 @@ class MessageManager
         $this->doctrine->getManager()->flush();
     }
 
-    public function numberNotReadMessages(User $user, int $dialogueId = null): int
+    public function numberNotReadMessages(User $user, ?int $dialogueId = null): int
     {
         return $this->messageRepository->numberNotReadMessages($user, $dialogueId);
+    }
+
+    public function dialogUuidByMessageUuid(string $uuid): array
+    {
+        return $this->messageRepository->findDialogueUuidByMessageUuid($uuid);
     }
 }

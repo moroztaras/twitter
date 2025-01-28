@@ -28,7 +28,6 @@ class DialogueRepository extends ServiceEntityRepository
     {
         return $this
             ->createQueryBuilder('d')
-            ->select('d')
             ->where('d.receiver = :user OR d.creator = :user')
             ->addOrderBy('d.updatedAt', Criteria::DESC)
             ->setParameter('user', $user)
@@ -36,7 +35,7 @@ class DialogueRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findOneDialogue(User $user, User $receiver): Dialogue|null
+    public function findOneDialogue(User $user, User $receiver): ?Dialogue
     {
         return $this
             ->createQueryBuilder('d')
@@ -52,5 +51,10 @@ class DialogueRepository extends ServiceEntityRepository
     public function existsCreatorDialogueByUuid(string $uuid, UserInterface $user): bool
     {
         return null !== $this->findOneBy(['uuid' => $uuid, 'creator' => $user]);
+    }
+
+    public function findOneByUuid(string $uuid): ?Dialogue
+    {
+        return $this->findOneBy(['uuid' => $uuid]);
     }
 }

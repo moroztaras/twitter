@@ -5,7 +5,7 @@
             <div class="x_panel">
                 <div class="center">
                     <p class="bd-highlight">{{ 'delete_message_question'|trans }}?</p>
-                    {{ include('form/delete.html.twig', { 'form' : form, 'cancel_url' : path('web_user_dialogue_messages_list',{'uuid':uuid}) }) }}
+                    {{ include('form/delete.html.twig', { 'form' : form, 'cancel_url' : path('web_user_message_new', { uuid : uuid['uuid'] }) }) }}
                 </div>
             </div>
         </div>

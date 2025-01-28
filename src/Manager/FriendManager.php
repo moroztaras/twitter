@@ -46,7 +46,7 @@ class FriendManager
         }
     }
 
-    public function checkFriendShip(User $user, User $friend): Friend|null
+    public function checkFriendShip(User $user, User $friend): ?Friend
     {
         return $this->friendRepository->findOneByUsers($user, $friend);
     }

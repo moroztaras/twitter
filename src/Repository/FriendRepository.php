@@ -23,7 +23,7 @@ class FriendRepository extends ServiceEntityRepository
         parent::__construct($registry, Friend::class);
     }
 
-    public function findOneByUsers(User $user, User $friend): Friend|null
+    public function findOneByUsers(User $user, User $friend): ?Friend
     {
         return $this->findOneBy([
             'user' => $user->getId(), 'friend' => $friend->getId(),
@@ -54,6 +54,7 @@ class FriendRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    // Who the user is following
     public function allFollowingsOfOneUser(User $user): array
     {
         return $this->createQueryBuilder('fr')
@@ -66,6 +67,7 @@ class FriendRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // Who follows the user
     public function allFollowersOfOneUserByStatus(User $user, bool $status): array
     {
         return $this->createQueryBuilder('fr')

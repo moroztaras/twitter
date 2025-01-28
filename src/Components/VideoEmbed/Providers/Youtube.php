@@ -37,19 +37,19 @@ class Youtube implements PluginProviderInterface
     public function renderEmbedCode($width = 670, $height = 380, $autoplay = false)
     {
         $embed_code = [
-      'provider' => 'youtube',
-      'url' => sprintf('https://www.youtube.com/embed/%s', $this->id),
-      'query' => [
-        'autoplay' => $autoplay,
-        'rel' => '0',
-      ],
-      'attributes' => [
-        'width' => $width,
-        'height' => $height,
-        'frameborder' => '0',
-        'allowfullscreen' => 'allowfullscreen',
-      ],
-    ];
+            'provider' => 'youtube',
+            'url' => sprintf('https://www.youtube.com/embed/%s', $this->id),
+            'query' => [
+                'autoplay' => $autoplay,
+                'rel' => '0',
+            ],
+            'attributes' => [
+                'width' => $width,
+                'height' => $height,
+                'frameborder' => '0',
+                'allowfullscreen' => 'allowfullscreen',
+            ],
+        ];
 
         return $embed_code;
     }

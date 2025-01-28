@@ -37,7 +37,7 @@ class UserProfileType extends AbstractType
                 ],
                 'multiple' => false,
                 'expanded' => true,
-                ])
+            ])
             ->add('birthday', BirthdayType::class, [
                 'label' => 'birthday',
             ])

@@ -8,9 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class ApiController.
- */
 abstract class ApiController extends AbstractController
 {
     protected ManagerRegistry $doctrine;
@@ -28,12 +25,12 @@ abstract class ApiController extends AbstractController
         return $this->doctrine;
     }
 
-//    protected function getUser(): ?User
-//    {
-//        $user = parent::getUser();
-//
-//        return $user instanceof User ? $user : null;
-//    }
+    //    protected function getUser(): ?User
+    //    {
+    //        $user = parent::getUser();
+    //
+    //        return $user instanceof User ? $user : null;
+    //    }
 
     protected function getCurrentUser(Request $request): ?User
     {

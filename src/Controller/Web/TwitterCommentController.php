@@ -77,8 +77,8 @@ class TwitterCommentController extends AbstractWebController
             $this->requestStack->getSession()->getFlashBag()->add('success', 'comment_edited_successfully');
 
             return $this->redirect($this->generateUrl('web_twitter_view', [
-                    'id' => $comment->getTwitter()->getId(),
-                    ]).'#comment-'.$comment->getId()
+                'id' => $comment->getTwitter()->getId(),
+            ]).'#comment-'.$comment->getId()
             );
         }
 
