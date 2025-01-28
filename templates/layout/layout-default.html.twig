@@ -20,7 +20,7 @@
                             </a>
                             <li>
                                 <a href="{{ path('web_user_profile_default', { 'id' : app.user.id }) }}" class="user-profile">
-                                    <div class="us-prof-header">
+                                    <div class="us-prof-header user-cover-avatar">
                                         <img src="{% if user.avatar != null %}/files/user/avatar/{{ user.avatar }}{% else %}/images/system/no-profile-pic.png{% endif %}" width="30px" class="uk-margin-small-right">
                                         {{ app.user.firstName }} {{ app.user.lastName }}
                                         <span uk-icon="icon: triangle-down"></span>
