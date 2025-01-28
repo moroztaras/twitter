@@ -27,7 +27,7 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
         // Get references from dialogue
         $dialogue = $this->getReference(DialogueFixtures::DIALOGUE);
 
-        $message = (new Message())
+        $firstMessage = (new Message())
             ->setSender($admin)
             ->setReceiver($user)
             ->setStatus(false)
@@ -35,7 +35,17 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
             ->setDialogue($dialogue)
             ->setUuid(Uuid::uuid4());
 
-        $manager->persist($message);
+        $manager->persist($firstMessage);
+
+        $secondMessage = (new Message())
+            ->setSender($user)
+            ->setReceiver($admin)
+            ->setStatus(false)
+            ->setMessage('Hi. I\'m fine thanks.')
+            ->setDialogue($dialogue)
+            ->setUuid(Uuid::uuid4());
+
+        $manager->persist($secondMessage);
 
         $manager->flush();
     }
